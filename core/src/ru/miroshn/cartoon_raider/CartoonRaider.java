@@ -55,7 +55,7 @@ public class CartoonRaider extends ApplicationAdapter {
         camera.unproject(rightDownCorner);
 
         batch.setProjectionMatrix(camera.combined);
-        camera.translate(1f, 1f);
+        camera.translate(0f, 1f);
         camera.update();
 
 
