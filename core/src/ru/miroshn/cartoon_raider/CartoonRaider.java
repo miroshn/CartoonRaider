@@ -43,7 +43,7 @@ public class CartoonRaider extends ApplicationAdapter {
 //        camera.update();
 
 //        Gdx.input.setInputProcessor(this);
-        istrebitelPos = new Vector3(0, 0, 0);
+        istrebitelPos = new Vector3(-istrebitelTexture.getWidth() / 2, 0, 0);
         tapPos = new Vector3(0, 0, 0);
 
 
@@ -87,11 +87,11 @@ public class CartoonRaider extends ApplicationAdapter {
             camera.unproject(tapPos);
             istrebitelPos.x = istrebitelPos.x >= tapPos.x ? istrebitelPos.x - 3 : istrebitelPos.x + 3;
             istrebitelPos.y = istrebitelPos.y >= tapPos.y ? istrebitelPos.y - 3 : istrebitelPos.y + 3;
-//
             if (Math.abs(istrebitelPos.x - tapPos.x) <= 3) istrebitelPos.x = tapPos.x;
             if (Math.abs(istrebitelPos.y - tapPos.y) <= 3) istrebitelPos.y = tapPos.y;
-//            Gdx.app.log("DEBUG","TapX = "+tapPos.x+" istrX = "+istrebitelPos.x );
         }
+
+        if (istrebitelPos.y - 20 < rightDownCorner.y) istrebitelPos.y = rightDownCorner.y - 20;
         batch.draw(istrebitelTexture, istrebitelPos.x, istrebitelPos.y);
         batch.end();
 //        DrawDebugGraphics();
