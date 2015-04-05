@@ -15,10 +15,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class CartoonRaider extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture backgroundTexture;
+    private Texture istrebitelTexture;
     private Viewport viewport;
     private OrthographicCamera camera;
 
     private Vector3 leftUpCorner,rightDownCorner;
+    private Vector3 istrebitelPos;
 
     private ShapeRenderer debugShape;
 
@@ -28,14 +30,18 @@ public class CartoonRaider extends ApplicationAdapter {
         debugShape = new ShapeRenderer();
         batch = new SpriteBatch();
         backgroundTexture = new Texture("background.jpg");
+        istrebitelTexture = new Texture("istrebitel1.png");
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 //        camera.translate(Gdx.graphics.getWidth() / 2 - 20,Gdx.graphics.getHeight() / 2 -20 );
         leftUpCorner = new Vector3(0,0,0);
         rightDownCorner = new Vector3(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),0);
 
-        camera.translate(100f, 0f);
-        camera.update();
+//        camera.translate(100f, 0f);
+//        camera.update();
+
+//        Gdx.input.setInputProcessor(this);
+        istrebitelPos = new Vector3(0, 0, 0);
 
     }
 
@@ -58,6 +64,7 @@ public class CartoonRaider extends ApplicationAdapter {
         camera.translate(0f, 1f);
         camera.update();
 
+        batch.begin();
 
         int x = leftUpCorner.x < 0 ?
                 (int) (leftUpCorner.x / backgroundTexture.getWidth() - 1) * backgroundTexture.getWidth() :
@@ -67,14 +74,16 @@ public class CartoonRaider extends ApplicationAdapter {
                     (int) (rightDownCorner.y / backgroundTexture.getHeight() - 1) * backgroundTexture.getHeight() :
                     (int) (rightDownCorner.y / backgroundTexture.getHeight()) * backgroundTexture.getHeight();
             for (; y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
-                batch.begin();
                 batch.draw(backgroundTexture, x, y); // рисовать в мировых координатах!!!
-                batch.end();
             }
         }
 
-
-
+        if (Gdx.input.isTouched()) {
+            istrebitelPos.set(Gdx.input.getX() - istrebitelTexture.getWidth() / 2, Gdx.input.getY() - 20, 0);
+            camera.unproject(istrebitelPos);
+        }
+        batch.draw(istrebitelTexture, istrebitelPos.x, istrebitelPos.y);
+        batch.end();
 //        DrawDebugGraphics();
     }
 
@@ -107,5 +116,6 @@ public class CartoonRaider extends ApplicationAdapter {
         backgroundTexture.dispose();
         batch.dispose();
         debugShape.dispose();
+        istrebitelTexture.dispose();
     }
 }
