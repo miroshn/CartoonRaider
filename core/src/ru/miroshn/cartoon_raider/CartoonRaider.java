@@ -28,7 +28,7 @@ public class CartoonRaider extends ApplicationAdapter {
 
         debugShape = new ShapeRenderer();
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("background.jpg");
+        backgroundTexture = new Texture("background1.jpg");
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 //        camera.translate(Gdx.graphics.getWidth() / 2 - 20,Gdx.graphics.getHeight() / 2 -20 );
