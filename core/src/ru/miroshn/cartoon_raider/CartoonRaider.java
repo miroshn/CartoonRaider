@@ -91,7 +91,7 @@ public class CartoonRaider extends ApplicationAdapter {
             if (Math.abs(istrebitelPos.y - tapPos.y) <= 3) istrebitelPos.y = tapPos.y;
         }
 
-        if (istrebitelPos.y - 20 < rightDownCorner.y) istrebitelPos.y = rightDownCorner.y - 20;
+        if (istrebitelPos.y - 20 < rightDownCorner.y) istrebitelPos.y = rightDownCorner.y + 20;
         batch.draw(istrebitelTexture, istrebitelPos.x, istrebitelPos.y);
         batch.end();
 //        DrawDebugGraphics();
