@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,18 +27,22 @@ public class CartoonRaider extends ApplicationAdapter {
 
         debugShape = new ShapeRenderer();
         batch = new SpriteBatch();
-        backgroundTexture = new Texture("background1.jpg");
+        backgroundTexture = new Texture("background.jpg");
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 //        camera.translate(Gdx.graphics.getWidth() / 2 - 20,Gdx.graphics.getHeight() / 2 -20 );
         leftUpCorner = new Vector3(0,0,0);
         rightDownCorner = new Vector3(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),0);
+
+        camera.translate(100f, 0f);
+        camera.update();
+
     }
 
     @Override
     public void render() {
-//        Gdx.gl.glClearColor(0, 0, 0, 1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
 //        camera.zoom -= 0.01f;
@@ -46,40 +51,25 @@ public class CartoonRaider extends ApplicationAdapter {
         rightDownCorner.x = Gdx.graphics.getWidth();
         rightDownCorner.y = Gdx.graphics.getHeight();
 
-        camera.translate(1f, 1f);
-        camera.update();
-        Gdx.app.log("DEBUG","camX = "+camera.position.x + " camY = " + camera.position.y);
-
-
         camera.unproject(leftUpCorner);
         camera.unproject(rightDownCorner);
 
-        debugShape.setColor(Color.RED);
         batch.setProjectionMatrix(camera.combined);
-        debugShape.setProjectionMatrix(camera.combined);
+        camera.translate(1f, 1f);
+        camera.update();
 
 
-//        for (int x = (int)(leftUpCorner.x % backgroundTexture.getWidth())-backgroundTexture.getWidth(); x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
-//            for (int y = (int)(rightDownCorner.y % backgroundTexture.getHeight())-backgroundTexture.getHeight(); y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
-//                batch.begin();
-//                batch.draw(backgroundTexture, x, y);
-//                batch.end();
-//                debugShape.begin(ShapeRenderer.ShapeType.Line);
-//                debugShape.rect(x, y, backgroundTexture.getWidth(), backgroundTexture.getHeight());
-//                debugShape.end();
-////                Gdx.app.log("Координаты","x = " + x + " y = " + y);
-//            }
-//        }
-
-        for (int x = (int) (leftUpCorner.x % backgroundTexture.getWidth()) - backgroundTexture.getWidth(); x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
-            for (int y = (int) (rightDownCorner.y % backgroundTexture.getHeight()) - backgroundTexture.getHeight(); y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
+        int x = leftUpCorner.x < 0 ?
+                (int) (leftUpCorner.x / backgroundTexture.getWidth() - 1) * backgroundTexture.getWidth() :
+                (int) (leftUpCorner.x / backgroundTexture.getWidth()) * backgroundTexture.getWidth();
+        for (; x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
+            int y = rightDownCorner.y < 0 ?
+                    (int) (rightDownCorner.y / backgroundTexture.getHeight() - 1) * backgroundTexture.getHeight() :
+                    (int) (rightDownCorner.y / backgroundTexture.getHeight()) * backgroundTexture.getHeight();
+            for (; y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
                 batch.begin();
-                batch.draw(backgroundTexture, x, y);
+                batch.draw(backgroundTexture, x, y); // рисовать в мировых координатах!!!
                 batch.end();
-                debugShape.begin(ShapeRenderer.ShapeType.Line);
-                debugShape.rect(x, y, backgroundTexture.getWidth(), backgroundTexture.getHeight());
-                debugShape.end();
-                Gdx.app.log("Координаты","x = " + x + " y = " + y);
             }
         }
 
