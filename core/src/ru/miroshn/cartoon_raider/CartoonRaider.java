@@ -85,11 +85,12 @@ public class CartoonRaider extends ApplicationAdapter {
         if (Gdx.input.isTouched()) {
             tapPos.set(Gdx.input.getX() - istrebitelTexture.getWidth() / 2, Gdx.input.getY() - 20, 0);
             camera.unproject(tapPos);
-            istrebitelPos.x = istrebitelPos.x > tapPos.x ? istrebitelPos.x - 3 : istrebitelPos.x + 3;
-            istrebitelPos.y = istrebitelPos.y > tapPos.y ? istrebitelPos.y - 3 : istrebitelPos.y + 3;
-
-            if (Math.abs(istrebitelPos.x - tapPos.x) < 3) istrebitelPos.x = tapPos.x;
-            if (Math.abs(istrebitelPos.y - tapPos.y) < 3) istrebitelPos.y = tapPos.y;
+            istrebitelPos.x = istrebitelPos.x >= tapPos.x ? istrebitelPos.x - 3 : istrebitelPos.x + 3;
+            istrebitelPos.y = istrebitelPos.y >= tapPos.y ? istrebitelPos.y - 3 : istrebitelPos.y + 3;
+//
+            if (Math.abs(istrebitelPos.x - tapPos.x) <= 3) istrebitelPos.x = tapPos.x;
+            if (Math.abs(istrebitelPos.y - tapPos.y) <= 3) istrebitelPos.y = tapPos.y;
+//            Gdx.app.log("DEBUG","TapX = "+tapPos.x+" istrX = "+istrebitelPos.x );
         }
         batch.draw(istrebitelTexture, istrebitelPos.x, istrebitelPos.y);
         batch.end();
