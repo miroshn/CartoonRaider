@@ -3,7 +3,6 @@ package ru.miroshn.cartoon_raider;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,7 +18,6 @@ public class CartoonRaider extends ApplicationAdapter {
     private OrthographicCamera camera;
 
     private Vector3 leftUpCorner,rightDownCorner;
-    private Vector3 tmp2,tmp1;
 
     private ShapeRenderer debugShape;
 
@@ -43,15 +41,18 @@ public class CartoonRaider extends ApplicationAdapter {
 
 
 //        camera.zoom -= 0.01f;
+
+        leftUpCorner.x = leftUpCorner.y = 0;
+        rightDownCorner.x = Gdx.graphics.getWidth();
+        rightDownCorner.y = Gdx.graphics.getHeight();
+
         camera.translate(1f, 1f);
         camera.update();
         Gdx.app.log("DEBUG","camX = "+camera.position.x + " camY = " + camera.position.y);
 
-        tmp1 = leftUpCorner.cpy();
-        tmp2 = rightDownCorner.cpy();
 
-        camera.unproject(tmp1);
-        camera.unproject(tmp2);
+        camera.unproject(leftUpCorner);
+        camera.unproject(rightDownCorner);
 
         debugShape.setColor(Color.RED);
         batch.setProjectionMatrix(camera.combined);
@@ -70,8 +71,8 @@ public class CartoonRaider extends ApplicationAdapter {
 //            }
 //        }
 
-        for (int x = (int)(tmp1.x % backgroundTexture.getWidth())-backgroundTexture.getWidth(); x < tmp2.x; x += backgroundTexture.getWidth()) {
-            for (int y = (int)(tmp2.y % backgroundTexture.getHeight())-backgroundTexture.getHeight(); y < tmp1.y; y += backgroundTexture.getHeight()) {
+        for (int x = (int) (leftUpCorner.x % backgroundTexture.getWidth()) - backgroundTexture.getWidth(); x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
+            for (int y = (int) (rightDownCorner.y % backgroundTexture.getHeight()) - backgroundTexture.getHeight(); y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
                 batch.begin();
                 batch.draw(backgroundTexture, x, y);
                 batch.end();
