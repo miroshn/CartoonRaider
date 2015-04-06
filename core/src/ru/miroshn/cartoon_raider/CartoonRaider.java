@@ -1,35 +1,20 @@
 package ru.miroshn.cartoon_raider;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import ru.miroshn.cartoon_raider.screens.WelcomeScreen;
 
 public class CartoonRaider extends Game {
-    private Texture istrebitelTexture;
-
-    private Vector3 istrebitelPos;
-
-
     private Vector3 tapPos;
 
     @Override
     public void create() {
-
-        istrebitelTexture = new Texture("istrebitel1.png");
-//        camera.translate(Gdx.graphics.getWidth() / 2 - 20,Gdx.graphics.getHeight() / 2 -20 );
-
-//        camera.translate(100f, 0f);
-//        camera.update();
-
-//        Gdx.input.setInputProcessor(this);
-        istrebitelPos = new Vector3(-istrebitelTexture.getWidth() / 2, 0, 0);
         tapPos = new Vector3(0, 0, 0);
-
         setScreen(new WelcomeScreen(this));
     }
 
-/*
+
+    /*
     @Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -81,6 +66,5 @@ public class CartoonRaider extends Game {
     @Override
     public void dispose() {
         super.dispose();
-        istrebitelTexture.dispose();
     }
 }

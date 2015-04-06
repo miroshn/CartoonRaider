@@ -1,23 +1,23 @@
 package ru.miroshn.cartoon_raider.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
  * Created by miroshn on 06.04.15.
  * Показывается экран с названием..
  */
 public class WelcomeScreen implements Screen {
-    private Game game;
+    private CartoonRaider game;
     private Texture backgroundTexture;
     private Texture titleTexture;
     private SpriteBatch batch;
     private float scaleTitle, xTitle, yTitle;
 
-    public WelcomeScreen(Game game) {
+    public WelcomeScreen(CartoonRaider game) {
         this.game = game;
         backgroundTexture = new Texture("background.jpg");
         titleTexture = new Texture("title.png");

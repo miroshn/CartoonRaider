@@ -1,6 +1,5 @@
 package ru.miroshn.cartoon_raider.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.gameobjects.GameWorld;
 
 /**
  * Created by miroshn on 06.04.15.
@@ -21,11 +22,13 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private Vector3 leftUpCorner, rightDownCorner;
     private SpriteBatch batch;
-    private Game game;
+    private GameWorld world;
+    private CartoonRaider game;
 
-    public GameScreen(Game game) {
+    public GameScreen(CartoonRaider game) {
         this.game = game;
         batch = new SpriteBatch();
+        world = new GameWorld(batch);
         backgroundTexture = new Texture("background.jpg");
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
@@ -51,7 +54,7 @@ public class GameScreen implements Screen {
         camera.unproject(rightDownCorner);
 
         batch.setProjectionMatrix(camera.combined);
-        camera.translate(0f, 1f);
+//        camera.translate(0f, 1f);
         camera.update();
 
         batch.begin();
@@ -67,9 +70,8 @@ public class GameScreen implements Screen {
                 batch.draw(backgroundTexture, x, y); // рисовать в мировых координатах!!!
             }
         }
+        world.render(delta);
         batch.end();
-
-
     }
 
     @Override
