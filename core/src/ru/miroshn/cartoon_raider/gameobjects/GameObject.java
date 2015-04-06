@@ -1,13 +1,15 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Created by miroshn on 06.04.15.
  */
-public class GameObject extends Texture {
+public class GameObject extends Sprite implements Disposable {
     protected SpriteBatch batch;
     protected Vector3 pos;
     protected Vector3 moveToPos;
@@ -15,7 +17,7 @@ public class GameObject extends Texture {
 
 
     public GameObject(String internalPath) {
-        super(internalPath);
+        super(new Texture(internalPath));
 //        this.batch = batch;
         pos = new Vector3(0, 0, 0);
         moveToPos = pos;
@@ -43,4 +45,8 @@ public class GameObject extends Texture {
         pos.add(tmp);
     }
 
+    @Override
+    public void dispose() {
+        getTexture().dispose();
+    }
 }
