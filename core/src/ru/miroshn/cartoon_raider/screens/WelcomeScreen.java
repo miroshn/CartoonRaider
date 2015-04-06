@@ -45,7 +45,7 @@ public class WelcomeScreen implements Screen {
         batch.draw(titleTexture, xTitle, yTitle, titleTexture.getWidth() * scaleTitle, titleTexture.getHeight() * scaleTitle);
         batch.end();
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen());
+            game.setScreen(new GameScreen(game));
         }
     }
 
