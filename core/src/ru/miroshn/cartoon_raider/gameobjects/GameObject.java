@@ -1,6 +1,5 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -38,9 +37,9 @@ public class GameObject extends Texture {
     public void update(float delta) {
         Vector3 tmp = moveToPos.cpy();
         tmp.sub(pos);
-        tmp.x /= delta / Gdx.graphics.getDeltaTime();
-        tmp.y /= delta / Gdx.graphics.getDeltaTime();
-        tmp.z /= delta / Gdx.graphics.getDeltaTime();
+        tmp.x /= 1 / delta;
+        tmp.y /= 1 / delta;
+        tmp.z /= 1 / delta;
         pos.add(tmp);
     }
 
