@@ -1,42 +1,23 @@
 package ru.miroshn.cartoon_raider;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import ru.miroshn.cartoon_raider.screens.WelcomeScreen;
 
 public class CartoonRaider extends Game {
-    private SpriteBatch batch;
-    private Texture backgroundTexture;
     private Texture istrebitelTexture;
-    private Viewport viewport;
-    private OrthographicCamera camera;
 
-    private Vector3 leftUpCorner,rightDownCorner;
     private Vector3 istrebitelPos;
 
-    private ShapeRenderer debugShape;
 
     private Vector3 tapPos;
 
     @Override
     public void create() {
 
-        debugShape = new ShapeRenderer();
-        batch = new SpriteBatch();
-        backgroundTexture = new Texture("background.jpg");
         istrebitelTexture = new Texture("istrebitel1.png");
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 //        camera.translate(Gdx.graphics.getWidth() / 2 - 20,Gdx.graphics.getHeight() / 2 -20 );
-        leftUpCorner = new Vector3(0,0,0);
-        rightDownCorner = new Vector3(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),0);
 
 //        camera.translate(100f, 0f);
 //        camera.update();
@@ -57,30 +38,7 @@ public class CartoonRaider extends Game {
 
 //        camera.zoom -= 0.01f;
 
-        leftUpCorner.x = leftUpCorner.y = 0;
-        rightDownCorner.x = Gdx.graphics.getWidth();
-        rightDownCorner.y = Gdx.graphics.getHeight();
 
-        camera.unproject(leftUpCorner);
-        camera.unproject(rightDownCorner);
-
-        batch.setProjectionMatrix(camera.combined);
-        camera.translate(0f, 1f);
-        camera.update();
-
-        batch.begin();
-
-        int x = leftUpCorner.x < 0 ?
-                (int) (leftUpCorner.x / backgroundTexture.getWidth() - 1) * backgroundTexture.getWidth() :
-                (int) (leftUpCorner.x / backgroundTexture.getWidth()) * backgroundTexture.getWidth();
-        for (; x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
-            int y = rightDownCorner.y < 0 ?
-                    (int) (rightDownCorner.y / backgroundTexture.getHeight() - 1) * backgroundTexture.getHeight() :
-                    (int) (rightDownCorner.y / backgroundTexture.getHeight()) * backgroundTexture.getHeight();
-            for (; y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
-                batch.draw(backgroundTexture, x, y); // рисовать в мировых координатах!!!
-            }
-        }
 
         if (Gdx.input.isTouched()) {
             tapPos.set(Gdx.input.getX() - istrebitelTexture.getWidth() / 2, Gdx.input.getY() - 20, 0);
@@ -118,15 +76,11 @@ public class CartoonRaider extends Game {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        viewport.update(width, height);
     }
 
     @Override
     public void dispose() {
         super.dispose();
-        backgroundTexture.dispose();
-        batch.dispose();
-        debugShape.dispose();
         istrebitelTexture.dispose();
     }
 }
