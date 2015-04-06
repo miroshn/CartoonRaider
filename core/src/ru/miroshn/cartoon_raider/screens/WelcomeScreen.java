@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by miroshn on 06.04.15.
+ * Показывается экран с названием..
  */
 public class WelcomeScreen implements Screen {
     private Game game;
@@ -43,7 +44,8 @@ public class WelcomeScreen implements Screen {
 
         batch.draw(titleTexture, xTitle, yTitle, titleTexture.getWidth() * scaleTitle, titleTexture.getHeight() * scaleTitle);
         batch.end();
-        if (!Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new GameScreen());
         }
     }
 
