@@ -37,19 +37,14 @@ public class GameObject extends Sprite implements Disposable {
     }
 
     public void update(float delta) {
-        float tmpx = (moveToX - getX()) / 10 / delta;
-        float tmpy = (moveToX - getY()) / 10 / delta;
-        setX(tmpx + getX());
-        setY(tmpy + getY());
-
-
-//        Vector3 tmp = moveToPos.cpy();
-//        tmp.sub(pos);
-//        tmp.x /= 1 / delta;
-//        tmp.y /= 1 / delta;
-//        tmp.z /= 1 / delta;
-//        pos.add(tmp);
-
+        float tmpx = moveToX;
+        float tmpy = moveToY;
+        tmpx -= getX();
+        tmpy -= getY();
+        tmpx /= 1 / delta;
+        tmpy /= 1 / delta;
+        setX(getX() + tmpx);
+        setY(getY() + tmpy);
     }
 
     @Override
