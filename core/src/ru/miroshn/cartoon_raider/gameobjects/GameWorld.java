@@ -1,7 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -31,13 +30,12 @@ public class GameWorld implements Disposable {
         gameObjects = new Array<GameObject>();
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
-            gameObjects.add(new Istrebitel());
-            gameObjects.get(i).setColor(Color.BLACK);
-            gameObjects.get(i).setRotation(180);
+            gameObjects.add(new EnemyIstrebitel());
             gameObjects.get(i).setScale(0.5f);
             gameObjects.get(i).setPosition(r.nextInt(Gdx.graphics.getWidth()) - Gdx.graphics.getWidth() / 2,
                     r.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight());
-            gameObjects.get(i).moveTo(r.nextInt(1000) - 500, r.nextInt(700) - 350);
+            gameObjects.get(i).moveTo(r.nextInt(Gdx.graphics.getWidth()) - Gdx.graphics.getWidth() / 2,
+                    r.nextInt(Gdx.graphics.getHeight()));
         }
     }
 
