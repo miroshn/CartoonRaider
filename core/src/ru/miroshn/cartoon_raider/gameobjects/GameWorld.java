@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -23,13 +24,15 @@ public class GameWorld implements Disposable {
     public GameWorld(SpriteBatch batch, CartoonRaider game) {
         this.batch = batch;
         this.game = game;
-        player = new Istrebitel(this.batch);
+        player = new Istrebitel();
 
         gameObjects = new Array<GameObject>();
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
-            gameObjects.add(new Istrebitel(batch));
-            gameObjects.get(i).setPosition(r.nextInt(1000) - 500, r.nextInt(700) - 350);
+            gameObjects.add(new Istrebitel());
+            gameObjects.get(i).setColor(Color.BLACK);
+            gameObjects.get(i).setRotation(180);
+            gameObjects.get(i).setPosition(r.nextInt(5000) - 500, r.nextInt(700) - 350);
             gameObjects.get(i).moveTo(r.nextInt(1000) - 500, r.nextInt(700) - 350);
         }
     }
