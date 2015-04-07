@@ -23,12 +23,12 @@ public class GameScreen implements Screen {
     private Vector3 leftUpCorner, rightDownCorner;
     private SpriteBatch batch;
     private GameWorld world;
-    private CartoonRaider game;
+//    private CartoonRaider game;
 
     public GameScreen(CartoonRaider game) {
-        this.game = game;
+//        this.game = game;
         batch = new SpriteBatch();
-        world = new GameWorld(batch);
+        world = new GameWorld(batch, game);
         backgroundTexture = new Texture("background.jpg");
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
@@ -98,5 +98,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         backgroundTexture.dispose();
         batch.dispose();
+        Gdx.app.log("DISPOSE", "GameOverScreen dispose");
     }
 }

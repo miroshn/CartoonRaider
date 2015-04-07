@@ -1,18 +1,23 @@
 package ru.miroshn.cartoon_raider;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.math.Vector3;
 import ru.miroshn.cartoon_raider.screens.WelcomeScreen;
 
 public class CartoonRaider extends Game {
-    private Vector3 tapPos;
+//    private Vector3 tapPos;
 
     @Override
     public void create() {
-        tapPos = new Vector3(0, 0, 0);
+//        tapPos = new Vector3(0, 0, 0);
         setScreen(new WelcomeScreen(this));
     }
 
+//    @Override
+//    public void setScreen(Screen screen) {
+//        if (this.getScreen() != null)
+//            this.getScreen().dispose();
+//        super.setScreen(screen);
+//    }
 
     /*
     @Override
@@ -65,6 +70,6 @@ public class CartoonRaider extends Game {
 
     @Override
     public void dispose() {
-        super.dispose();
+//        super.dispose();
     }
 }

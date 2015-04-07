@@ -3,21 +3,26 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.screens.GameOverScreen;
 
 import java.util.Random;
 
 /**
  * Created by miroshn on 06.04.15.
+ *
  */
 public class GameWorld implements Disposable {
     private Istrebitel player;
 
     private Array<GameObject> gameObjects;
+    private CartoonRaider game;
 
     private SpriteBatch batch;
 
-    public GameWorld(SpriteBatch batch) {
+    public GameWorld(SpriteBatch batch, CartoonRaider game) {
         this.batch = batch;
+        this.game = game;
         player = new Istrebitel(this.batch);
 
         gameObjects = new Array<GameObject>();
@@ -29,14 +34,19 @@ public class GameWorld implements Disposable {
         }
     }
 
-    public void update() {
-
+    public void update(float delta) {
+        for (GameObject g : gameObjects) {
+            g.update(delta);
+            if (g.getBoundingRectangle().overlaps(player.getBoundingRectangle())) {
+                game.setScreen(new GameOverScreen(game));
+            }
+        }
     }
 
     public void render(float delta) {
+        update(delta);
         player.draw(batch);
         for (GameObject g : gameObjects) {
-            g.update(delta);
             g.draw(batch);
         }
     }
