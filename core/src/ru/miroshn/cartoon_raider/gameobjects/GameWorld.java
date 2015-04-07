@@ -25,6 +25,7 @@ public class GameWorld implements Disposable {
         this.batch = batch;
         this.game = game;
         player = new Istrebitel();
+        player.setScale(0.5f);
 
         gameObjects = new Array<GameObject>();
         Random r = new Random();
@@ -32,6 +33,7 @@ public class GameWorld implements Disposable {
             gameObjects.add(new Istrebitel());
             gameObjects.get(i).setColor(Color.BLACK);
             gameObjects.get(i).setRotation(180);
+            gameObjects.get(i).setScale(0.5f);
             gameObjects.get(i).setPosition(r.nextInt(5000) - 500, r.nextInt(700) - 350);
             gameObjects.get(i).moveTo(r.nextInt(1000) - 500, r.nextInt(700) - 350);
         }
