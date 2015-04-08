@@ -22,8 +22,8 @@ public class GameScreen implements Screen {
         player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
 
         MoveToAction action = new MoveToAction();
-        action.setDuration(2);
-        action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 0);
+        action.setDuration(1);
+        action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 30);
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
 
