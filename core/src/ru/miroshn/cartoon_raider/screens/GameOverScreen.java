@@ -38,7 +38,7 @@ public class GameOverScreen implements Screen {
         batch.end();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen());
         }
     }
 

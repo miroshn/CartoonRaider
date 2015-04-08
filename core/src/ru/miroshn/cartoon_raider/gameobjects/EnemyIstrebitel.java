@@ -8,7 +8,5 @@ public class EnemyIstrebitel extends GameObject {
 
     public EnemyIstrebitel() {
         super(null);
-//        setColor(Color.BLACK);
-//        setRotation(180);
     }
 }

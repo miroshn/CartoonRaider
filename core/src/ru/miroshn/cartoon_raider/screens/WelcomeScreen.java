@@ -52,7 +52,7 @@ public class WelcomeScreen implements Screen {
         stage.draw();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen());
         }
     }
 

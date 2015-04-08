@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
@@ -14,18 +13,11 @@ import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
  * класс отвечающий за основной этап игры
  */
 public class GameScreen implements Screen {
-    //    private Texture backgroundTexture;
-//    private Viewport viewport;
-//    private OrthographicCamera camera;
-//    private Vector3 leftUpCorner, rightDownCorner;
-//    private SpriteBatch batch;
-//    private GameWorld world;
-//    private CartoonRaider game;
     private Stage stage;
     private Istrebitel player;
     private Background background;
 
-    public GameScreen(CartoonRaider game) {
+    public GameScreen() {
         player = new Istrebitel();
         player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
 
@@ -42,14 +34,6 @@ public class GameScreen implements Screen {
         stage.addActor(player);
 
 
-//        this.game = game;
-//        batch = new SpriteBatch();
-//        world = new GameWorld(batch, game);
-//        backgroundTexture = new Texture("background.jpg");
-//        camera = new OrthographicCamera();
-//        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-//        leftUpCorner = new Vector3(0, 0, 0);
-//        rightDownCorner = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
     }
 
     @Override
@@ -65,37 +49,10 @@ public class GameScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-//        leftUpCorner.x = leftUpCorner.y = 0;
-//        rightDownCorner.x = Gdx.graphics.getWidth();
-//        rightDownCorner.y = Gdx.graphics.getHeight();
-//
-//        camera.unproject(leftUpCorner);
-//        camera.unproject(rightDownCorner);
-//
-//        batch.setProjectionMatrix(camera.combined);
-////        camera.translate(0f, 1f);
-//        camera.update();
-//
-//        batch.begin();
-//
-//        int x = leftUpCorner.x < 0 ?
-//                (int) (leftUpCorner.x / backgroundTexture.getWidth() - 1) * backgroundTexture.getWidth() :
-//                (int) (leftUpCorner.x / backgroundTexture.getWidth()) * backgroundTexture.getWidth();
-//        for (; x < rightDownCorner.x; x += backgroundTexture.getWidth()) {
-//            int y = rightDownCorner.y < 0 ?
-//                    (int) (rightDownCorner.y / backgroundTexture.getHeight() - 1) * backgroundTexture.getHeight() :
-//                    (int) (rightDownCorner.y / backgroundTexture.getHeight()) * backgroundTexture.getHeight();
-//            for (; y < leftUpCorner.y; y += backgroundTexture.getHeight()) {
-//                batch.draw(backgroundTexture, x, y); // рисовать в мировых координатах!!!
-//            }
-//        }
-//        world.render(delta);
-//        batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-//        viewport.update(width, height);
     }
 
     @Override
@@ -117,8 +74,5 @@ public class GameScreen implements Screen {
     public void dispose() {
         player.dispose();
         stage.dispose();
-//        backgroundTexture.dispose();
-//        batch.dispose();
-//        Gdx.app.log("DISPOSE", "GameOverScreen dispose");
     }
 }

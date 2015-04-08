@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class GameObject extends Actor {
 
     private TextureRegion texture;
-//    protected float moveToX;
-//    protected float moveToY;
 
 
     public GameObject() {
@@ -31,22 +29,6 @@ public class GameObject extends Actor {
     }
 
 
-//    public void moveTo(float x, float y) {
-//        moveToX = x;
-//        moveToY = y;
-//    }
-
-
-//    public void update(float delta) {
-//        float tmpx = moveToX;
-//        float tmpy = moveToY;
-//        tmpx -= getX();
-//        tmpy -= getY();
-//        tmpx /= 1 / delta;
-//        tmpy /= 1 / delta;
-//        setX(getX() + tmpx);
-//        setY(getY() + tmpy);
-//    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
