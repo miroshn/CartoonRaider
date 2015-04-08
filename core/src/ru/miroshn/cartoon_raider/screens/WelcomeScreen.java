@@ -3,7 +3,11 @@ package ru.miroshn.cartoon_raider.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
@@ -15,7 +19,8 @@ public class WelcomeScreen implements Screen {
     private Texture backgroundTexture;
     private Texture titleTexture;
     private SpriteBatch batch;
-    private float scaleTitle, xTitle, yTitle;
+    private Title title;
+    private Stage stage;
 
     public WelcomeScreen(CartoonRaider game) {
         this.game = game;
@@ -23,9 +28,14 @@ public class WelcomeScreen implements Screen {
         titleTexture = new Texture("title.png");
         batch = new SpriteBatch();
         batch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        scaleTitle = Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) titleTexture.getWidth();
-        xTitle = (Gdx.graphics.getWidth() - titleTexture.getWidth() * scaleTitle) / 2.0f;
-        yTitle = (Gdx.graphics.getHeight() - titleTexture.getHeight() * scaleTitle) / 2.0f;
+
+        title = new Title();
+
+        title.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) titleTexture.getWidth());
+        title.setPosition((Gdx.graphics.getWidth() - title.getWidth() * title.getScaleX()) / 2.0f,
+                (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
+        stage = new Stage();
+        stage.addActor(title);
     }
 
     @Override
@@ -41,9 +51,11 @@ public class WelcomeScreen implements Screen {
                 batch.draw(backgroundTexture, x, y);
             }
         }
-
-        batch.draw(titleTexture, xTitle, yTitle, titleTexture.getWidth() * scaleTitle, titleTexture.getHeight() * scaleTitle);
         batch.end();
+
+        stage.act(delta);
+        stage.draw();
+
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
         }
@@ -74,5 +86,24 @@ public class WelcomeScreen implements Screen {
         backgroundTexture.dispose();
         titleTexture.dispose();
         batch.dispose();
+        stage.dispose();
+    }
+
+
+    class Title extends Actor {
+        TextureRegion region;
+
+        public Title() {
+            setSize(titleTexture.getWidth(), titleTexture.getHeight());
+            region = new TextureRegion(titleTexture);
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            batch.draw(region, getX(), getY(),
+                    getOriginX(), getOriginY(),
+                    getWidth(), getHeight(),
+                    getScaleX(), getScaleY(), getRotation());
+        }
     }
 }
