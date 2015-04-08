@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
 /**
@@ -22,6 +23,7 @@ public class GameScreen implements Screen {
 //    private CartoonRaider game;
     private Stage stage;
     private Istrebitel player;
+    private Background background;
 
     public GameScreen(CartoonRaider game) {
         player = new Istrebitel();
@@ -32,7 +34,11 @@ public class GameScreen implements Screen {
         action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 0);
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
+
+        background = new Background();
+
         stage = new Stage();
+        stage.addActor(background);
         stage.addActor(player);
 
 
