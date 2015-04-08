@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
-import ru.miroshn.cartoon_raider.screens.GameOverScreen;
 
 import java.util.Random;
 
@@ -34,31 +33,31 @@ public class GameWorld implements Disposable {
             gameObjects.get(i).setScale(0.5f);
             gameObjects.get(i).setPosition(r.nextInt(Gdx.graphics.getWidth()) - Gdx.graphics.getWidth() / 2,
                     r.nextInt(Gdx.graphics.getHeight()) + Gdx.graphics.getHeight());
-            gameObjects.get(i).moveTo(r.nextInt(Gdx.graphics.getWidth()) - Gdx.graphics.getWidth() / 2,
-                    r.nextInt(Gdx.graphics.getHeight()));
+//            gameObjects.get(i).moveTo(r.nextInt(Gdx.graphics.getWidth()) - Gdx.graphics.getWidth() / 2,
+//                    r.nextInt(Gdx.graphics.getHeight()));
         }
     }
 
     public void update(float delta) {
-        for (GameObject g : gameObjects) {
-            g.update(delta);
-            if (g.getBoundingRectangle().overlaps(player.getBoundingRectangle())) {
-                game.setScreen(new GameOverScreen(game));
-            }
-        }
+//        for (GameObject g : gameObjects) {
+//            g.update(delta);
+//            if (g.getBoundingRectangle().overlaps(player.getBoundingRectangle())) {
+//                game.setScreen(new GameOverScreen(game));
+//            }
+//        }
     }
 
     public void render(float delta) {
-        update(delta);
-        player.draw(batch);
-        for (GameObject g : gameObjects) {
-            g.draw(batch);
-        }
+//        update(delta);
+//        player.draw(batch);
+//        for (GameObject g : gameObjects) {
+//            g.draw(batch);
+//        }
     }
 
     @Override
     public void dispose() {
-        player.dispose();
-        for (GameObject g : gameObjects) g.dispose();
+//        player.dispose();
+//        for (GameObject g : gameObjects) g.dispose();
     }
 }
