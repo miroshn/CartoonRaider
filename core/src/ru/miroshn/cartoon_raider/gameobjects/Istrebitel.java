@@ -2,12 +2,13 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Created by miroshn on 06.04.15.
  * главное действующее лицо
  */
-public class Istrebitel extends GameObject {
+public class Istrebitel extends GameObject implements Disposable {
     private Texture texture;
     private TextureRegion region;
 
@@ -16,5 +17,10 @@ public class Istrebitel extends GameObject {
         region = new TextureRegion(texture);
         setTextureRegion(region);
         setSize(texture.getWidth(), texture.getHeight());
+    }
+
+    @Override
+    public void dispose() {
+        texture.dispose();
     }
 }

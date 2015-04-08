@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
@@ -23,9 +24,18 @@ public class GameScreen implements Screen {
     private Istrebitel player;
 
     public GameScreen(CartoonRaider game) {
-        stage = new Stage();
         player = new Istrebitel();
+        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
+
+        MoveToAction action = new MoveToAction();
+        action.setDuration(2);
+        action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 0);
+        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
+        player.addAction(action);
+        stage = new Stage();
         stage.addActor(player);
+
+
 //        this.game = game;
 //        batch = new SpriteBatch();
 //        world = new GameWorld(batch, game);
@@ -99,6 +109,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        player.dispose();
+        stage.dispose();
 //        backgroundTexture.dispose();
 //        batch.dispose();
 //        Gdx.app.log("DISPOSE", "GameOverScreen dispose");
