@@ -67,5 +67,6 @@ public class Background extends Actor implements Disposable {
     @Override
     public void dispose() {
         texture.dispose();
+        instance = null;
     }
 }
