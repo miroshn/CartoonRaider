@@ -65,11 +65,6 @@ public class Background extends Actor implements Disposable {
 
     @Override
     public void dispose() {
-        Gdx.app.log("DISPOSE", "Background Dispose called!!!");
         texture.dispose();
-        texture = null;
-        region = null;
-        action = null;
-        instance = null;
     }
 }
