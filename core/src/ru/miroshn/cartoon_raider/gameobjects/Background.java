@@ -13,18 +13,24 @@ import com.badlogic.gdx.utils.Disposable;
  * фон игры
  */
 public class Background extends Actor implements Disposable {
+    private static Background instance = new Background();
     private Texture texture;
     private TextureRegion region;
     private MoveByAction action;
     private int SPEED_SCROLL = 5;
 
-    public Background() {
+
+    private Background() {
         texture = new Texture("background.jpg");
         region = new TextureRegion(texture);
         setPosition(0, 0);
         setSize(texture.getWidth(), texture.getHeight());
         this.addAction(createAction());
 
+    }
+
+    public static Background getInstance() {
+        return instance;
     }
 
     private MoveByAction createAction() {

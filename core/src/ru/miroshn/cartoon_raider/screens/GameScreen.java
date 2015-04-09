@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
 
-        background = new Background();
+        background = Background.getInstance();
 
         stage = new Stage();
         stage.addActor(background);
