@@ -39,9 +39,10 @@ public class LoadScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(progressBarBaseImg, 0, 0);
-        batch.draw(progressBarImg, 0, 0,
-                progressBarImg.getWidth() * CRAssetManager.getInstance().getProgress(), progressBarImg.getHeight());
+        batch.draw(progressBarBaseImg, 10, Gdx.graphics.getHeight() / 2 - progressBarBaseImg.getHeight() / 2,
+                Gdx.graphics.getWidth() - 20, progressBarBaseImg.getHeight());
+        batch.draw(progressBarImg, 10, Gdx.graphics.getHeight() / 2 - progressBarImg.getHeight() / 2,
+                (Gdx.graphics.getWidth() - 20) * CRAssetManager.getInstance().getProgress(), progressBarImg.getHeight());
         batch.end();
 
         if (CRAssetManager.getInstance().update()) {
