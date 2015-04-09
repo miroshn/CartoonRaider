@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
@@ -49,6 +50,12 @@ public class GameScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
+        if (Gdx.input.isTouched()) {
+            player.addAction(Actions.moveBy(0, 300, 2));
+        }
+        if (player.getY() > 300) {
+            ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
+        }
     }
 
     @Override
