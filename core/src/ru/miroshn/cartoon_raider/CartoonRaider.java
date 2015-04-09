@@ -1,13 +1,16 @@
 package ru.miroshn.cartoon_raider;
 
 import com.badlogic.gdx.Game;
+import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.screens.WelcomeScreen;
 
 public class CartoonRaider extends Game {
+    Background background;
 //    private Vector3 tapPos;
 
     @Override
     public void create() {
+        background = Background.getInstance();
 //        tapPos = new Vector3(0, 0, 0);
         setScreen(new WelcomeScreen(this));
     }
@@ -70,6 +73,9 @@ public class CartoonRaider extends Game {
 
     @Override
     public void dispose() {
+        background.dispose();
+        background = null;
+        System.gc();
 //        super.dispose();
     }
 }

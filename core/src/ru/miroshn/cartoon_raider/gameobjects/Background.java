@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
  * фон игры
  */
 public class Background extends Actor implements Disposable {
-    private static Background instance = new Background();
+    private static Background instance;
     private Texture texture;
     private TextureRegion region;
     private MoveByAction action;
@@ -30,6 +30,7 @@ public class Background extends Actor implements Disposable {
     }
 
     public static Background getInstance() {
+        if (instance == null) instance = new Background();
         return instance;
     }
 
@@ -64,6 +65,11 @@ public class Background extends Actor implements Disposable {
 
     @Override
     public void dispose() {
+        Gdx.app.log("DISPOSE", "Background Dispose called!!!");
         texture.dispose();
+        texture = null;
+        region = null;
+        action = null;
+        instance = null;
     }
 }
