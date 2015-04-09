@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 
 /**
@@ -17,14 +16,12 @@ import ru.miroshn.cartoon_raider.gameobjects.Background;
  * Показывается экран с названием..
  */
 public class WelcomeScreen implements Screen {
-    private CartoonRaider game;
     private Texture titleTexture;
     private Title title;
     private Stage stage;
     private Background background;
 
-    public WelcomeScreen(CartoonRaider game) {
-        this.game = game;
+    public WelcomeScreen() {
         background = Background.getInstance();
         titleTexture = new Texture("title.png");
 
@@ -52,7 +49,7 @@ public class WelcomeScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if (title.getY() < -300) game.setScreen(new GameScreen());
+        if (title.getY() < -300) ScreenManager.getInstance().show(CustomScreen.GAME);
         if (Gdx.input.isTouched()) {
             title.addAction(Actions.moveBy(0, -300, 2));
 //            game.setScreen(new GameScreen());
