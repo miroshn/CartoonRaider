@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.utils.Disposable;
+import ru.miroshn.cartoon_raider.CRAssetManager;
 
 /**
  * Created by miroshn on 08.04.15.
@@ -21,7 +22,7 @@ public class Background extends Actor implements Disposable {
 
 
     private Background() {
-        texture = new Texture("background.jpg");
+        texture = CRAssetManager.getInstance().get("background.jpg");
         region = new TextureRegion(texture);
         setPosition(0, 0);
         setSize(texture.getWidth(), texture.getHeight());

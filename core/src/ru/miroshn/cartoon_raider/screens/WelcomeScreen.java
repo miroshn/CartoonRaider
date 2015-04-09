@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.miroshn.cartoon_raider.CRAssetManager;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 
 /**
@@ -23,7 +24,7 @@ public class WelcomeScreen implements Screen {
 
     public WelcomeScreen() {
         background = Background.getInstance();
-        titleTexture = new Texture("title.png");
+        titleTexture = CRAssetManager.getInstance().get("title.png");
 
         title = new Title();
 
@@ -49,7 +50,8 @@ public class WelcomeScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if (title.getY() < -300) ScreenManager.getInstance().show(CustomScreen.GAME);
+        if (title.getY() < -300)
+            ScreenManager.getInstance().show(CustomScreen.GAME);
         if (Gdx.input.isTouched()) {
             title.addAction(Actions.moveBy(0, -300, 2));
 //            game.setScreen(new GameScreen());

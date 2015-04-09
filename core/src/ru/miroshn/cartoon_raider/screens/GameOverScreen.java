@@ -4,22 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.CRAssetManager;
 
 /**
  * Created by miroshn on 07.04.15.
  * Экран - конец игры
  */
 public class GameOverScreen implements Screen {
-    private CartoonRaider game;
     private SpriteBatch batch;
     private Texture gameOverTexture;
     private float scaleGO, xGO, yGO;
 
-    public GameOverScreen(CartoonRaider game) {
-        this.game = game;
+    public GameOverScreen() {
         batch = new SpriteBatch();
-        gameOverTexture = new Texture("gameover.png");
+        gameOverTexture = CRAssetManager.getInstance().get("gameover.png");
+
         scaleGO = Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) gameOverTexture.getWidth();
         xGO = (Gdx.graphics.getWidth() - gameOverTexture.getWidth() * scaleGO) / 2.0f;
         yGO = (Gdx.graphics.getHeight() - gameOverTexture.getHeight() * scaleGO) / 2.0f;
@@ -38,7 +37,7 @@ public class GameOverScreen implements Screen {
         batch.end();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen());
+            ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
         }
     }
 
