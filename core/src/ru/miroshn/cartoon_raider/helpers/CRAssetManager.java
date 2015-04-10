@@ -1,4 +1,4 @@
-package ru.miroshn.cartoon_raider;
+package ru.miroshn.cartoon_raider.helpers;
 
 import com.badlogic.gdx.assets.AssetManager;
 

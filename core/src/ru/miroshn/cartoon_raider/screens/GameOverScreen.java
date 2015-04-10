@@ -1,28 +1,24 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import ru.miroshn.cartoon_raider.CRAssetManager;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import ru.miroshn.cartoon_raider.gameobjects.Background;
+import ru.miroshn.cartoon_raider.helpers.InputHandler;
+import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Created by miroshn on 07.04.15.
  * Экран - конец игры
  */
-public class GameOverScreen implements Screen {
-    private SpriteBatch batch;
-    private Texture gameOverTexture;
-    private float scaleGO, xGO, yGO;
+public class GameOverScreen implements ScreenInput {
+    //    private float scaleGO, xGO, yGO;
+    private Stage stage;
 
     public GameOverScreen() {
-        batch = new SpriteBatch();
-        gameOverTexture = CRAssetManager.getInstance().get("gameover.png");
-
-        scaleGO = Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) gameOverTexture.getWidth();
-        xGO = (Gdx.graphics.getWidth() - gameOverTexture.getWidth() * scaleGO) / 2.0f;
-        yGO = (Gdx.graphics.getHeight() - gameOverTexture.getHeight() * scaleGO) / 2.0f;
-
+        stage = new Stage();
+        stage.addActor(Background.getInstance());
+        Gdx.input.setInputProcessor(new InputHandler(this));
     }
 
     @Override
@@ -32,13 +28,12 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        batch.begin();
-        batch.draw(gameOverTexture, xGO, yGO, gameOverTexture.getWidth() * scaleGO, gameOverTexture.getHeight() * scaleGO);
-        batch.end();
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (Gdx.input.isTouched()) {
-            ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
-        }
+        stage.act(delta);
+        stage.draw();
+
     }
 
     @Override
@@ -63,8 +58,10 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        gameOverTexture.dispose();
-        Gdx.app.log("DISPOSE", "GameOverScreen dispose");
+    }
+
+    @Override
+    public void OnClick() {
+        ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
     }
 }

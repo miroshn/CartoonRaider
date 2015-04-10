@@ -1,25 +1,40 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
+import ru.miroshn.cartoon_raider.helpers.InputHandler;
+import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Created by miroshn on 06.04.15.
  * класс отвечающий за основной этап игры
  */
-public class GameScreen implements Screen {
+public class GameScreen implements ScreenInput {
     private Stage stage;
     private Istrebitel player;
     private Background background;
+    private boolean clicked;
 
     public GameScreen() {
         player = new Istrebitel();
+        background = Background.getInstance();
+
+        Gdx.input.setInputProcessor(new InputHandler(this));
+        resetScreen();
+    }
+
+    @Override
+    public void show() {
+        resetScreen();
+    }
+
+    private void resetScreen() {
+        clicked = false;
         player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
 
         MoveToAction action = new MoveToAction();
@@ -28,18 +43,9 @@ public class GameScreen implements Screen {
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
 
-        background = Background.getInstance();
-
         stage = new Stage();
         stage.addActor(background);
         stage.addActor(player);
-
-
-    }
-
-    @Override
-    public void show() {
-
     }
 
     @Override
@@ -50,10 +56,7 @@ public class GameScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if (Gdx.input.isTouched()) {
-            player.addAction(Actions.moveBy(0, 300, 2));
-        }
-        if (player.getY() > 300) {
+        if (player.getY() > 300 && clicked) {
             ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
         }
     }
@@ -81,5 +84,11 @@ public class GameScreen implements Screen {
     public void dispose() {
         player.dispose();
         stage.dispose();
+    }
+
+    @Override
+    public void OnClick() {
+        player.addAction(Actions.moveBy(0, 300, 2));
+        clicked = true;
     }
 }

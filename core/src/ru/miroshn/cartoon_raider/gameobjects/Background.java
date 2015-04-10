@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.utils.Disposable;
-import ru.miroshn.cartoon_raider.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**
  * Created by miroshn on 08.04.15.

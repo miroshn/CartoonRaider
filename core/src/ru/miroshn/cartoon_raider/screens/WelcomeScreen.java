@@ -1,7 +1,6 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,37 +8,41 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import ru.miroshn.cartoon_raider.CRAssetManager;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.InputHandler;
+import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Created by miroshn on 06.04.15.
  * Показывается экран с названием..
  */
-public class WelcomeScreen implements Screen {
+public class WelcomeScreen implements ScreenInput {
     private Texture titleTexture;
     private Title title;
     private Stage stage;
-    private Background background;
+    private boolean cliked;
 
     public WelcomeScreen() {
-        background = Background.getInstance();
         titleTexture = CRAssetManager.getInstance().get("title.png");
-
         title = new Title();
-
-        title.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) titleTexture.getWidth());
-        title.setPosition((Gdx.graphics.getWidth() - title.getWidth() * title.getScaleX()) / 2.0f,
-                (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
-        stage = new Stage();
-        stage.addActor(background);
-        stage.addActor(title);
-
+        Gdx.input.setInputProcessor(new InputHandler(this));
+        resetScreen();
     }
 
     @Override
     public void show() {
+        resetScreen();
+    }
 
+    private void resetScreen() {
+        cliked = false;
+        title.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) titleTexture.getWidth());
+        title.setPosition((Gdx.graphics.getWidth() - title.getWidth() * title.getScaleX()) / 2.0f,
+                (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
+        stage = new Stage();
+        stage.addActor(Background.getInstance());
+        stage.addActor(title);
     }
 
     @Override
@@ -50,11 +53,10 @@ public class WelcomeScreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if (title.getY() < -300)
-            ScreenManager.getInstance().show(CustomScreen.GAME);
-        if (Gdx.input.isTouched()) {
+        if (cliked) {
+            if (title.getY() < -300)
+                ScreenManager.getInstance().show(CustomScreen.GAME);
             title.addAction(Actions.moveBy(0, -300, 2));
-//            game.setScreen(new GameScreen());
         }
     }
 
@@ -82,6 +84,11 @@ public class WelcomeScreen implements Screen {
     public void dispose() {
         titleTexture.dispose();
         stage.dispose();
+    }
+
+    @Override
+    public void OnClick() {
+        cliked = true;
     }
 
 

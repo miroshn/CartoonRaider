@@ -5,7 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import ru.miroshn.cartoon_raider.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**
  * Created by miroshn on 09.04.15.
