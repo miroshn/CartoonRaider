@@ -26,7 +26,7 @@ public class WelcomeScreen implements ScreenInput {
     public WelcomeScreen() {
         titleTexture = CRAssetManager.getInstance().get("title.png");
         title = new Title();
-        Gdx.input.setInputProcessor(new InputHandler(this));
+        stage = new Stage();
         resetScreen();
     }
 
@@ -37,12 +37,13 @@ public class WelcomeScreen implements ScreenInput {
 
     private void resetScreen() {
         cliked = false;
+        title.clearActions();
         title.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / (float) titleTexture.getWidth());
         title.setPosition((Gdx.graphics.getWidth() - title.getWidth() * title.getScaleX()) / 2.0f,
                 (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
-        stage = new Stage();
         stage.addActor(Background.getInstance());
         stage.addActor(title);
+        Gdx.input.setInputProcessor(new InputHandler(this));
     }
 
     @Override
@@ -77,7 +78,8 @@ public class WelcomeScreen implements ScreenInput {
 
     @Override
     public void hide() {
-
+//        stage.dispose();
+        cliked = false;
     }
 
     @Override

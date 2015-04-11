@@ -15,15 +15,11 @@ public class GameOverScreen implements ScreenInput {
     //    private float scaleGO, xGO, yGO;
     private Stage stage;
 
-    public GameOverScreen() {
+    @Override
+    public void show() {
         stage = new Stage();
         stage.addActor(Background.getInstance());
         Gdx.input.setInputProcessor(new InputHandler(this));
-    }
-
-    @Override
-    public void show() {
-
     }
 
     @Override
@@ -53,7 +49,7 @@ public class GameOverScreen implements ScreenInput {
 
     @Override
     public void hide() {
-
+        stage.dispose();
     }
 
     @Override

@@ -24,7 +24,6 @@ public class GameScreen implements ScreenInput {
         player = new Istrebitel();
         background = Background.getInstance();
 
-        Gdx.input.setInputProcessor(new InputHandler(this));
         resetScreen();
     }
 
@@ -46,6 +45,7 @@ public class GameScreen implements ScreenInput {
         stage = new Stage();
         stage.addActor(background);
         stage.addActor(player);
+        Gdx.input.setInputProcessor(new InputHandler(this));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void hide() {
-
+        stage.dispose();
     }
 
     @Override
