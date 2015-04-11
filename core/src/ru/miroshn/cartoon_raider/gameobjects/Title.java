@@ -14,8 +14,8 @@ public class Title extends Actor {
     private TextureRegion region;
     private Texture titleTexture;
 
-    public Title() {
-        titleTexture = CRAssetManager.getInstance().get("title.png");
+    public Title(Titles type) {
+        titleTexture = CRAssetManager.getInstance().get(type.getFilename());
         setSize(titleTexture.getWidth(), titleTexture.getHeight());
         region = new TextureRegion(titleTexture);
     }
