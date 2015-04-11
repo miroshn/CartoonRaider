@@ -51,7 +51,7 @@ public class WelcomeScreen implements ScreenInput {
 
         if (cliked) {
             if (title.getY() < -300)
-                ScreenManager.getInstance().show(CustomScreen.GAME);
+                ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
             title.addAction(Actions.moveBy(0, -300, 2));
         }
     }
