@@ -8,14 +8,13 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**
  * Created by miroshn on 11.04.15.
- * Заголовок игры
  */
-public class Title extends Actor {
+public class GameOverTitle extends Actor {
     private TextureRegion region;
     private Texture titleTexture;
 
-    public Title() {
-        titleTexture = CRAssetManager.getInstance().get("title.png");
+    public GameOverTitle() {
+        titleTexture = CRAssetManager.getInstance().get("gameover.png");
         setSize(titleTexture.getWidth(), titleTexture.getHeight());
         region = new TextureRegion(titleTexture);
     }
@@ -27,5 +26,5 @@ public class Title extends Actor {
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(), getRotation());
     }
-}
 
+}

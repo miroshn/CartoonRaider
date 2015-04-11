@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
+import ru.miroshn.cartoon_raider.gameobjects.GameOverTitle;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
@@ -13,15 +14,22 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  */
 public class GameOverScreen implements ScreenInput {
     private Stage stage;
+    private GameOverTitle gameOverTitle;
 
     public GameOverScreen() {
         stage = new Stage();
+        gameOverTitle = new GameOverTitle();
 //        stage.addActor(Background.getInstance());
     }
 
     @Override
     public void show() {
+        gameOverTitle.clearActions();
+        gameOverTitle.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / gameOverTitle.getWidth());
+        gameOverTitle.setPosition((Gdx.graphics.getWidth() - gameOverTitle.getWidth() * gameOverTitle.getScaleX()) / 2.0f,
+                (Gdx.graphics.getHeight() - gameOverTitle.getHeight() * gameOverTitle.getScaleY()) / 2.0f);
         stage.addActor(Background.getInstance());
+        stage.addActor(gameOverTitle);
         Gdx.input.setInputProcessor(new InputHandler(this));
     }
 
