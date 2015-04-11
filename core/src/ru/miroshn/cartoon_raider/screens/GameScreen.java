@@ -17,18 +17,21 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 public class GameScreen implements ScreenInput {
     private Stage stage;
     private Istrebitel player;
-    private Background background;
     private boolean clicked;
 
     public GameScreen() {
         player = new Istrebitel();
-        background = Background.getInstance();
+        stage = new Stage();
+//        stage.addActor(Background.getInstance());
+//        stage.addActor(player);
 
         resetScreen();
     }
 
     @Override
     public void show() {
+        stage.addActor(Background.getInstance());
+        stage.addActor(player);
         resetScreen();
     }
 
@@ -39,12 +42,10 @@ public class GameScreen implements ScreenInput {
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
         action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 30);
+        player.clearActions();
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
 
-        stage = new Stage();
-        stage.addActor(background);
-        stage.addActor(player);
         Gdx.input.setInputProcessor(new InputHandler(this));
     }
 
@@ -77,7 +78,6 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void hide() {
-        stage.dispose();
     }
 
     @Override
