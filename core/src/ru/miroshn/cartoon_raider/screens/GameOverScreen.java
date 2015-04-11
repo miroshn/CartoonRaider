@@ -12,12 +12,11 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * Экран - конец игры
  */
 public class GameOverScreen implements ScreenInput {
-    //    private float scaleGO, xGO, yGO;
     private Stage stage;
 
     public GameOverScreen() {
         stage = new Stage();
-        stage.addActor(Background.getInstance());
+//        stage.addActor(Background.getInstance());
     }
 
     @Override
