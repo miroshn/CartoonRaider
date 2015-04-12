@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Created by CAHEK on 11.04.2015.
+ * кнопка с изображением истребителя и текстом под ней
  */
 public class IstrebitelButton extends Istrebitel {
     private String text;
@@ -19,7 +20,9 @@ public class IstrebitelButton extends Istrebitel {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        font.draw(batch, text, getX(), getY() - 10);
+        BitmapFont.TextBounds tb = font.getBounds(text);
+//        tb.width
+        font.draw(batch, text, getX() + getWidth() * getScaleX() / 2 - tb.width / 2, getY() - 10);
     }
 
     @Override
