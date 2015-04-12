@@ -87,8 +87,9 @@ public class GameScreen implements ScreenInput {
     }
 
     @Override
-    public void OnClick() {
+    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
         player.addAction(Actions.moveBy(0, 300, 2));
         clicked = true;
+        return true;
     }
 }

@@ -70,7 +70,8 @@ public class GameOverScreen implements ScreenInput {
     }
 
     @Override
-    public void OnClick() {
-        ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
+    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
+        ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
+        return true;
     }
 }

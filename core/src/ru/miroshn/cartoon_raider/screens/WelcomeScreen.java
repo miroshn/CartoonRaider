@@ -74,6 +74,7 @@ public class WelcomeScreen implements ScreenInput {
     @Override
     public void hide() {
 //        stage.dispose();
+        Gdx.input.setInputProcessor(null);
         cliked = false;
     }
 
@@ -83,7 +84,8 @@ public class WelcomeScreen implements ScreenInput {
     }
 
     @Override
-    public void OnClick() {
+    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
         cliked = true;
+        return true;
     }
 }

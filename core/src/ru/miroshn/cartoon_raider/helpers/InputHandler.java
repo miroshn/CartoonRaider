@@ -29,8 +29,7 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        screen.OnClick();
-        return true;
+        return screen.OnClick(screenX, screenY, pointer, button);
     }
 
     @Override
