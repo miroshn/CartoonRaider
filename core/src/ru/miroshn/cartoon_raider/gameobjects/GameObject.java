@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class GameObject extends Actor {
 
     private TextureRegion texture;
+    private Rectangle boundsRectangle;
 
 
     public GameObject() {
@@ -29,6 +31,11 @@ public class GameObject extends Actor {
         this.texture = texture;
     }
 
+    public Rectangle getBoundsRectangle() {
+        if (boundsRectangle == null) boundsRectangle = new Rectangle();
+        boundsRectangle.set(getX(), getY(), getWidth(), getHeight());
+        return boundsRectangle;
+    }
 
 
     @Override

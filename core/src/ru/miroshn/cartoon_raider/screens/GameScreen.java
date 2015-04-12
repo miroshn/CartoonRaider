@@ -2,13 +2,19 @@ package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
+import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
+import ru.miroshn.cartoon_raider.gameobjects.GameObject;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
+
+import java.util.Random;
 
 /**
  * Created by miroshn on 06.04.15.
@@ -18,10 +24,19 @@ public class GameScreen implements ScreenInput {
     private Stage stage;
     private Istrebitel player;
     private boolean clicked;
+    private Array<GameObject> enemys;
+    private Random rnd;
+
 
     public GameScreen() {
+        enemys = new Array<GameObject>();
         player = new Istrebitel();
         stage = new Stage();
+        rnd = new Random();
+        for (int i = 0; i < 10; i++) {
+            enemys.add(new EnemyIstrebitel());
+            enemys.get(i).setRotation(180);
+        }
 //        stage.addActor(Background.getInstance());
 //        stage.addActor(player);
 
@@ -32,6 +47,16 @@ public class GameScreen implements ScreenInput {
     public void show() {
         stage.addActor(Background.getInstance());
         stage.addActor(player);
+//        player.setDebug(true);
+
+        for (GameObject g : enemys) {
+            g.setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
+                    Gdx.graphics.getHeight() - g.getHeight() + rnd.nextInt(300));
+            g.clearActions();
+//            g.setDebug(true);
+            g.addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, rnd.nextInt(100) / 10.f));
+            stage.addActor(g);
+        }
         resetScreen();
     }
 
@@ -57,9 +82,15 @@ public class GameScreen implements ScreenInput {
         stage.act(delta);
         stage.draw();
 
-        if (player.getY() > 300 && clicked) {
-            ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
+        for (GameObject g : enemys) {
+
+            if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
+                ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
+
         }
+//        if (player.getY() > 300 && clicked) {
+//            ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
+//        }
     }
 
     @Override
@@ -88,7 +119,10 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-        player.addAction(Actions.moveBy(0, 300, 2));
+        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
+        vec.x -= player.getWidth() / 2;
+        player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
+//        Gdx.app.log("Click", "(" + vec.x + "," + vec.y + ")");
         clicked = true;
         return true;
     }
