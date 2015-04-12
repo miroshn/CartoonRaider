@@ -2,10 +2,11 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
  * Created by CAHEK on 11.04.2015.
- * кнопка с изображением истребителя и текстом под ней
+ * РєРЅРѕРїРєР° СЃ РёР·РѕР±СЂР°Р¶РµРЅРёРµРј РёСЃС‚СЂРµР±РёС‚РµР»СЏ Рё С‚РµРєСЃС‚РѕРј РїРѕРґ РЅРµР№
  */
 public class IstrebitelButton extends Istrebitel {
     private String text;
@@ -22,6 +23,7 @@ public class IstrebitelButton extends Istrebitel {
         super.draw(batch, parentAlpha);
         BitmapFont.TextBounds tb = font.getBounds(text);
 //        tb.width
+        font.setColor(CartoonRaider.COLOR);
         font.draw(batch, text, getX() + getWidth() * getScaleX() / 2 - tb.width / 2, getY() - 10);
     }
 
