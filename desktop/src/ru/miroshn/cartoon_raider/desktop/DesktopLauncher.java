@@ -10,8 +10,8 @@ public class DesktopLauncher {
 		config.resizable = false;
 //		config.width = 1024;
 //		config.height = 768;
-		config.width = 1024;
-		config.height = 768;
+		config.width = 320;
+		config.height = 480;
 
 		new LwjglApplication(new CartoonRaider(), config);
 	}
