@@ -30,8 +30,8 @@ public class MenuScreen implements ScreenInput {
 
     @Override
     public void show() {
-        gameMenu.setPosition(100, 100);
-        exitMenu.setPosition(100, 500);
+        gameMenu.setPosition(100, 500);
+        exitMenu.setPosition(100, 100);
 
         stage.addActor(Background.getInstance());
         stage.addActor(gameMenu);
