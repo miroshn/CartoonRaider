@@ -1,19 +1,19 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.IstrebitelButton;
+import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Created by CAHEK on 11.04.2015.
  * меню игры, должно реализовать запуск игры и выход
  */
-public class MenuScreen implements Screen {
+public class MenuScreen implements ScreenInput {
     private Stage stage;
     private BitmapFont font;
     private IstrebitelButton gameMenu, exitMenu, aboutMenu;
@@ -56,12 +56,6 @@ public class MenuScreen implements Screen {
 
     }
 
-//    @Override
-//    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-//        Gdx.app.log("MenuScreen","OnClick");
-//        return true;
-//    }
-
     @Override
     public void show() {
         stage.addActor(Background.getInstance());
@@ -102,5 +96,10 @@ public class MenuScreen implements Screen {
     @Override
     public void dispose() {
         font.dispose();
+    }
+
+    @Override
+    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
+        return false;
     }
 }
