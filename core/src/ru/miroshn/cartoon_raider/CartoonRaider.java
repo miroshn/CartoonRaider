@@ -1,13 +1,19 @@
 package ru.miroshn.cartoon_raider;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 public class CartoonRaider extends Game {
+    /*
+    * Различные константы использующиеся в игре
+    * */
 
+
+    public static final Color COLOR = new Color(0, 0, 1, 1);
     @Override
     public void create() {
         ScreenManager.getInstance().init(this);
