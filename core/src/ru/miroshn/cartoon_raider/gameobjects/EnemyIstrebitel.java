@@ -33,7 +33,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     @Override
     public Rectangle getBoundsRectangle() {
         Rectangle rec = super.getBoundsRectangle();
-        rec.set(getX(), getY() - getHeight(), getWidth(), getHeight());
+        rec.set(getX() - getWidth(), getY() - getHeight(), getWidth(), getHeight());
         return rec;
     }
 
