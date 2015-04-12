@@ -33,7 +33,7 @@ public class GameObject extends Actor {
 
     public Rectangle getBoundsRectangle() {
         if (boundsRectangle == null) boundsRectangle = new Rectangle();
-        boundsRectangle.set(getX(), getY(), getWidth(), getHeight());
+        boundsRectangle.set(getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
         return boundsRectangle;
     }
 

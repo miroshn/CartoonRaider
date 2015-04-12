@@ -27,15 +27,19 @@ public class GameScreen implements ScreenInput {
     private Array<GameObject> enemys;
     private Random rnd;
 
+//    private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
+//        shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
+        player.setScale(0.5f);
         stage = new Stage();
         rnd = new Random();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
+            enemys.get(i).setScale(0.5f);
         }
 //        stage.addActor(Background.getInstance());
 //        stage.addActor(player);
@@ -54,7 +58,7 @@ public class GameScreen implements ScreenInput {
                     Gdx.graphics.getHeight() - g.getHeight() + rnd.nextInt(300));
             g.clearActions();
 //            g.setDebug(true);
-            g.addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, rnd.nextInt(100) / 10.f));
+            g.addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, (rnd.nextInt(100) + 50) / 10.f));
             stage.addActor(g);
         }
         resetScreen();
@@ -84,10 +88,16 @@ public class GameScreen implements ScreenInput {
 
         for (GameObject g : enemys) {
 
+//            shapeRenderer.setColor(Color.GREEN);
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//            shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
+//            shapeRenderer.rect(player.getBoundsRectangle().getX(),player.getBoundsRectangle().getY(),player.getBoundsRectangle().getWidth(),player.getBoundsRectangle().getHeight());
+//            shapeRenderer.end();
             if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
                 ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
 
         }
+
 //        if (player.getY() > 300 && clicked) {
 //            ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
 //        }
