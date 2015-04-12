@@ -88,4 +88,9 @@ public class WelcomeScreen implements ScreenInput {
         cliked = true;
         return true;
     }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
 }

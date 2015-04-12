@@ -128,6 +128,14 @@ public class GameScreen implements ScreenInput {
     }
 
     @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
+        vec.x -= player.getWidth() / 2;
+        player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
+        return true;
+    }
+
+    @Override
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
         Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
         vec.x -= player.getWidth() / 2;

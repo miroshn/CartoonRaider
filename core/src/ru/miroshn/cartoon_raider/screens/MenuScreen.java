@@ -102,4 +102,9 @@ public class MenuScreen implements ScreenInput {
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
         return false;
     }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
 }

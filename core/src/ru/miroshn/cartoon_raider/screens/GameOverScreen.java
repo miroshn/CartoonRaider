@@ -74,4 +74,9 @@ public class GameOverScreen implements ScreenInput {
         ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
         return true;
     }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
 }
