@@ -16,38 +16,8 @@ public class IstrebitelButton extends Istrebitel {
         super();
         this.text = text;
         font = new BitmapFont();
-
-//        this.setDebug(false);
-//        this.setTouchable(Touchable.enabled);
-        // Назначить на клик кнопки действие, для начала просто выход
-/*
-        boolean res = this.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                return super.touchDown(event, x, y, pointer, button);
-                Gdx.app.exit();
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-//                super.touchUp(event, x, y, pointer, button);
-                Gdx.app.exit();
-            }
-
-        });
-*/
     }
 
-//    @Override
-//    public Actor hit(float x, float y, boolean touchable) {
-//        if (x != -100) {
-//            Gdx.app.log("Hit", "x=" + x + " y=" + y);
-//            if (x > 0 && x < (getWidth() * getScaleX()) && y > 0 && y < (getHeight() * getScaleY()))
-//                Gdx.app.exit();
-//        }
-//        return super.hit(x, y, touchable);
-//    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
