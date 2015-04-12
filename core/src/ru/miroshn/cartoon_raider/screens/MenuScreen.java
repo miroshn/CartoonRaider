@@ -16,29 +16,22 @@ import ru.miroshn.cartoon_raider.gameobjects.IstrebitelButton;
 public class MenuScreen implements Screen {
     private Stage stage;
     private BitmapFont font;
-    private IstrebitelButton gameMenu, exitMenu;
+    private IstrebitelButton gameMenu, exitMenu, aboutMenu;
 
 
     public MenuScreen() {
         gameMenu = new IstrebitelButton("Play");
         exitMenu = new IstrebitelButton("Exit");
+        aboutMenu = new IstrebitelButton("About");
         stage = new Stage();
         font = new BitmapFont();
-    }
 
-//    @Override
-//    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-//        Gdx.app.log("MenuScreen","OnClick");
-//        return true;
-//    }
-
-    @Override
-    public void show() {
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
         float yCoord = height / 2 - gameMenu.getWidth() / 2;
         gameMenu.setPosition(width * 1 / 5 - gameMenu.getWidth() / 2, yCoord);
         exitMenu.setPosition(width * 4 / 5 - exitMenu.getWidth() / 2, yCoord);
+        aboutMenu.setPosition(width * 2.5f / 5 - aboutMenu.getWidth() / 2, yCoord);
 
         exitMenu.addListener(new ClickListener() {
             @Override
@@ -54,9 +47,27 @@ public class MenuScreen implements Screen {
             }
         });
 
+        aboutMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
+            }
+        });
+
+    }
+
+//    @Override
+//    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
+//        Gdx.app.log("MenuScreen","OnClick");
+//        return true;
+//    }
+
+    @Override
+    public void show() {
         stage.addActor(Background.getInstance());
         stage.addActor(gameMenu);
         stage.addActor(exitMenu);
+        stage.addActor(aboutMenu);
         Gdx.input.setInputProcessor(stage);
     }
 
