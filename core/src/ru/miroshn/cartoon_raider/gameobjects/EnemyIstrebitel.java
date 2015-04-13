@@ -29,6 +29,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         setTextureRegion(region);
         setSize(texture.getWidth(), texture.getHeight());
         setColor(Color.BLACK);
+        setOrigin(getX() + getWidth() / 2, getY());
         float ver[] = {getX(), getY()
                 , getX() + getWidth(), getY()
                 , getX() + getWidth() / 2, getY() + getHeight()};
@@ -47,10 +48,9 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         super.act(delta);
 
         if (getY() < -100) {
-            setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
-                    Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+            this.init();
             clearActions();
-            addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, (rnd.nextInt(100) + 50) / 10.f));
+            addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         }
     }
 

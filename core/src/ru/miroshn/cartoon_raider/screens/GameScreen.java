@@ -28,7 +28,7 @@ public class GameScreen implements ScreenInput {
     private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
-    private boolean debug = false;
+    private boolean debug = true;
 
     private ShapeRenderer shapeRenderer;
 
@@ -57,6 +57,7 @@ public class GameScreen implements ScreenInput {
 //        player.setDebug(true);
 
         for (GameObject g : enemys) {
+            g.init();
             g.setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
                     Gdx.graphics.getHeight() - g.getHeight() + rnd.nextInt(300));
             g.clearActions();

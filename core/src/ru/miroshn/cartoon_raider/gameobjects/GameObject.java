@@ -1,11 +1,14 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
+
+import java.util.Random;
 
 /**
  * Created by miroshn on 06.04.15.
@@ -16,8 +19,10 @@ public class GameObject extends Actor {
     private TextureRegion texture;
     private Rectangle boundsRectangle;
     private PolygonOverlaps boundingPolygon;
+    private Random rnd;
 
     public GameObject() {
+        rnd = new Random();
     }
 
     public GameObject(TextureRegion texture) {
@@ -43,10 +48,12 @@ public class GameObject extends Actor {
         if (boundsRectangle == null) boundsRectangle = getBoundsRectangle();
         if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
 
+
+        boundingPolygon.setOrigin(getOriginX(), getOriginY());
+        boundingPolygon.setRotation(getRotation());
+        boundingPolygon.setScale(getScaleX(), getScaleY());
         boundsRectangle.set(getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
         boundingPolygon.setPosition(getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY());
-        boundingPolygon.setScale(getScaleX(), getScaleY());
-        boundingPolygon.setRotation(getRotation());
     }
 
     public TextureRegion getTextureRegion() {
@@ -71,5 +78,10 @@ public class GameObject extends Actor {
         batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         batch.setColor(c);
+    }
+
+    public void init() {
+        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
     }
 }
