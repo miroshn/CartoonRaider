@@ -69,8 +69,8 @@ public class GameScreen implements ScreenInput {
 
     private void resetScreen() {
         clicked = false;
-//        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
-        player.setPosition(Gdx.graphics.getWidth() / 2, 0);
+        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
+//        player.setPosition(Gdx.graphics.getWidth() / 2, 0);
 
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
