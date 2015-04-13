@@ -1,7 +1,9 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -26,11 +28,12 @@ public class GameScreen implements ScreenInput {
     private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
+    private boolean debug = false;
 
-//    private ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
-//        shapeRenderer = new ShapeRenderer();
+        shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
         player.setScale(0.5f);
@@ -66,7 +69,8 @@ public class GameScreen implements ScreenInput {
 
     private void resetScreen() {
         clicked = false;
-        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
+//        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
+        player.setPosition(Gdx.graphics.getWidth() / 2, 0);
 
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
@@ -87,14 +91,18 @@ public class GameScreen implements ScreenInput {
         stage.draw();
 
         for (GameObject g : enemys) {
-
-//            shapeRenderer.setColor(Color.GREEN);
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-//            shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
-//            shapeRenderer.rect(player.getBoundsRectangle().getX(),player.getBoundsRectangle().getY(),player.getBoundsRectangle().getWidth(),player.getBoundsRectangle().getHeight());
-//            shapeRenderer.end();
+            if (debug) {
+                shapeRenderer.setColor(Color.RED);
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
+                shapeRenderer.rect(player.getBoundsRectangle().getX(), player.getBoundsRectangle().getY(), player.getBoundsRectangle().getWidth(), player.getBoundsRectangle().getHeight());
+                shapeRenderer.polygon(g.getBoundingPolygon().getTransformedVertices());
+                shapeRenderer.polygon(player.getBoundingPolygon().getTransformedVertices());
+                shapeRenderer.end();
+            }
             if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
-                ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
+                if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon()))
+                    ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
 
         }
 

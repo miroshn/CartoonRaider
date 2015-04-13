@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
 /**
  * Created by miroshn on 06.04.15.
@@ -18,6 +19,15 @@ public class Istrebitel extends GameObject implements Disposable {
         region = new TextureRegion(texture);
         setTextureRegion(region);
         setSize(texture.getWidth(), texture.getHeight());
+        float ver[] = {getX(), getY()
+                , getX() + getWidth(), getY()
+                , getX() + getWidth() / 2, getY() + getHeight()};
+        setBoundingPolygon(new PolygonOverlaps(ver));
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
 import java.util.Random;
 
@@ -28,6 +29,10 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         setTextureRegion(region);
         setSize(texture.getWidth(), texture.getHeight());
         setColor(Color.BLACK);
+        float ver[] = {getX(), getY()
+                , getX() + getWidth(), getY()
+                , getX() + getWidth() / 2, getY() + getHeight()};
+        setBoundingPolygon(new PolygonOverlaps(ver));
     }
 
     @Override
@@ -40,9 +45,10 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     @Override
     public void act(float delta) {
         super.act(delta);
+
         if (getY() < -100) {
             setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
-                    Gdx.graphics.getHeight() - getHeight() + rnd.nextInt(300));
+                    Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
             clearActions();
             addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, (rnd.nextInt(100) + 50) / 10.f));
         }
