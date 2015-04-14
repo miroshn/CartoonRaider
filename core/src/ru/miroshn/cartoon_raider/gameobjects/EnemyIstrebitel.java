@@ -51,10 +51,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
         if (getY() < -100) {
             this.init();
-            setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+            setPosition(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(),
                     Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+            Gdx.app.log("Reinit EnemyIstrebitel", "x=" + (Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())));
             clearActions();
-            addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
+            addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         }
     }
 
