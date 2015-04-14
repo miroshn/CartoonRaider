@@ -28,7 +28,7 @@ public class GameScreen implements ScreenInput {
     private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
-    private boolean debug = true;
+    private boolean debug = false;
 
     private ShapeRenderer shapeRenderer;
 
@@ -95,13 +95,13 @@ public class GameScreen implements ScreenInput {
             if (debug) {
                 shapeRenderer.setColor(Color.RED);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
-                shapeRenderer.rect(player.getBoundsRectangle().getX(), player.getBoundsRectangle().getY(), player.getBoundsRectangle().getWidth(), player.getBoundsRectangle().getHeight());
+//                shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
+//                shapeRenderer.rect(player.getBoundsRectangle().getX(), player.getBoundsRectangle().getY(), player.getBoundsRectangle().getWidth(), player.getBoundsRectangle().getHeight());
                 shapeRenderer.polygon(g.getBoundingPolygon().getTransformedVertices());
                 shapeRenderer.polygon(player.getBoundingPolygon().getTransformedVertices());
                 shapeRenderer.end();
             }
-            if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
+//            if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
                 if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon()))
                     ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
 

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
@@ -17,7 +16,7 @@ import java.util.Random;
 public class GameObject extends Actor {
 
     private TextureRegion texture;
-    private Rectangle boundsRectangle;
+    //    private Rectangle boundsRectangle;
     private PolygonOverlaps boundingPolygon;
     private Random rnd;
 
@@ -31,9 +30,9 @@ public class GameObject extends Actor {
 
     public PolygonOverlaps getBoundingPolygon() {
         if (boundingPolygon == null) {
-            Rectangle r = getBoundsRectangle();
-            boundingPolygon = new PolygonOverlaps(new float[]{r.getX(), r.getY(), r.getX() + r.getWidth(), r.getY(),
-                    r.getX() + r.getWidth(), r.getY() + r.getWidth(), r.getX(), r.getY() + r.getHeight()});
+//            Rectangle r = getBoundsRectangle();
+            boundingPolygon = new PolygonOverlaps(new float[]{getX(), getY(), getX() + getWidth(), getY(),
+                    getX() + getWidth(), getY() + getWidth(), getX(), getY() + getHeight()});
         }
         return boundingPolygon;
     }
@@ -45,15 +44,15 @@ public class GameObject extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (boundsRectangle == null) boundsRectangle = getBoundsRectangle();
+//        if (boundsRectangle == null) boundsRectangle = getBoundsRectangle();
         if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
 
 
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
         boundingPolygon.setRotation(getRotation());
         boundingPolygon.setScale(getScaleX(), getScaleY());
-        boundsRectangle.set(getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
-        boundingPolygon.setPosition(getOriginX() * getScaleX() + getX(), getOriginY() * getScaleY() + getY());
+        boundingPolygon.setPosition(getX(), getY());
+//        boundsRectangle.set(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
     }
 
     public TextureRegion getTextureRegion() {
@@ -64,10 +63,10 @@ public class GameObject extends Actor {
         this.texture = texture;
     }
 
-    public Rectangle getBoundsRectangle() {
-        if (boundsRectangle == null) boundsRectangle = new Rectangle();
-        return boundsRectangle;
-    }
+//    public Rectangle getBoundsRectangle() {
+//        if (boundsRectangle == null) boundsRectangle = new Rectangle();
+//        return boundsRectangle;
+//    }
 
 
     @Override

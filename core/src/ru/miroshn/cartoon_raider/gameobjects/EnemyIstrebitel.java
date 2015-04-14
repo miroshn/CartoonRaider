@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -36,12 +35,12 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         setBoundingPolygon(new PolygonOverlaps(ver));
     }
 
-    @Override
-    public Rectangle getBoundsRectangle() {
-        Rectangle rec = super.getBoundsRectangle();
-        rec.set(getX() - getWidth() * getScaleX(), getY() - getHeight() * getScaleY(), getWidth() * getScaleX(), getHeight() * getScaleY());
-        return rec;
-    }
+//    @Override
+//    public Rectangle getBoundsRectangle() {
+//        Rectangle rec = super.getBoundsRectangle();
+//        rec.set(getX() - getWidth() * getScaleX(), getY() - getHeight() * getScaleY(), getWidth() * getScaleX(), getHeight() * getScaleY());
+//        return rec;
+//    }
 
     @Override
     public void act(float delta) {
