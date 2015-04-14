@@ -56,6 +56,7 @@ public class GameScreen implements ScreenInput {
         stage.addActor(player);
 //        player.setDebug(true);
 
+        player.init();
         for (GameObject g : enemys) {
             g.init();
             g.setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
@@ -95,21 +96,15 @@ public class GameScreen implements ScreenInput {
             if (debug) {
                 shapeRenderer.setColor(Color.RED);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-//                shapeRenderer.rect(g.getBoundsRectangle().getX(), g.getBoundsRectangle().getY(), g.getBoundsRectangle().getWidth(), g.getBoundsRectangle().getHeight());
-//                shapeRenderer.rect(player.getBoundsRectangle().getX(), player.getBoundsRectangle().getY(), player.getBoundsRectangle().getWidth(), player.getBoundsRectangle().getHeight());
                 shapeRenderer.polygon(g.getBoundingPolygon().getTransformedVertices());
                 shapeRenderer.polygon(player.getBoundingPolygon().getTransformedVertices());
                 shapeRenderer.end();
             }
-//            if (g.getBoundsRectangle().overlaps(player.getBoundsRectangle()))
-                if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon()))
-                    ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
-
+                if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
+                    player.setState(GameObject.GOState.EXPLODING);
+                    g.setState(GameObject.GOState.EXPLODING);
+                }
         }
-
-//        if (player.getY() > 300 && clicked) {
-//            ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
-//        }
     }
 
     @Override

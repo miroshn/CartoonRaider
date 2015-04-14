@@ -1,10 +1,13 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
 import java.util.Random;
@@ -16,21 +19,27 @@ import java.util.Random;
 public class GameObject extends Actor {
 
     private TextureRegion texture;
-    //    private Rectangle boundsRectangle;
     private PolygonOverlaps boundingPolygon;
     private Random rnd;
+    private GOState state;
+    private float explodingTime;
+
+    private Animation explodeAnimation;
 
     public GameObject() {
         rnd = new Random();
+        state = GOState.NORMAL;
+        Array<TextureRegion> explodingSet = new Array<TextureRegion>();
+        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
+        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
+        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive3.png")));
+        explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
+        init();
     }
 
-    public GameObject(TextureRegion texture) {
-        this.texture = texture;
-    }
 
     public PolygonOverlaps getBoundingPolygon() {
         if (boundingPolygon == null) {
-//            Rectangle r = getBoundsRectangle();
             boundingPolygon = new PolygonOverlaps(new float[]{getX(), getY(), getX() + getWidth(), getY(),
                     getX() + getWidth(), getY() + getWidth(), getX(), getY() + getHeight()});
         }
@@ -44,16 +53,36 @@ public class GameObject extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-//        if (boundsRectangle == null) boundsRectangle = getBoundsRectangle();
         if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
-
 
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
         boundingPolygon.setRotation(getRotation());
         boundingPolygon.setScale(getScaleX(), getScaleY());
         boundingPolygon.setPosition(getX(), getY());
-//        boundsRectangle.set(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
+
+        switch (state) {
+            case NORMAL:
+                break;
+            case DEAD:
+                init();
+                break;
+            case EXPLODING:
+                doExplode(delta);
+                break;
+        }
+
     }
+
+    private void doExplode(float delta) {
+        if (explodingTime == 0) explodingTime = delta;
+        explodingTime += delta;
+        texture = explodeAnimation.getKeyFrame(explodingTime);
+        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+        if (explodeAnimation.isAnimationFinished(explodingTime))
+            setState(GOState.DEAD);
+//        Gdx.app.log("GO","delta = "+delta);
+    }
+
 
     public TextureRegion getTextureRegion() {
         return texture;
@@ -62,11 +91,6 @@ public class GameObject extends Actor {
     public void setTextureRegion(TextureRegion texture) {
         this.texture = texture;
     }
-
-//    public Rectangle getBoundsRectangle() {
-//        if (boundsRectangle == null) boundsRectangle = new Rectangle();
-//        return boundsRectangle;
-//    }
 
 
     @Override
@@ -80,7 +104,23 @@ public class GameObject extends Actor {
     }
 
     public void init() {
-        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
-                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+        state = GOState.NORMAL;
+        explodingTime = 0;
+        if (texture == null) return;
+        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+//        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+    }
+
+    public GOState getState() {
+        return state;
+    }
+
+    public void setState(GOState state) {
+        this.state = state;
+    }
+
+    public enum GOState {
+        NORMAL, DEAD, EXPLODING
     }
 }

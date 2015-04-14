@@ -17,16 +17,12 @@ import java.util.Random;
  */
 public class EnemyIstrebitel extends GameObject implements Disposable {
 
-    private Texture texture;
-    private TextureRegion region;
     private Random rnd;
 
     public EnemyIstrebitel() {
         rnd = new Random();
-        texture = CRAssetManager.getInstance().get("istrebitel1.png");
-        region = new TextureRegion(texture);
-        setTextureRegion(region);
-        setSize(texture.getWidth(), texture.getHeight());
+        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         setColor(Color.BLACK);
         setOrigin(getX() + getWidth() / 2, getY());
         float ver[] = {getX(), getY()
@@ -42,12 +38,21 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 //        return rec;
 //    }
 
+
+    @Override
+    public void init() {
+        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+        super.init();
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
 
         if (getY() < -100) {
             this.init();
+            setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+                    Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
             clearActions();
             addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         }
@@ -55,6 +60,5 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void dispose() {
-        texture.dispose();
     }
 }
