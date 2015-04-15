@@ -105,8 +105,10 @@ public class GameScreen implements ScreenInput {
 
         for (GameObject g : enemys) {
                 if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
-                    player.setState(GameObject.GOState.EXPLODING);
-                    g.setState(GameObject.GOState.EXPLODING);
+                    if (g.getState() == GameObject.GOState.NORMAL) {
+                        player.setState(GameObject.GOState.EXPLODING);
+                        g.setState(GameObject.GOState.EXPLODING);
+                    }
                 }
         }
     }
