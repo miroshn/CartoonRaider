@@ -11,10 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
-import ru.miroshn.cartoon_raider.gameobjects.Background;
-import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
-import ru.miroshn.cartoon_raider.gameobjects.GameObject;
-import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
+import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
@@ -59,6 +56,7 @@ public class GameScreen implements ScreenInput {
     public void show() {
         stage.addActor(Background.getInstance());
         stage.addActor(player);
+        stage.addActor(new Hud());
 //        player.setDebug(true);
 
         player.init();
