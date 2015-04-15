@@ -38,7 +38,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 break;
             case NORMAL:
                 int score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
-                if (speedBulletFire - score / 100.0f < 0.1) score = 49;
+                if (speedBulletFire - score / 100.0f < 0.1) score = 39;
 
                 bulletTime += delta;
                 if (bulletTime >= speedBulletFire - score / 100.0f) {
