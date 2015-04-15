@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -91,15 +92,18 @@ public class GameScreen implements ScreenInput {
 
         stage.act(delta);
         stage.draw();
+        if (CartoonRaider.DEBUG) {
+            for (Actor a : stage.getActors()) {
+                if (a instanceof GameObject) {
+                    shapeRenderer.setColor(Color.RED);
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon().getTransformedVertices());
+                    shapeRenderer.end();
+                }
+            }
+        }
 
         for (GameObject g : enemys) {
-            if (CartoonRaider.DEBUG) {
-                shapeRenderer.setColor(Color.RED);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.polygon(g.getBoundingPolygon().getTransformedVertices());
-                shapeRenderer.polygon(player.getBoundingPolygon().getTransformedVertices());
-                shapeRenderer.end();
-            }
                 if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
                     player.setState(GameObject.GOState.EXPLODING);
                     g.setState(GameObject.GOState.EXPLODING);
