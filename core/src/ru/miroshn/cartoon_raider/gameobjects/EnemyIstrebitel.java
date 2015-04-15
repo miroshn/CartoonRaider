@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
-import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
 import java.util.Random;
 
@@ -21,15 +20,19 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     public EnemyIstrebitel() {
         super();
-        rnd = new Random();
+        if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
+//        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         setColor(Color.BLACK);
-        setOrigin(getX() + getWidth() / 2, getY());
-        float ver[] = {getX(), getY()
-                , getX() + getWidth(), getY()
-                , getX() + getWidth() / 2, getY() + getHeight()};
-        setBoundingPolygon(new PolygonOverlaps(ver));
+//        setOrigin(getX() + getWidth() / 2, getY());
+//        float ver[] = {getX(), getY()
+//                , getX() + getWidth(), getY()
+//                , getX() + getWidth() / 2, getY() + getHeight()};
+        setOrigin(getWidth() / 2, 0);
+//        float ver[] = {getX(), getY()
+//                , getX() + getWidth(), getY()
+//                , getX() + getWidth() / 2, getY() + getHeight()};
+//        setBoundingPolygon(new PolygonOverlaps(ver));
     }
 
 //    @Override
@@ -42,7 +45,12 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void init() {
+        if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+//        setPosition(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(),
+//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+        clearActions();
+        addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         super.init();
     }
 
@@ -52,10 +60,6 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
         if (getY() < -100) {
             this.init();
-            setPosition(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(),
-                    Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
-            clearActions();
-            addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         }
     }
 
