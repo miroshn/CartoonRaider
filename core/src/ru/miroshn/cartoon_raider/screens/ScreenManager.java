@@ -13,6 +13,7 @@ public class ScreenManager implements Disposable {
     private static ScreenManager instance;
     private CartoonRaider game;
     private IntMap<Screen> screens;
+    private Screen currentScreen;
 
     private ScreenManager() {
         screens = new IntMap<Screen>();
@@ -27,6 +28,7 @@ public class ScreenManager implements Disposable {
 
     public void init(CartoonRaider game) {
         this.game = game;
+        currentScreen = null;
     }
 
     public void show(CustomScreen screen) {
@@ -35,6 +37,11 @@ public class ScreenManager implements Disposable {
             screens.put(screen.ordinal(), screen.getScreenInstance());
         }
         game.setScreen(screens.get(screen.ordinal()));
+        currentScreen = screens.get(screen.ordinal());
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
     }
 
     public void dispose(CustomScreen screen) {
