@@ -47,8 +47,8 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     public void init() {
         if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-//        setPosition(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(),
-//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+        setPosition(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(),
+                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
         clearActions();
         addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth() - (int) (getWidth() * getScaleX())) + getWidth() * getScaleX(), -200, (rnd.nextInt(100) + 50) / 10.f));
         super.init();
