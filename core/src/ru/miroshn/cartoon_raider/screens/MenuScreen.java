@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.IstrebitelButton;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
@@ -53,6 +54,9 @@ public class MenuScreen implements ScreenInput {
                 ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
             }
         });
+        gameMenu.setScale(CartoonRaider.SCALE * 2);
+        exitMenu.setScale(CartoonRaider.SCALE * 2);
+        aboutMenu.setScale(CartoonRaider.SCALE * 2);
 
     }
 
