@@ -12,10 +12,18 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  * простой снаряд
  */
 public class Bullet extends GameObject {
+    private int damagePower;
+
     public Bullet() {
         super();
+        damagePower = 1;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("bullet.png")));
     }
+
+    public int getDamagePower() {
+        return damagePower;
+    }
+
 
     @Override
     public void act(float delta) {
