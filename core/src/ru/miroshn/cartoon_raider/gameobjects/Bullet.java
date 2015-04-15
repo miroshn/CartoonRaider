@@ -26,7 +26,7 @@ public class Bullet extends GameObject {
         super.act(delta);
         Array<Actor> actors = getStage().getActors();
         for (Actor a : actors) {
-            if (a instanceof GameObject && !(a instanceof Bullet)) {
+            if (a instanceof GameObject && !(a instanceof Bullet) && !(a instanceof Istrebitel)) {
                 if (((GameObject) a).getBoundingPolygon().overlaps(this.getBoundingPolygon())) {
                     ((GameObject) a).setState(GOState.EXPLODING);
                     this.setState(GOState.DEAD);
