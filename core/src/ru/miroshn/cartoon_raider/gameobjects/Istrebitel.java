@@ -13,8 +13,10 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
  * главное действующее лицо
  */
 public class Istrebitel extends GameObject implements Disposable {
+    private int hp;
 
     public Istrebitel() {
+        hp = 100;
 //        CRAssetManager.getInstance().get("istrebitel1.png");
 
 //        setTextureRegion(region);
@@ -50,5 +52,13 @@ public class Istrebitel extends GameObject implements Disposable {
 
     @Override
     public void dispose() {
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }
