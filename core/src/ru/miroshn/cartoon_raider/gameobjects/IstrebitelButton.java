@@ -20,6 +20,11 @@ public class IstrebitelButton extends Istrebitel {
 
 
     @Override
+    public void act(float delta) {
+//        super.act(delta);
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         BitmapFont.TextBounds tb = font.getBounds(text);
