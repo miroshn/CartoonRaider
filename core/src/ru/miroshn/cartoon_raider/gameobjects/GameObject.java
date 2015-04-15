@@ -44,8 +44,8 @@ public class GameObject extends Actor {
 
     public PolygonOverlaps getBoundingPolygon() {
         if (boundingPolygon == null) {
-            boundingPolygon = new PolygonOverlaps(new float[]{getX(), getY(), getX() + getWidth(), getY(),
-                    getX() + getWidth(), getY() + getWidth(), getX(), getY() + getHeight()});
+            boundingPolygon = new PolygonOverlaps(new float[]{0, 0, getWidth(), 0,
+                    getWidth(), getHeight(), 0, 0 + getHeight()});
         }
         return boundingPolygon;
     }
@@ -94,6 +94,7 @@ public class GameObject extends Actor {
 
     public void setTextureRegion(TextureRegion texture) {
         this.texture = texture;
+        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
     }
 
 
