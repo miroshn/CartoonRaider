@@ -31,9 +31,13 @@ public class GameScreen implements ScreenInput {
     private Array<GameObject> enemys;
     private Random rnd;
 
+
+    private int score;
+
     private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
+        score = 0;
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
@@ -154,4 +158,13 @@ public class GameScreen implements ScreenInput {
         clicked = true;
         return true;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
+    }
+
 }
