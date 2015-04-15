@@ -51,10 +51,10 @@ public class Istrebitel extends GameObject implements Disposable {
 
     private void fireBullet() {
         Bullet bullet = new Bullet();
-        bullet.setPosition(getX() + getWidth() / 2, getY() + getHeight());
+        bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
         bullet.setScale(0.5f);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
-        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 20f));
         this.getStage().addActor(bullet);
     }
 
