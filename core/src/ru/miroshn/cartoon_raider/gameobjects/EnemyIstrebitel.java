@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
 import java.util.Random;
 
@@ -22,6 +23,9 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         super();
         if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
+        float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
+        setBoundingPolygon(new PolygonOverlaps(ver));
         setColor(Color.BLACK);
     }
 
