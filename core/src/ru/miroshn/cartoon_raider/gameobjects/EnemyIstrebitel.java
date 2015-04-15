@@ -22,26 +22,8 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         super();
         if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-//        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         setColor(Color.BLACK);
-//        setOrigin(getX() + getWidth() / 2, getY());
-//        float ver[] = {getX(), getY()
-//                , getX() + getWidth(), getY()
-//                , getX() + getWidth() / 2, getY() + getHeight()};
-        setOrigin(getWidth() / 2, 0);
-//        float ver[] = {getX(), getY()
-//                , getX() + getWidth(), getY()
-//                , getX() + getWidth() / 2, getY() + getHeight()};
-//        setBoundingPolygon(new PolygonOverlaps(ver));
     }
-
-//    @Override
-//    public Rectangle getBoundsRectangle() {
-//        Rectangle rec = super.getBoundsRectangle();
-//        rec.set(getX() - getWidth() * getScaleX(), getY() - getHeight() * getScaleY(), getWidth() * getScaleX(), getHeight() * getScaleY());
-//        return rec;
-//    }
-
 
     @Override
     public void init() {
