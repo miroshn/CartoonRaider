@@ -60,10 +60,6 @@ public class GameObject extends Actor {
         super.act(delta);
         if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
 
-        boundingPolygon.setOrigin(getOriginX(), getOriginY());
-        boundingPolygon.setRotation(getRotation());
-        boundingPolygon.setScale(getScaleX(), getScaleY());
-        boundingPolygon.setPosition(getX(), getY());
 
         switch (state) {
             case NORMAL:
@@ -75,6 +71,11 @@ public class GameObject extends Actor {
                 doExplode(delta);
                 break;
         }
+
+        boundingPolygon.setOrigin(getOriginX(), getOriginY());
+        boundingPolygon.setRotation(getRotation());
+        boundingPolygon.setScale(getScaleX(), getScaleY());
+        boundingPolygon.setPosition(getX(), getY());
 
     }
 
