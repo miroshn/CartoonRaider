@@ -35,6 +35,8 @@ public class GameObject extends Actor {
         explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
         explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
         explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive3.png")));
+        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
+        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
     }
