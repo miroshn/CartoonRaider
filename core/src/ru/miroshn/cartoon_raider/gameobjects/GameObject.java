@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
+import ru.miroshn.cartoon_raider.screens.GameScreen;
+import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 import java.util.Random;
 
@@ -138,8 +140,10 @@ public class GameObject extends Actor {
 
     public void damageDeal(int damage) {
         hp -= damage;
-        if (hp <= 0) setState(GOState.EXPLODING);
-        Gdx.app.log(this.toString(), "hp = " + hp);
+        if (hp <= 0) {
+            setState(GOState.EXPLODING);
+            ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).addScore(1);
+        }
     }
 
     public enum GOState {

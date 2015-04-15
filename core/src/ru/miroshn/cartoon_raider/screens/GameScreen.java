@@ -75,6 +75,7 @@ public class GameScreen implements ScreenInput {
     }
 
     private void resetScreen() {
+        score = 0;
         clicked = false;
         player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
 //        player.setPosition(Gdx.graphics.getWidth() / 2, 0);
@@ -165,6 +166,7 @@ public class GameScreen implements ScreenInput {
 
     public void addScore(int score) {
         this.score += score;
+        Gdx.app.log(this.toString(), "Score = " + this.score);
     }
 
 }
