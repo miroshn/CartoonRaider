@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
@@ -56,7 +57,7 @@ public class Istrebitel extends GameObject implements Disposable {
     private void fireBullet() {
         Bullet bullet = new Bullet();
         bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
-        bullet.setScale(0.5f);
+        bullet.setScale(CartoonRaider.SCALE);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
         bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
         this.getStage().addActor(bullet);
