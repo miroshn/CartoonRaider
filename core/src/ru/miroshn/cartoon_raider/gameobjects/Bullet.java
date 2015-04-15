@@ -16,7 +16,7 @@ public class Bullet extends GameObject {
 
     public Bullet() {
         super();
-        damagePower = 1;
+        damagePower = 30;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("bullet.png")));
     }
 
@@ -36,7 +36,8 @@ public class Bullet extends GameObject {
         for (Actor a : actors) {
             if (a instanceof GameObject && !(a instanceof Bullet) && !(a instanceof Istrebitel)) {
                 if (((GameObject) a).getBoundingPolygon().overlaps(this.getBoundingPolygon()) && ((GameObject) a).getState() == GOState.NORMAL) {
-                    ((GameObject) a).setState(GOState.EXPLODING);
+                    ((GameObject) a).damageDeal(damagePower);
+//                    ((GameObject) a).setState(GOState.EXPLODING);
                     this.setState(GOState.DEAD);
                 }
             }

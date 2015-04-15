@@ -113,6 +113,7 @@ public class GameObject extends Actor {
     public void init() {
         state = GOState.NORMAL;
         explodingTime = 0;
+        hp = 100;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
         setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
@@ -131,8 +132,14 @@ public class GameObject extends Actor {
         return hp;
     }
 
-    public void setHp(int hp) {
+    protected void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public void damageDeal(int damage) {
+        hp -= damage;
+        if (hp <= 0) setState(GOState.EXPLODING);
+        Gdx.app.log(this.toString(), "hp = " + hp);
     }
 
     public enum GOState {
