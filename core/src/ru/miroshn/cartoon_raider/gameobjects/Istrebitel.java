@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
+import ru.miroshn.cartoon_raider.screens.GameScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 /**
@@ -36,8 +37,12 @@ public class Istrebitel extends GameObject implements Disposable {
                 ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
                 break;
             case NORMAL:
+                int score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
+                if (speedBulletFire - score / 100.0f < 0.1) score = 49;
+
                 bulletTime += delta;
-                if (bulletTime >= speedBulletFire) {
+                if (bulletTime >= speedBulletFire - score / 100.0f) {
+                    Gdx.app.log(toString(), "speed = " + (speedBulletFire - score / 100.0f));
                     bulletTime = 0;
                     fireBullet();
                 }
