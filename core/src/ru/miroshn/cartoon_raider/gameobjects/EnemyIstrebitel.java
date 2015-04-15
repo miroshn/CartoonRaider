@@ -20,6 +20,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     private Random rnd;
 
     public EnemyIstrebitel() {
+        super();
         rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());

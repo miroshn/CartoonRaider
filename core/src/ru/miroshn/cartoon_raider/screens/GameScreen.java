@@ -28,7 +28,7 @@ public class GameScreen implements ScreenInput {
     private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
-    private boolean debug = false;
+    private boolean debug = true;
 
     private ShapeRenderer shapeRenderer;
 

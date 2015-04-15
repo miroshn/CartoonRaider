@@ -23,10 +23,12 @@ public class GameObject extends Actor {
     private Random rnd;
     private GOState state;
     private float explodingTime;
+    private int hp;
 
     private Animation explodeAnimation;
 
     public GameObject() {
+        hp = 100;
         rnd = new Random();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
@@ -118,6 +120,14 @@ public class GameObject extends Actor {
 
     public void setState(GOState state) {
         this.state = state;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public enum GOState {
