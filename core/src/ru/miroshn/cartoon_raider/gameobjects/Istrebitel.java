@@ -19,7 +19,7 @@ public class Istrebitel extends GameObject implements Disposable {
 
     public Istrebitel() {
         super();
-        speedBulletFire = 1;
+        speedBulletFire = 0.5f;
         bulletTime = 0f;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
 //        setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
