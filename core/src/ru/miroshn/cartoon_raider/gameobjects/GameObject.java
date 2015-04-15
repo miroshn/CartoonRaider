@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -113,8 +114,8 @@ public class GameObject extends Actor {
         explodingTime = 0;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
-//        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
-//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
     }
 
     public GOState getState() {
