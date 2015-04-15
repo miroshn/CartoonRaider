@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
 import ru.miroshn.cartoon_raider.gameobjects.GameObject;
@@ -28,7 +29,6 @@ public class GameScreen implements ScreenInput {
     private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
-    private boolean debug = true;
 
     private ShapeRenderer shapeRenderer;
 
@@ -93,7 +93,7 @@ public class GameScreen implements ScreenInput {
         stage.draw();
 
         for (GameObject g : enemys) {
-            if (debug) {
+            if (CartoonRaider.DEBUG) {
                 shapeRenderer.setColor(Color.RED);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.polygon(g.getBoundingPolygon().getTransformedVertices());
