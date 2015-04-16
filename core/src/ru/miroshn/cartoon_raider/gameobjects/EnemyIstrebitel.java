@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 
@@ -17,10 +18,17 @@ import java.util.Random;
  */
 public class EnemyIstrebitel extends GameObject implements Disposable {
 
+    private final float BULLET_FIRE_TIME = 1;
     private Random rnd;
+    private int bulletPrc;
+    private float bulletTime;
 
     public EnemyIstrebitel() {
         super();
+
+        bulletTime = BULLET_FIRE_TIME;
+        bulletPrc = 5;
+
         if (rnd == null) rnd = new Random();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
@@ -44,9 +52,27 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     public void act(float delta) {
         super.act(delta);
 
+        bulletTime -= delta;
+        if (bulletTime < 0) {
+            bulletTime = BULLET_FIRE_TIME;
+            if (rnd.nextInt(100) < bulletPrc) {
+                fireBullet();
+            }
+        }
+
+
         if (getY() < -100) {
             this.init();
         }
+    }
+
+    private void fireBullet() {
+        BulletEnemy bullet = new BulletEnemy();
+        bullet.setPosition(getX() - getWidth() / 2 * CartoonRaider.SCALE, getY() - getHeight() * CartoonRaider.SCALE);
+        bullet.setScale(CartoonRaider.SCALE);
+//        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
+        bullet.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight() * 2, 3f));
+        this.getStage().addActor(bullet);
     }
 
     @Override
