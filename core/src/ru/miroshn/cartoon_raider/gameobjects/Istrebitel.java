@@ -55,7 +55,7 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet() {
-        Bullet bullet = new Bullet();
+        PlayerBullet bullet = new PlayerBullet();
         bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
         bullet.setScale(CartoonRaider.SCALE);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
