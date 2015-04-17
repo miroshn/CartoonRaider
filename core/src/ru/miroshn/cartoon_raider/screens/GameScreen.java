@@ -164,7 +164,7 @@ public class GameScreen implements ScreenInput {
 
     public void addScore(int score) {
         this.score += score;
-        Gdx.app.log(this.toString(), "Score = " + this.score);
+//        Gdx.app.log(this.toString(), "Score = " + this.score);
     }
 
 }

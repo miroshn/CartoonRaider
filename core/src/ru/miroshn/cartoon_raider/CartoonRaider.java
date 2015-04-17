@@ -20,7 +20,7 @@ public class CartoonRaider extends Game {
     @Override
     public void create() {
         SCALE = Gdx.graphics.getWidth() / 640.0f;
-        Gdx.app.log(toString(), "SCALE=" + SCALE);
+//        Gdx.app.log(toString(), "SCALE=" + SCALE);
         ScreenManager.getInstance().init(this);
         ScreenManager.getInstance().show(CustomScreen.LOAD_SCREEN);
 //        setScreen(new WelcomeScreen(this));

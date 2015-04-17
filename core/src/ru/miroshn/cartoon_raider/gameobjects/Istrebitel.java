@@ -42,7 +42,7 @@ public class Istrebitel extends GameObject implements Disposable {
 
                 bulletTime += delta;
                 if (bulletTime >= speedBulletFire - score / 100.0f) {
-                    Gdx.app.log(toString(), "speed = " + (speedBulletFire - score / 100.0f));
+//                    Gdx.app.log(toString(), "speed = " + (speedBulletFire - score / 100.0f));
                     bulletTime = 0;
                     fireBullet();
                 }
