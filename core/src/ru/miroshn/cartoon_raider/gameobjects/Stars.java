@@ -14,7 +14,8 @@ public class Stars extends GameObject {
     public Stars() {
         super();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("stars.png")));
-        this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight(), 5));
+        this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight(), 10));
+        setState(GOState.IMMUN);
     }
 
     @Override
