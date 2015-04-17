@@ -28,7 +28,14 @@ public class Bullet extends GameObject {
     }
 
     @Override
-    public GameObjects who(GameObject gameObject) {
+    public GameObjects who() {
         return GameObjects.BULLET;
+    }
+
+    @Override
+    public void contact(GameObject gameObject) {
+        switch (gameObject.who()) {
+            default:
+        }
     }
 }

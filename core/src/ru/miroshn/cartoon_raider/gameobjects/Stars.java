@@ -29,7 +29,17 @@ public class Stars extends GameObject {
     }
 
     @Override
-    public GameObjects who(GameObject gameObject) {
+    public GameObjects who() {
         return GameObjects.STAR;
+    }
+
+    @Override
+    public void contact(GameObject gameObject) {
+        switch (gameObject.who()) {
+            case PLAYER:
+                break;
+            default:
+        }
+
     }
 }

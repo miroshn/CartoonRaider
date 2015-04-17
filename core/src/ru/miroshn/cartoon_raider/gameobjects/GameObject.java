@@ -146,7 +146,9 @@ public abstract class GameObject extends Actor {
         }
     }
 
-    public abstract GameObjects who(GameObject gameObject);
+    public abstract GameObjects who();
+
+    public abstract void contact(GameObject gameObject);
 
     public enum GOState {
         NORMAL, DEAD, EXPLODING, IMMUN

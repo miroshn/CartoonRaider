@@ -106,6 +106,13 @@ public class GameScreen implements ScreenInput {
             }
         }
 
+        for (Actor actor : stage.getActors()) {
+            if (actor instanceof GameObject) {
+
+            }
+        }
+
+
         for (GameObject g : enemys) {
             if (g.getState() == GameObject.GOState.DEAD) {
                 Stars stars = new Stars();

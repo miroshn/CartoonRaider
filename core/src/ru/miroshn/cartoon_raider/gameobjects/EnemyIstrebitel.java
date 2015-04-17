@@ -49,7 +49,14 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     @Override
-    public GameObjects who(GameObject gameObject) {
+    public void contact(GameObject gameObject) {
+        switch (gameObject.who()) {
+            default:
+        }
+    }
+
+    @Override
+    public GameObjects who() {
         return GameObjects.ENEMY_ISTREBITEL;
     }
 
