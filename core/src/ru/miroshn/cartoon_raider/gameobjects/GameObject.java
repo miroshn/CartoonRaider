@@ -147,6 +147,6 @@ public class GameObject extends Actor {
     }
 
     public enum GOState {
-        NORMAL, DEAD, EXPLODING
+        NORMAL, DEAD, EXPLODING, IMMUN
     }
 }
