@@ -107,12 +107,18 @@ public class GameScreen implements ScreenInput {
         }
 
         for (GameObject g : enemys) {
-                if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
-                    if (g.getState() == GameObject.GOState.NORMAL) {
-                        player.setState(GameObject.GOState.EXPLODING);
-                        g.setState(GameObject.GOState.EXPLODING);
-                    }
+            if (g.getState() == GameObject.GOState.DEAD) {
+                Stars stars = new Stars();
+                stars.setPosition(g.getX() - g.getWidth() / 2, g.getY() - g.getHeight() / 2);
+                stage.addActor(stars);
+            }
+
+            if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
+                if (g.getState() == GameObject.GOState.NORMAL) {
+                    player.setState(GameObject.GOState.EXPLODING);
+                    g.setState(GameObject.GOState.EXPLODING);
                 }
+            }
         }
     }
 
