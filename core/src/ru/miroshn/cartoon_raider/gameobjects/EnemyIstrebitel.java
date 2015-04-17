@@ -67,7 +67,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet() {
-        BulletEnemy bullet = new BulletEnemy();
+        EnemyBullet bullet = new EnemyBullet();
         bullet.setPosition(getX() - getWidth() / 2 * CartoonRaider.SCALE, getY() - getHeight() * CartoonRaider.SCALE);
         bullet.setScale(CartoonRaider.SCALE);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));

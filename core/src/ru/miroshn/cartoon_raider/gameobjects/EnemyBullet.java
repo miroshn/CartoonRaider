@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
  * Created by miroshn on 16.04.15.
  * Снаряд выпущенный вражиной
  */
-public class BulletEnemy extends Bullet {
+public class EnemyBullet extends Bullet {
     @Override
     public void act(float delta) {
         if (getY() < -getHeight())
