@@ -26,4 +26,9 @@ public class Bullet extends GameObject {
     public void act(float delta) {
         super.act(delta);
     }
+
+    @Override
+    public GameObjects who(GameObject gameObject) {
+        return GameObjects.BULLET;
+    }
 }

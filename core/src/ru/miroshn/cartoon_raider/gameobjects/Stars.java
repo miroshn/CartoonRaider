@@ -27,4 +27,9 @@ public class Stars extends GameObject {
             Gdx.app.log(getClass().getSimpleName(), "Stars Destroed");
         }
     }
+
+    @Override
+    public GameObjects who(GameObject gameObject) {
+        return GameObjects.STAR;
+    }
 }

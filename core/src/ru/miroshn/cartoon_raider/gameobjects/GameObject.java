@@ -19,7 +19,7 @@ import java.util.Random;
  * Created by miroshn on 06.04.15.
  *
  */
-public class GameObject extends Actor {
+public abstract class GameObject extends Actor {
 
     private TextureRegion texture;
     private PolygonOverlaps boundingPolygon;
@@ -145,6 +145,8 @@ public class GameObject extends Actor {
             ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).addScore(1);
         }
     }
+
+    public abstract GameObjects who(GameObject gameObject);
 
     public enum GOState {
         NORMAL, DEAD, EXPLODING, IMMUN

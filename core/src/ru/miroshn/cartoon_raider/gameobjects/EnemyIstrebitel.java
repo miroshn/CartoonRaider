@@ -49,6 +49,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     @Override
+    public GameObjects who(GameObject gameObject) {
+        return GameObjects.ENEMY_ISTREBITEL;
+    }
+
+    @Override
     public void act(float delta) {
         super.act(delta);
 

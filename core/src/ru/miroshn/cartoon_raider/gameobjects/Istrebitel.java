@@ -71,6 +71,11 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     @Override
+    public GameObjects who(GameObject gameObject) {
+        return GameObjects.PLAYER;
+    }
+
+    @Override
     public void dispose() {
     }
 }
