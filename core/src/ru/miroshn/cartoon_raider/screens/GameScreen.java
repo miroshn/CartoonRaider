@@ -54,6 +54,7 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void show() {
+        stage.getActors().clear();
         stage.addActor(Background.getInstance());
         stage.addActor(player);
         stage.addActor(new Hud());
@@ -106,9 +107,20 @@ public class GameScreen implements ScreenInput {
             }
         }
 
-        for (Actor actor : stage.getActors()) {
+        for (int j = 0; j < stage.getActors().size; j++) {
+            Actor actor = stage.getActors().get(j);
             if (actor instanceof GameObject) {
-
+                for (int i = 0; i < stage.getActors().size; i++) {
+                    Actor actor1 = stage.getActors().get(i);
+                    if (actor1 instanceof GameObject) {
+                        GameObject g1 = (GameObject) actor;
+                        GameObject g2 = (GameObject) actor1;
+                        if (g1 == g2) continue;
+                        if (g1.getBoundingPolygon().overlaps(g2.getBoundingPolygon()) || g2.getBoundingPolygon().overlaps(g1.getBoundingPolygon())) {
+                            g1.contact(g2);
+                        }
+                    }
+                }
             }
         }
 
