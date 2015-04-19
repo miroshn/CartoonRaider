@@ -28,4 +28,14 @@ public class PlayerBullet extends Bullet {
         }
 
     }
+
+    @Override
+    public GameObjects who() {
+        return GameObjects.PLAYER_BULLET;
+    }
+
+    @Override
+    public void contact(GameObject gameObject) {
+
+    }
 }
