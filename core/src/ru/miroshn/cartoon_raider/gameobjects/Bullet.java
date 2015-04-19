@@ -8,7 +8,7 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  * Created by miroshn on 15.04.15.
  * простой снаряд
  */
-public class Bullet extends GameObject {
+public abstract class Bullet extends GameObject {
     private int damagePower;
 
     public Bullet() {
@@ -27,15 +27,5 @@ public class Bullet extends GameObject {
         super.act(delta);
     }
 
-    @Override
-    public GameObjects who() {
-        return GameObjects.BULLET;
-    }
 
-    @Override
-    public void contact(GameObject gameObject) {
-        switch (gameObject.who()) {
-            default:
-        }
-    }
 }
