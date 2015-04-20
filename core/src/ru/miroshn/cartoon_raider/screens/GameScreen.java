@@ -110,7 +110,7 @@ public class GameScreen implements ScreenInput {
         for (int j = 0; j < stage.getActors().size; j++) {
             Actor actor = stage.getActors().get(j);
             if (actor instanceof GameObject) {
-                for (int i = 0; i < stage.getActors().size; i++) {
+                for (int i = j; i < stage.getActors().size; i++) {
                     Actor actor1 = stage.getActors().get(i);
                     if (actor1 instanceof GameObject) {
                         GameObject g1 = (GameObject) actor;
