@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.screens.GameScreen;
@@ -19,7 +20,7 @@ import java.util.Random;
  * Created by miroshn on 06.04.15.
  *
  */
-public class GameObject extends Actor {
+public abstract class GameObject extends Actor {
 
     private TextureRegion texture;
     private PolygonOverlaps boundingPolygon;
@@ -27,7 +28,6 @@ public class GameObject extends Actor {
     private GOState state;
     private float explodingTime;
     private int hp;
-
     private Animation explodeAnimation;
 
     public GameObject() {
@@ -42,8 +42,12 @@ public class GameObject extends Actor {
         explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
+        setScale(CartoonRaider.SCALE);
     }
 
+    public Random getRnd() {
+        return rnd;
+    }
 
     public PolygonOverlaps getBoundingPolygon() {
         if (boundingPolygon == null) {
@@ -146,7 +150,11 @@ public class GameObject extends Actor {
         }
     }
 
+    public abstract GameObjects who();
+
+    public abstract void contact(GameObject gameObject);
+
     public enum GOState {
-        NORMAL, DEAD, EXPLODING
+        NORMAL, DEAD, EXPLODING, IMMUN
     }
 }

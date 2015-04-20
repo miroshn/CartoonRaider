@@ -49,7 +49,30 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     @Override
+    public void contact(GameObject gameObject) {
+        switch (gameObject.who()) {
+            case PLAYER:
+                gameObject.contact(this);
+                break;
+            case PLAYER_BULLET:
+                gameObject.contact(this);
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public GameObjects who() {
+        return GameObjects.ENEMY_ISTREBITEL;
+    }
+
+    @Override
     public void act(float delta) {
+        if (getState() == GOState.DEAD) {
+            Star star = new Star();
+            star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
+            getStage().addActor(star);
+        }
         super.act(delta);
 
         bulletTime -= delta;
@@ -67,7 +90,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet() {
-        BulletEnemy bullet = new BulletEnemy();
+        EnemyBullet bullet = new EnemyBullet();
         bullet.setPosition(getX() - getWidth() / 2 * CartoonRaider.SCALE, getY() - getHeight() * CartoonRaider.SCALE);
         bullet.setScale(CartoonRaider.SCALE);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));

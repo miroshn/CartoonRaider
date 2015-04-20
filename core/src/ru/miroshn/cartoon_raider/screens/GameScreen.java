@@ -38,13 +38,13 @@ public class GameScreen implements ScreenInput {
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
-        player.setScale(CartoonRaider.SCALE);
+//        player.setScale(CartoonRaider.SCALE);
         stage = new Stage();
         rnd = new Random();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
-            enemys.get(i).setScale(CartoonRaider.SCALE);
+//            enemys.get(i).setScale(CartoonRaider.SCALE);
         }
 //        stage.addActor(Background.getInstance());
 //        stage.addActor(player);
@@ -54,6 +54,7 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void show() {
+        stage.getActors().clear();
         stage.addActor(Background.getInstance());
         stage.addActor(player);
         stage.addActor(new Hud());
@@ -106,14 +107,38 @@ public class GameScreen implements ScreenInput {
             }
         }
 
-        for (GameObject g : enemys) {
-                if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
-                    if (g.getState() == GameObject.GOState.NORMAL) {
-                        player.setState(GameObject.GOState.EXPLODING);
-                        g.setState(GameObject.GOState.EXPLODING);
+        for (int j = 0; j < stage.getActors().size; j++) {
+            Actor actor = stage.getActors().get(j);
+            if (actor instanceof GameObject) {
+                for (int i = j; i < stage.getActors().size; i++) {
+                    Actor actor1 = stage.getActors().get(i);
+                    if (actor1 instanceof GameObject) {
+                        GameObject g1 = (GameObject) actor;
+                        GameObject g2 = (GameObject) actor1;
+                        if (g1 == g2) continue;
+                        if (g1.getBoundingPolygon().overlaps(g2.getBoundingPolygon()) || g2.getBoundingPolygon().overlaps(g1.getBoundingPolygon())) {
+                            g1.contact(g2);
+                        }
                     }
                 }
+            }
         }
+
+
+//        for (GameObject g : enemys) {
+//            if (g.getState() == GameObject.GOState.DEAD) {
+//                Stars stars = new Stars();
+//                stars.setPosition(g.getX() - g.getWidth() / 2, g.getY() - g.getHeight() / 2);
+//                stage.addActor(stars);
+//            }
+//
+//            if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
+//                if (g.getState() == GameObject.GOState.NORMAL) {
+//                    player.setState(GameObject.GOState.EXPLODING);
+//                    g.setState(GameObject.GOState.EXPLODING);
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -164,7 +189,10 @@ public class GameScreen implements ScreenInput {
 
     public void addScore(int score) {
         this.score += score;
-        Gdx.app.log(this.toString(), "Score = " + this.score);
+//        Gdx.app.log(this.toString(), "Score = " + this.score);
     }
 
+    public int getPlayerHp() {
+        return player.getHp();
+    }
 }
