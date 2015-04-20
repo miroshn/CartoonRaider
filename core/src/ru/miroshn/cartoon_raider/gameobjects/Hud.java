@@ -15,10 +15,12 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Hud extends Actor {
     private BitmapFont font;
     private int score;
+    private int hp;
 
     public Hud() {
         super();
         score = 0;
+        hp = 0;
         font = new BitmapFont();
         font.setColor(Color.BLUE);
         setPosition(5, Gdx.graphics.getHeight() - font.getCapHeight());
@@ -28,13 +30,15 @@ public class Hud extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (ScreenManager.getInstance().getCurrentScreen() instanceof GameScreen)
+        if (ScreenManager.getInstance().getCurrentScreen() instanceof GameScreen) {
             score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
+            hp = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getPlayerHp();
+        }
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        font.draw(batch, "Score: " + score, getX(), getY());
+        font.drawMultiLine(batch, "Score: " + score + "\nHp = " + hp, getX(), getY());
     }
 }

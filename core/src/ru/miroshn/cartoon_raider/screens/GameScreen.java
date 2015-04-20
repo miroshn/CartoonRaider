@@ -192,4 +192,7 @@ public class GameScreen implements ScreenInput {
 //        Gdx.app.log(this.toString(), "Score = " + this.score);
     }
 
+    public int getPlayerHp() {
+        return player.getHp();
+    }
 }
