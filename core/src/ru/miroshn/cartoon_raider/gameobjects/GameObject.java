@@ -27,7 +27,6 @@ public abstract class GameObject extends Actor {
     private GOState state;
     private float explodingTime;
     private int hp;
-
     private Animation explodeAnimation;
 
     public GameObject() {
@@ -44,6 +43,9 @@ public abstract class GameObject extends Actor {
         init();
     }
 
+    public Random getRnd() {
+        return rnd;
+    }
 
     public PolygonOverlaps getBoundingPolygon() {
         if (boundingPolygon == null) {

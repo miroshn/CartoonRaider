@@ -9,7 +9,6 @@ import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
-import ru.miroshn.cartoon_raider.screens.GameScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 /**
@@ -37,11 +36,11 @@ public class Istrebitel extends GameObject implements Disposable {
                 ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
                 break;
             case NORMAL:
-                int score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
-                if (speedBulletFire - score / 100.0f < 0.1) score = 39;
+//                int score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
+//                if (speedBulletFire - score / 100.0f < 0.1) score = 39;
 
                 bulletTime += delta;
-                if (bulletTime >= speedBulletFire - score / 100.0f) {
+                if (bulletTime >= speedBulletFire) {
 //                    Gdx.app.log(toString(), "speed = " + (speedBulletFire - score / 100.0f));
                     bulletTime = 0;
                     fireBullet();
@@ -87,6 +86,17 @@ public class Istrebitel extends GameObject implements Disposable {
                     gameObject.setState(GOState.EXPLODING);
                     this.setState(GOState.EXPLODING);
                 }
+                break;
+            case STAR:
+                if (getHp() < 100) {
+                    setHp(getHp() + ((Star) gameObject).getPower() / 10);
+                } else {
+                    speedBulletFire -= ((Star) gameObject).getPower() / 10000.0f;
+                    if (speedBulletFire < 0.1f) speedBulletFire = 0.1f;
+                    Gdx.app.log(getClass().getSimpleName(), "speedBulletFire = " + speedBulletFire);
+                }
+                gameObject.setState(GOState.DEAD);
+
                 break;
             default:
                 break;
