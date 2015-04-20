@@ -82,6 +82,12 @@ public class Istrebitel extends GameObject implements Disposable {
                 damageDeal(((EnemyBullet) gameObject).getDamagePower());
                 gameObject.setState(GOState.DEAD);
                 break;
+            case ENEMY_ISTREBITEL:
+                if (gameObject.getState() == GOState.NORMAL) {
+                    gameObject.setState(GOState.EXPLODING);
+                    this.setState(GOState.EXPLODING);
+                }
+                break;
             default:
                 break;
         }

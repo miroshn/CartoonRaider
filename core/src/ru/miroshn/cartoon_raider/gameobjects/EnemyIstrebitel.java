@@ -51,6 +51,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
+            case PLAYER:
+                gameObject.contact(this);
+                break;
+            case PLAYER_BULLET:
+                break;
             default:
         }
     }
