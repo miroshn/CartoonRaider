@@ -10,8 +10,8 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  * Created by miroshn on 17.04.15.
  * объект бонусов
  */
-public class Stars extends GameObject {
-    public Stars() {
+public class Star extends GameObject {
+    public Star() {
         super();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("stars.png")));
         this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight(), 10));
