@@ -68,6 +68,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void act(float delta) {
+        if (getState() == GOState.DEAD) {
+            Stars stars = new Stars();
+            stars.setPosition(getX() - getWidth() / 2, getY() - getHeight() / 2);
+            getStage().addActor(stars);
+        }
         super.act(delta);
 
         bulletTime -= delta;
