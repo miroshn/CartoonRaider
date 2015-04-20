@@ -78,7 +78,12 @@ public class Istrebitel extends GameObject implements Disposable {
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
+            case ENEMY_BULLET:
+                damageDeal(((EnemyBullet) gameObject).getDamagePower());
+                gameObject.setState(GOState.DEAD);
+                break;
             default:
+                break;
         }
     }
 
