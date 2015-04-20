@@ -24,6 +24,9 @@ public class Star extends GameObject {
 
     @Override
     public void act(float delta) {
+        if (getState() == GOState.DEAD)
+            this.getStage().getActors().removeValue(this, true);
+
         super.act(delta);
         if (getY() < -getHeight()) {
             this.clearActions();
