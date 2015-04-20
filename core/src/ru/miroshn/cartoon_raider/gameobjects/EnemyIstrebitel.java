@@ -70,7 +70,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     public void act(float delta) {
         if (getState() == GOState.DEAD) {
             Star star = new Star();
-            star.setPosition(getX() - getWidth() / 2, getY() - getHeight() / 2);
+            star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
             getStage().addActor(star);
         }
         super.act(delta);
