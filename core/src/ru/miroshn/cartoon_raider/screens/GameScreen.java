@@ -38,13 +38,13 @@ public class GameScreen implements ScreenInput {
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
-        player.setScale(CartoonRaider.SCALE);
+//        player.setScale(CartoonRaider.SCALE);
         stage = new Stage();
         rnd = new Random();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
-            enemys.get(i).setScale(CartoonRaider.SCALE);
+//            enemys.get(i).setScale(CartoonRaider.SCALE);
         }
 //        stage.addActor(Background.getInstance());
 //        stage.addActor(player);

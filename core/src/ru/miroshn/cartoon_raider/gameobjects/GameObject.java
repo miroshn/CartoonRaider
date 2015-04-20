@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.screens.GameScreen;
@@ -41,6 +42,7 @@ public abstract class GameObject extends Actor {
         explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
+        setScale(CartoonRaider.SCALE);
     }
 
     public Random getRnd() {
