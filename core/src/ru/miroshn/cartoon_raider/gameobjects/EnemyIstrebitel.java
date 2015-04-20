@@ -55,6 +55,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
                 gameObject.contact(this);
                 break;
             case PLAYER_BULLET:
+                gameObject.contact(this);
                 break;
             default:
         }
