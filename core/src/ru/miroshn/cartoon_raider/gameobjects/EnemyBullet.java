@@ -23,8 +23,7 @@ public class EnemyBullet extends Bullet {
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
             case PLAYER:
-                gameObject.damageDeal(getDamagePower());
-                setState(GOState.DEAD);
+                gameObject.contact(this);
                 break;
             default:
                 break;
