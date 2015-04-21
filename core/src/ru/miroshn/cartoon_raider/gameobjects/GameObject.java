@@ -140,6 +140,7 @@ public abstract class GameObject extends Actor {
 
     protected void setHp(int hp) {
         this.hp = hp;
+        if (this.hp > 100) this.hp = 100;
     }
 
     public void damageDeal(int damage) {
