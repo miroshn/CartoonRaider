@@ -24,7 +24,6 @@ import java.util.Random;
 public class GameScreen implements ScreenInput {
     private Stage stage;
     private Istrebitel player;
-    private boolean clicked;
     private Array<GameObject> enemys;
     private Random rnd;
 
@@ -38,16 +37,12 @@ public class GameScreen implements ScreenInput {
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
-//        player.setScale(CartoonRaider.SCALE);
         stage = new Stage();
         rnd = new Random();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
-//            enemys.get(i).setScale(CartoonRaider.SCALE);
         }
-//        stage.addActor(Background.getInstance());
-//        stage.addActor(player);
 
         resetScreen();
     }
@@ -75,9 +70,7 @@ public class GameScreen implements ScreenInput {
 
     private void resetScreen() {
         score = 0;
-        clicked = false;
         player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
-//        player.setPosition(Gdx.graphics.getWidth() / 2, 0);
 
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
@@ -123,22 +116,6 @@ public class GameScreen implements ScreenInput {
                 }
             }
         }
-
-
-//        for (GameObject g : enemys) {
-//            if (g.getState() == GameObject.GOState.DEAD) {
-//                Stars stars = new Stars();
-//                stars.setPosition(g.getX() - g.getWidth() / 2, g.getY() - g.getHeight() / 2);
-//                stage.addActor(stars);
-//            }
-//
-//            if (g.getBoundingPolygon().overlaps(player.getBoundingPolygon())) {
-//                if (g.getState() == GameObject.GOState.NORMAL) {
-//                    player.setState(GameObject.GOState.EXPLODING);
-//                    g.setState(GameObject.GOState.EXPLODING);
-//                }
-//            }
-//        }
     }
 
     @Override
@@ -178,8 +155,6 @@ public class GameScreen implements ScreenInput {
         Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
         vec.x -= player.getWidth() / 2;
         player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
-//        Gdx.app.log("Click", "(" + vec.x + "," + vec.y + ")");
-        clicked = true;
         return true;
     }
 
