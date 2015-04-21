@@ -25,6 +25,8 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load("explosive3.png", Texture.class);
         CRAssetManager.getInstance().load("bullet.png", Texture.class);
         CRAssetManager.getInstance().load("stars.png", Texture.class);
+        CRAssetManager.getInstance().load("border_bar.png", Texture.class);
+        CRAssetManager.getInstance().load("bar.png", Texture.class);
     }
     
     @Override

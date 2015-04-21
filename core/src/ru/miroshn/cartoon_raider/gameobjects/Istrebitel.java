@@ -47,6 +47,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 }
                 break;
             case EXPLODING:
+                setHp(0);
                 this.clearActions();
                 break;
         }
