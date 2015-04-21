@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -18,6 +19,8 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     private float speedBulletFire;
     private float bulletTime;
+    private int tmpHp;
+    private IntAction intAction;
 
     public Istrebitel() {
         super();
@@ -45,13 +48,16 @@ public class Istrebitel extends GameObject implements Disposable {
                     bulletTime = 0;
                     fireBullet();
                 }
+                super.setHp(intAction.getValue());
                 break;
             case EXPLODING:
-                setHp(0);
                 this.clearActions();
+                super.setHp(intAction.getValue());
+                setHp(0);
                 break;
         }
         super.act(delta);
+        Gdx.app.log(getClass().getSimpleName(), "Action size" + this.getActions().size);
     }
 
     private void fireBullet() {
@@ -66,6 +72,9 @@ public class Istrebitel extends GameObject implements Disposable {
 
     @Override
     public void init() {
+        intAction = new IntAction();
+        intAction.setValue(100);
+        tmpHp = getHp();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         super.init();
     }
@@ -102,6 +111,17 @@ public class Istrebitel extends GameObject implements Disposable {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void setHp(int hp) {
+//        this.getActions().removeValue(intAction,true);
+        intAction.reset();
+        intAction.setStart(getHp());
+        intAction.setEnd(hp);
+        intAction.setDuration(0.5f);
+        intAction.setValue(getHp());
+        this.addAction(intAction);
     }
 
     @Override

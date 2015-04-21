@@ -141,13 +141,17 @@ public abstract class GameObject extends Actor {
     protected void setHp(int hp) {
         this.hp = hp;
         if (this.hp > 100) this.hp = 100;
+        if (hp <= 0) {
+            setState(GOState.EXPLODING);
+        }
     }
 
     public void damageDeal(int damage) {
-        hp -= damage;
+        setHp(getHp() - damage);
         if (hp <= 0) {
             setState(GOState.EXPLODING);
-            ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).addScore(1);
+            if (ScreenManager.getInstance().getCurrentScreen() instanceof GameScreen)
+                ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).addScore(1);
         }
     }
 
