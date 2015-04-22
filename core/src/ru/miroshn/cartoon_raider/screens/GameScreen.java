@@ -26,6 +26,7 @@ public class GameScreen implements ScreenInput {
     private Istrebitel player;
     private Array<GameObject> enemys;
     private Random rnd;
+    private MoveToAction moveToAction;
 
 
     private int score;
@@ -33,6 +34,7 @@ public class GameScreen implements ScreenInput {
     private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
+        moveToAction = new MoveToAction();
         score = 0;
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
@@ -70,7 +72,7 @@ public class GameScreen implements ScreenInput {
 
     private void resetScreen() {
         score = 0;
-        player.setPosition(Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight());
+        player.setPosition(Gdx.graphics.getWidth() / 2, -player.getHeight());
 
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
@@ -146,7 +148,11 @@ public class GameScreen implements ScreenInput {
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
         vec.x -= player.getWidth() / 2;
-        player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
+        player.getActions().removeValue(moveToAction, true);
+        moveToAction.reset();
+        moveToAction.setPosition(vec.x, vec.y);
+        moveToAction.setDuration(0.5f);
+        player.addAction(moveToAction);
         return true;
     }
 
