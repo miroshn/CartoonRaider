@@ -19,7 +19,6 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     private float speedBulletFire;
     private float bulletTime;
-    private int tmpHp;
     private IntAction intAction;
 
     public Istrebitel() {
@@ -74,7 +73,6 @@ public class Istrebitel extends GameObject implements Disposable {
     public void init() {
         intAction = new IntAction();
         intAction.setValue(100);
-        tmpHp = getHp();
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         super.init();
     }
