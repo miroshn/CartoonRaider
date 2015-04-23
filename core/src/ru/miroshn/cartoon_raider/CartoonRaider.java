@@ -11,6 +11,7 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class CartoonRaider extends Game {
     /*
     * Различные константы использующиеся в игре
+    *
     * */
 
     public static final boolean DEBUG = true;
