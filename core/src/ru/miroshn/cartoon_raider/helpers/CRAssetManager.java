@@ -10,6 +10,12 @@ import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 public class CRAssetManager extends AssetManager {
     private static CRAssetManager instance;
 
+
+    /**
+     * Скорость стрельбы игрока
+     */
+    private float rof;
+
     /**
      * Счет игры
      */
@@ -55,6 +61,11 @@ public class CRAssetManager extends AssetManager {
 
     public void setPlayer(Istrebitel player) {
         this.player = player;
+    }
+
+    public float getRof() {
+        if (player == null) return 0.5f;
+        return player.getRof();
     }
 
 }

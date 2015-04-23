@@ -161,8 +161,4 @@ public class GameScreen implements ScreenInput {
         player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
         return true;
     }
-
-    public int getPlayerHp() {
-        return player.getHp();
-    }
 }
