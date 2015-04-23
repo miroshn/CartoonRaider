@@ -22,6 +22,8 @@ public class Istrebitel extends GameObject implements Disposable {
     private float speedBulletFire;
     private float bulletTime;
     private IntAction intAction;
+    private int bulletLevel;
+    private boolean iddqd = true;
 
     public Istrebitel() {
         super();
@@ -58,12 +60,51 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet() {
-        PlayerBullet bullet = new PlayerBullet();
-        bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
-        bullet.setScale(CartoonRaider.SCALE);
-//        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
-        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-        this.getStage().addActor(bullet);
+        switch (bulletLevel) {
+            case 1:
+                PlayerBullet bullet = new PlayerBullet();
+                bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
+                bullet.setScale(CartoonRaider.SCALE);
+                bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet);
+                break;
+            case 2:
+                PlayerBullet bullet1 = new PlayerBullet();
+                bullet1.setPosition(getX() + getWidth() / 4, getY() + (getHeight() * getScaleY()) / 2);
+                bullet1.setScale(CartoonRaider.SCALE);
+                bullet1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet1);
+
+                PlayerBullet bullet2 = new PlayerBullet();
+                bullet2.setPosition(getX() + getWidth() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
+                bullet2.setScale(CartoonRaider.SCALE);
+                bullet2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet2);
+
+                break;
+            case 3:
+                PlayerBullet bullet3_1 = new PlayerBullet();
+                bullet3_1.setPosition(getX() + getWidth() / 4, getY() + (getHeight() * getScaleY()) / 2);
+                bullet3_1.setScale(CartoonRaider.SCALE);
+                bullet3_1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet3_1);
+
+                PlayerBullet bullet3_2 = new PlayerBullet();
+                bullet3_2.setPosition(getX() + getWidth() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
+                bullet3_2.setScale(CartoonRaider.SCALE);
+                bullet3_2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet3_2);
+
+                PlayerBullet bullet3_3 = new PlayerBullet();
+                bullet3_3.setPosition(getX() + getWidth() / 2, getY() + (getHeight() * getScaleY()));
+                bullet3_3.setScale(CartoonRaider.SCALE);
+                bullet3_3.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+                this.getStage().addActor(bullet3_3);
+
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -72,6 +113,7 @@ public class Istrebitel extends GameObject implements Disposable {
         intAction = new IntAction();
         intAction.setValue(100);
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+        bulletLevel = 1;
         speedBulletFire = MIN_ROF;
         super.init();
     }
@@ -85,10 +127,12 @@ public class Istrebitel extends GameObject implements Disposable {
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
             case ENEMY_BULLET:
+                if (iddqd) break;
                 damageDeal(((EnemyBullet) gameObject).getDamagePower());
                 gameObject.setState(GOState.DEAD);
                 break;
             case ENEMY_ISTREBITEL:
+                if (iddqd) break;
                 if (gameObject.getState() == GOState.NORMAL) {
                     gameObject.setState(GOState.EXPLODING);
                     this.setState(GOState.EXPLODING);
@@ -99,7 +143,11 @@ public class Istrebitel extends GameObject implements Disposable {
                     setHp(getHp() + ((Star) gameObject).getPower() / 10);
                 } else {
                     speedBulletFire -= ((Star) gameObject).getPower() / 10000.0f;
-                    if (speedBulletFire < MAX_ROF) speedBulletFire = MAX_ROF;
+                    if (speedBulletFire < MAX_ROF) {
+                        speedBulletFire = MIN_ROF;
+                        bulletLevel++;
+
+                    }
                 }
                 gameObject.setState(GOState.DEAD);
 
