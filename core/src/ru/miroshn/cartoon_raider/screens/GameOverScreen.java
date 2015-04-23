@@ -20,7 +20,6 @@ public class GameOverScreen implements ScreenInput {
     public GameOverScreen() {
         stage = new Stage();
         title = new Title(Titles.GAME_OVER_TITLE);
-//        stage.addActor(Background.getInstance());
     }
 
     @Override

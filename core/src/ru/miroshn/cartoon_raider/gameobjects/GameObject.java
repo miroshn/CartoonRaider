@@ -11,8 +11,6 @@ import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
-import ru.miroshn.cartoon_raider.screens.GameScreen;
-import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 import java.util.Random;
 
@@ -141,13 +139,16 @@ public abstract class GameObject extends Actor {
     protected void setHp(int hp) {
         this.hp = hp;
         if (this.hp > 100) this.hp = 100;
+        if (hp <= 0) {
+            setState(GOState.EXPLODING);
+        }
     }
 
     public void damageDeal(int damage) {
-        hp -= damage;
+        setHp(getHp() - damage);
         if (hp <= 0) {
             setState(GOState.EXPLODING);
-            ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).addScore(1);
+            CRAssetManager.getInstance().addScore(1);
         }
     }
 

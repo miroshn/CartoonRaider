@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -16,17 +17,21 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
  * главное действующее лицо
  */
 public class Istrebitel extends GameObject implements Disposable {
+    public static final float MAX_ROF = 0.1f;
+    public static final float MIN_ROF = 0.5f;
     private float speedBulletFire;
     private float bulletTime;
+    private IntAction intAction;
 
     public Istrebitel() {
         super();
-        speedBulletFire = 0.5f;
+        speedBulletFire = MIN_ROF;
         bulletTime = 0f;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
+        CRAssetManager.getInstance().setPlayer(this);
     }
 
     @Override
@@ -36,19 +41,17 @@ public class Istrebitel extends GameObject implements Disposable {
                 ScreenManager.getInstance().show(CustomScreen.GAME_OVER);
                 break;
             case NORMAL:
-//                int score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
-//                if (speedBulletFire - score / 100.0f < 0.1) score = 39;
-
                 bulletTime += delta;
                 if (bulletTime >= speedBulletFire) {
-//                    Gdx.app.log(toString(), "speed = " + (speedBulletFire - score / 100.0f));
                     bulletTime = 0;
                     fireBullet();
                 }
+                super.setHp(intAction.getValue());
                 break;
             case EXPLODING:
-                setHp(0);
                 this.clearActions();
+                super.setHp(intAction.getValue());
+                setHp(0);
                 break;
         }
         super.act(delta);
@@ -66,6 +69,8 @@ public class Istrebitel extends GameObject implements Disposable {
 
     @Override
     public void init() {
+        intAction = new IntAction();
+        intAction.setValue(100);
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         super.init();
     }
@@ -93,8 +98,7 @@ public class Istrebitel extends GameObject implements Disposable {
                     setHp(getHp() + ((Star) gameObject).getPower() / 10);
                 } else {
                     speedBulletFire -= ((Star) gameObject).getPower() / 10000.0f;
-                    if (speedBulletFire < 0.1f) speedBulletFire = 0.1f;
-                    Gdx.app.log(getClass().getSimpleName(), "speedBulletFire = " + speedBulletFire);
+                    if (speedBulletFire < MAX_ROF) speedBulletFire = MAX_ROF;
                 }
                 gameObject.setState(GOState.DEAD);
 
@@ -105,6 +109,21 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     @Override
+    protected void setHp(int hp) {
+//        this.getActions().removeValue(intAction,true);
+        intAction.reset();
+        intAction.setStart(getHp());
+        intAction.setEnd(hp);
+        intAction.setDuration(0.5f);
+        intAction.setValue(getHp());
+        this.addAction(intAction);
+    }
+
+    @Override
     public void dispose() {
+    }
+
+    public float getRof() {
+        return speedBulletFire;
     }
 }

@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.IntMap;
@@ -11,9 +12,7 @@ import ru.miroshn.cartoon_raider.CartoonRaider;
  */
 public class ScreenManager implements Disposable {
     private static ScreenManager instance;
-    private CartoonRaider game;
     private IntMap<Screen> screens;
-    private Screen currentScreen;
 
     private ScreenManager() {
         screens = new IntMap<Screen>();
@@ -26,22 +25,12 @@ public class ScreenManager implements Disposable {
         return instance;
     }
 
-    public void init(CartoonRaider game) {
-        this.game = game;
-        currentScreen = null;
-    }
-
     public void show(CustomScreen screen) {
-        if (game == null) return;
+        if (Gdx.app.getApplicationListener() == null) return;
         if (!screens.containsKey(screen.ordinal())) {
             screens.put(screen.ordinal(), screen.getScreenInstance());
         }
-        game.setScreen(screens.get(screen.ordinal()));
-        currentScreen = screens.get(screen.ordinal());
-    }
-
-    public Screen getCurrentScreen() {
-        return currentScreen;
+        ((CartoonRaider) Gdx.app.getApplicationListener()).setScreen(screens.get(screen.ordinal()));
     }
 
     public void dispose(CustomScreen screen) {
