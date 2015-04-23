@@ -71,7 +71,6 @@ public class Hud extends Actor {
                 texture.getRegionWidth() * getScaleX(), rofTextureRegion.getRegionHeight() * getScaleX());
 
         float prcRof = -(rof - Istrebitel.MIN_ROF) * 100 / (Istrebitel.MIN_ROF - Istrebitel.MAX_ROF);
-        Gdx.app.log(getClass().getSimpleName(), "prcRof = " + prcRof);
 
         for (int y = 0; y < prcRof * height / 100.f; y += bar_texture.getRegionHeight()) {
             batch.draw(bar_texture, Gdx.graphics.getWidth() - texture.getRegionWidth() - 5,
