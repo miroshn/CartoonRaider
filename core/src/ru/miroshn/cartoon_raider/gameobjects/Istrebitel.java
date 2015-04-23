@@ -29,6 +29,7 @@ public class Istrebitel extends GameObject implements Disposable {
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
+        CRAssetManager.getInstance().setPlayer(this);
     }
 
     @Override

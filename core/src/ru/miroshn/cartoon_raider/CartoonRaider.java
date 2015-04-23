@@ -13,17 +13,14 @@ public class CartoonRaider extends Game {
     * Различные константы использующиеся в игре
     * */
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static final Color COLOR = new Color(0, 0, 1, 1);
     public static float SCALE;
 
     @Override
     public void create() {
         SCALE = Gdx.graphics.getWidth() / 640.0f;
-//        Gdx.app.log(toString(), "SCALE=" + SCALE);
-        ScreenManager.getInstance().init(this);
         ScreenManager.getInstance().show(CustomScreen.LOAD_SCREEN);
-//        setScreen(new WelcomeScreen(this));
     }
 
     @Override

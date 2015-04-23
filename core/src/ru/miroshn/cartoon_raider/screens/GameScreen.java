@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.*;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
@@ -28,14 +29,11 @@ public class GameScreen implements ScreenInput {
     private Random rnd;
     private MoveToAction moveToAction;
 
-
-    private int score;
-
     private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
         moveToAction = new MoveToAction();
-        score = 0;
+        CRAssetManager.getInstance().setScore(0);
         shapeRenderer = new ShapeRenderer();
         enemys = new Array<GameObject>();
         player = new Istrebitel();
@@ -71,7 +69,7 @@ public class GameScreen implements ScreenInput {
     }
 
     private void resetScreen() {
-        score = 0;
+        CRAssetManager.getInstance().setScore(0);
         player.setPosition(Gdx.graphics.getWidth() / 2, -player.getHeight());
 
         MoveToAction action = new MoveToAction();
@@ -162,15 +160,6 @@ public class GameScreen implements ScreenInput {
         vec.x -= player.getWidth() / 2;
         player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
         return true;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void addScore(int score) {
-        this.score += score;
-//        Gdx.app.log(this.toString(), "Score = " + this.score);
     }
 
     public int getPlayerHp() {

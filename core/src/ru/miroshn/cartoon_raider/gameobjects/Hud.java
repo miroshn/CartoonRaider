@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
-import ru.miroshn.cartoon_raider.screens.GameScreen;
-import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 /**
  * Created by miroshn on 15.04.15.
@@ -17,7 +15,6 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
  */
 public class Hud extends Actor {
     private BitmapFont font;
-    private int score;
     private int hp;
     private TextureRegion texture;
     private TextureRegion bar_texture;
@@ -26,7 +23,6 @@ public class Hud extends Actor {
 
     public Hud() {
         super();
-        score = 0;
         hp = 0;
         font = new BitmapFont();
         font.setColor(Color.BLUE);
@@ -43,17 +39,14 @@ public class Hud extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (ScreenManager.getInstance().getCurrentScreen() instanceof GameScreen) {
-            score = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getScore();
-            hp = ((GameScreen) (ScreenManager.getInstance().getCurrentScreen())).getPlayerHp();
-        }
+        hp = CRAssetManager.getInstance().getPlayer().getHp();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
-        font.drawMultiLine(batch, "Score: " + score, getX(), getY());
+        font.drawMultiLine(batch, "Score: " + CRAssetManager.getInstance().getScore(), getX(), getY());
 
         tmp_color.set(batch.getColor());
         batch.setColor(tmp_color.r, tmp_color.g, tmp_color.b, 0.5f);
