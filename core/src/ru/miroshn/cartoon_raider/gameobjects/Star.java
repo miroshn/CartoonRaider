@@ -16,7 +16,7 @@ public class Star extends GameObject {
 
     public Star() {
         super();
-        power = getRnd().nextInt(100);
+        power = getRnd().nextInt(90) + 10;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("stars.png")));
         this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight() * 2, 20));
         setState(GOState.IMMUN);

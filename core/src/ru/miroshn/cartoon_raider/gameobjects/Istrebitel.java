@@ -140,7 +140,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 break;
             case STAR:
                 if (getHp() < 100) {
-                    setHp(getHp() + ((Star) gameObject).getPower() / 10);
+                    setHp(getHp() + ((Star) gameObject).getPower() * 30 / 100);
                 } else {
                     speedBulletFire -= ((Star) gameObject).getPower() / 10000.0f;
                     if (speedBulletFire < MAX_ROF) {
