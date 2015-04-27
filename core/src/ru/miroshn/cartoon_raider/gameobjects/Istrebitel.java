@@ -63,7 +63,7 @@ public class Istrebitel extends GameObject implements Disposable {
         switch (bulletLevel) {
             case 1:
                 PlayerBullet bullet = new PlayerBullet();
-                bullet.setPosition(getX() + getWidth() / 2, getY() + (getHeight() + getOriginY()) * getScaleY());
+                bullet.setPosition(getX() + getWidth() / 2 - bullet.getWidth() / 2, getY() + (getHeight()) * getScaleY());
                 bullet.setScale(CartoonRaider.SCALE);
                 bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet);
