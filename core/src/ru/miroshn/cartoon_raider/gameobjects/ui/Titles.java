@@ -1,4 +1,4 @@
-package ru.miroshn.cartoon_raider.gameobjects;
+package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 /**
  * Created by CAHEK on 11.04.2015.

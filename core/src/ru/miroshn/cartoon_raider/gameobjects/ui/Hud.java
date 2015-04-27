@@ -1,4 +1,4 @@
-package ru.miroshn.cartoon_raider.gameobjects;
+package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**

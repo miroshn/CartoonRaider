@@ -1,8 +1,9 @@
-package ru.miroshn.cartoon_raider.gameobjects;
+package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**

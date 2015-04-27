@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
-import ru.miroshn.cartoon_raider.gameobjects.IstrebitelButton;
+import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**

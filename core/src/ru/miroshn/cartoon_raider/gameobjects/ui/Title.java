@@ -1,4 +1,4 @@
-package ru.miroshn.cartoon_raider.gameobjects;
+package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
-import ru.miroshn.cartoon_raider.gameobjects.Title;
-import ru.miroshn.cartoon_raider.gameobjects.Titles;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
