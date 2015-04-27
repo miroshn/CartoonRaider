@@ -1,14 +1,12 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.IstrebitelButton;
-import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
@@ -17,7 +15,6 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  */
 public class MenuScreen implements ScreenInput {
     private Stage stage;
-    private BitmapFont font;
     private IstrebitelButton gameMenu, exitMenu, aboutMenu;
 
 
@@ -26,7 +23,6 @@ public class MenuScreen implements ScreenInput {
         exitMenu = new IstrebitelButton("Exit");
         aboutMenu = new IstrebitelButton("About");
         stage = new Stage();
-        font = CRAssetManager.getInstance().getFont();
 
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
