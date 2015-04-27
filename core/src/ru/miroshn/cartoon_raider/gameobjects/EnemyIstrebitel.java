@@ -68,25 +68,27 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void act(float delta) {
-        if (getState() == GOState.DEAD) {
-            Star star = new Star();
-            star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
-            getStage().addActor(star);
+        switch (getState()) {
+            case NORMAL:
+                bulletTime -= delta;
+                if (bulletTime < 0) {
+                    bulletTime = BULLET_FIRE_TIME;
+                    if (rnd.nextInt(100) < bulletPrc) {
+                        fireBullet();
+                    }
+                }
+                if (getY() < -100) {
+                    this.init();
+                }
+                break;
+            case DEAD:
+                Star star = new Star();
+                star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
+                getStage().addActor(star);
+                break;
+            default:
         }
         super.act(delta);
-
-        bulletTime -= delta;
-        if (bulletTime < 0) {
-            bulletTime = BULLET_FIRE_TIME;
-            if (rnd.nextInt(100) < bulletPrc) {
-                fireBullet();
-            }
-        }
-
-
-        if (getY() < -100) {
-            this.init();
-        }
     }
 
     private void fireBullet() {

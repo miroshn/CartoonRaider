@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
@@ -72,24 +73,25 @@ public class Hud extends Actor {
         }
 
         // output Rof
-        batch.draw(texture, scrW - texture.getRegionWidth() - OFFSET, OFFSET,
+        batch.draw(texture, scrW - texture.getRegionWidth() * getScaleX() - OFFSET, OFFSET,
                 texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
-        batch.draw(rofTR, scrW - texture.getRegionWidth() - OFFSET, OFFSET + texture.getRegionHeight() * getScaleY() + OFFSET,
+        batch.draw(rofTR, scrW - texture.getRegionWidth() * getScaleX() - OFFSET, OFFSET + texture.getRegionHeight() * getScaleY() + OFFSET,
                 texture.getRegionWidth() * getScaleX(), rofTR.getRegionHeight() * getScaleX());
 
         float prcRof = -(rof - Istrebitel.MIN_ROF) * 100 / (Istrebitel.MIN_ROF - Istrebitel.MAX_ROF);
 
         for (int y = 0; y < prcRof * height / 100.f; y += barTR.getRegionHeight()) {
-            batch.draw(barTR, scrW - texture.getRegionWidth() - OFFSET,
+            batch.draw(barTR, scrW - texture.getRegionWidth() * getScaleX() - OFFSET,
                     OFFSET + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
         }
 
-        batch.draw(pauseTR, scrW - pauseTR.getRegionWidth() * getScaleX(), scrH - pauseTR.getRegionHeight() - OFFSET);
+        batch.draw(pauseTR, scrW - pauseTR.getRegionWidth() * CartoonRaider.SCALE - OFFSET, scrH - pauseTR.getRegionHeight() * CartoonRaider.SCALE - OFFSET,
+                pauseTR.getRegionWidth() * CartoonRaider.SCALE, pauseTR.getRegionHeight() * CartoonRaider.SCALE);
 
         batch.setColor(tmp_color);
     }
 
     public boolean pauseTouched(int screenX, int screenY) {
-        return screenX > scrW - pauseTR.getRegionWidth() * getScaleX() - OFFSET && screenY > scrH - pauseTR.getRegionHeight() * getScaleY() - OFFSET;
+        return screenX > scrW - pauseTR.getRegionWidth() * CartoonRaider.SCALE - OFFSET && screenY > scrH - pauseTR.getRegionHeight() * CartoonRaider.SCALE - OFFSET;
     }
 }
