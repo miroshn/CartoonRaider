@@ -17,6 +17,7 @@ public class LoadScreen implements Screen {
     private SpriteBatch batch;
 
     private void loadAssets() {
+        CRAssetManager.getInstance().setFont(new BitmapFont());
         CRAssetManager.getInstance().load("background.jpg", Texture.class);
         CRAssetManager.getInstance().load("title.png", Texture.class);
         CRAssetManager.getInstance().load("gameover.png", Texture.class);
@@ -30,7 +31,7 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load("bar.png", Texture.class);
         CRAssetManager.getInstance().load("hp.png", Texture.class);
         CRAssetManager.getInstance().load("rof.png", Texture.class);
-        CRAssetManager.getInstance().setFont(new BitmapFont());
+        CRAssetManager.getInstance().load("settings.png", Texture.class);
     }
 
     @Override
