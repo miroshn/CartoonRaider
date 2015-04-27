@@ -16,6 +16,12 @@ public enum Titles {
         public String getFilename() {
             return "gameover.png";
         }
+    },
+    GAME_PAUSED_TITLE {
+        @Override
+        public String getFilename() {
+            return "pause_title.png";
+        }
     };
 
     public abstract String getFilename();

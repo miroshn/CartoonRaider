@@ -16,6 +16,8 @@ import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
 import ru.miroshn.cartoon_raider.gameobjects.GameObject;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
@@ -32,10 +34,18 @@ public class GameScreen implements ScreenInput {
     private Array<GameObject> enemys;
     private Random rnd;
     private MoveToAction moveToAction;
+    private boolean paused;
+    private Hud hud;
+    private int scrH, scrW;
+    private Title pausedTitle;
 
     private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
+        pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
+        scrW = Gdx.graphics.getWidth();
+        scrH = Gdx.graphics.getHeight();
+        hud = new Hud();
         moveToAction = new MoveToAction();
         CRAssetManager.getInstance().setScore(0);
         shapeRenderer = new ShapeRenderer();
@@ -53,20 +63,26 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void show() {
+        pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
+        pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
+                (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);
+        pausedTitle.setVisible(false);
+
+        paused = false;
         stage.getActors().clear();
         stage.addActor(Background.getInstance());
         stage.addActor(player);
-        stage.addActor(new Hud());
+        stage.addActor(hud);
+        stage.addActor(pausedTitle);
 //        player.setDebug(true);
 
         player.init();
         for (GameObject g : enemys) {
             g.init();
-            g.setPosition(rnd.nextInt(Gdx.graphics.getWidth()),
-                    Gdx.graphics.getHeight() - g.getHeight() + rnd.nextInt(300));
+            g.setPosition(rnd.nextInt(scrW), scrH - g.getHeight() + rnd.nextInt(300));
             g.clearActions();
 //            g.setDebug(true);
-            g.addAction(Actions.moveTo(rnd.nextInt(Gdx.graphics.getWidth()), -200, (rnd.nextInt(100) + 50) / 10.f));
+            g.addAction(Actions.moveTo(rnd.nextInt(scrW), -200, (rnd.nextInt(100) + 50) / 10.f));
             stage.addActor(g);
         }
         resetScreen();
@@ -74,11 +90,11 @@ public class GameScreen implements ScreenInput {
 
     private void resetScreen() {
         CRAssetManager.getInstance().setScore(0);
-        player.setPosition(Gdx.graphics.getWidth() / 2, -player.getHeight());
+        player.setPosition(scrW / 2, -player.getHeight());
 
         MoveToAction action = new MoveToAction();
         action.setDuration(1);
-        action.setPosition(Gdx.graphics.getWidth() / 2 - player.getWidth() / 2, 30);
+        action.setPosition(scrW / 2 - player.getWidth() / 2, 30);
         player.clearActions();
         player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
@@ -91,7 +107,9 @@ public class GameScreen implements ScreenInput {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
+        if (!paused) {
+            stage.act(delta);
+        }
         stage.draw();
         if (CartoonRaider.DEBUG) {
             for (Actor a : stage.getActors()) {
@@ -149,6 +167,10 @@ public class GameScreen implements ScreenInput {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
+        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
+            return true;
+        }
+        if (paused) return true;
         vec.x -= player.getWidth() / 2;
         player.getActions().removeValue(moveToAction, true);
         moveToAction.reset();
@@ -161,6 +183,13 @@ public class GameScreen implements ScreenInput {
     @Override
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
         Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
+        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
+            paused = !paused;
+            pausedTitle.setVisible(paused);
+            return true;
+        }
+
+        if (paused) return true;
         vec.x -= player.getWidth() / 2;
         player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
         return true;

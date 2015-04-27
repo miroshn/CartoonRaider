@@ -15,6 +15,7 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  * отображение информации на игровом экране
  */
 public class Hud extends Actor {
+    private final int OFFSET = 5;
     private BitmapFont font;
     private int hp;
     private float rof;
@@ -22,6 +23,7 @@ public class Hud extends Actor {
     private TextureRegion barTR;
     private TextureRegion hpTR;
     private TextureRegion rofTR;
+    private TextureRegion pauseTR;
     private Color tmp_color;
     private int scrW, scrH;
 
@@ -33,11 +35,12 @@ public class Hud extends Actor {
         rof = 1;
         font = CRAssetManager.getInstance().getFont();
         font.setColor(Color.BLUE);
-        setPosition(5, scrH - font.getCapHeight());
+        setPosition(OFFSET, scrH - font.getCapHeight());
         texture = new TextureRegion((Texture) CRAssetManager.getInstance().get("border_bar.png"));
         barTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("bar.png"));
         hpTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("hp.png"));
         rofTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("rof.png"));
+        pauseTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("pause.png"));
         tmp_color = new Color();
         setScaleX(scrW * 5.0f / (texture.getRegionWidth() * 100.f));
         setScaleY(scrH * 80.0f / (texture.getRegionHeight() * 100.f));
@@ -60,27 +63,33 @@ public class Hud extends Actor {
         batch.setColor(tmp_color.r, tmp_color.g, tmp_color.b, 0.5f);
 
         // output HP
-        batch.draw(texture, 5, 5, texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
-        batch.draw(hpTR, 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
+        batch.draw(texture, OFFSET, OFFSET, texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
+        batch.draw(hpTR, OFFSET, OFFSET + texture.getRegionHeight() * getScaleY() + OFFSET,
                 texture.getRegionWidth() * getScaleX(), hpTR.getRegionHeight() * getScaleX());
         float height = texture.getRegionHeight() * getScaleY();
         for (int y = 0; y < hp * height / 100.f; y += barTR.getRegionHeight()) {
-            batch.draw(barTR, 5, 5 + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
+            batch.draw(barTR, OFFSET, OFFSET + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
         }
 
         // output Rof
-        batch.draw(texture, scrW - texture.getRegionWidth() - 5, 5,
+        batch.draw(texture, scrW - texture.getRegionWidth() - OFFSET, OFFSET,
                 texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
-        batch.draw(rofTR, scrW - texture.getRegionWidth() - 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
+        batch.draw(rofTR, scrW - texture.getRegionWidth() - OFFSET, OFFSET + texture.getRegionHeight() * getScaleY() + OFFSET,
                 texture.getRegionWidth() * getScaleX(), rofTR.getRegionHeight() * getScaleX());
 
         float prcRof = -(rof - Istrebitel.MIN_ROF) * 100 / (Istrebitel.MIN_ROF - Istrebitel.MAX_ROF);
 
         for (int y = 0; y < prcRof * height / 100.f; y += barTR.getRegionHeight()) {
-            batch.draw(barTR, scrW - texture.getRegionWidth() - 5,
-                    5 + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
+            batch.draw(barTR, scrW - texture.getRegionWidth() - OFFSET,
+                    OFFSET + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
         }
 
+        batch.draw(pauseTR, scrW - pauseTR.getRegionWidth() * getScaleX(), scrH - pauseTR.getRegionHeight() - OFFSET);
+
         batch.setColor(tmp_color);
+    }
+
+    public boolean pauseTouched(int screenX, int screenY) {
+        return screenX > scrW - pauseTR.getRegionWidth() * getScaleX() - OFFSET && screenY > scrH - pauseTR.getRegionHeight() * getScaleY() - OFFSET;
     }
 }

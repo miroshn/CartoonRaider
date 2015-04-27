@@ -23,7 +23,7 @@ public class Istrebitel extends GameObject implements Disposable {
     private float bulletTime;
     private IntAction intAction;
     private int bulletLevel;
-    private boolean iddqd = true;
+    private boolean iddqd = false;
 
     public Istrebitel() {
         super();
