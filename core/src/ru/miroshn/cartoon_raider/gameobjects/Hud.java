@@ -18,25 +18,28 @@ public class Hud extends Actor {
     private int hp;
     private float rof;
     private TextureRegion texture;
-    private TextureRegion bar_texture;
-    private TextureRegion hpTextureRegion;
-    private TextureRegion rofTextureRegion;
+    private TextureRegion barTR;
+    private TextureRegion hpTR;
+    private TextureRegion rofTR;
     private Color tmp_color;
+    private int scrW, scrH;
 
     public Hud() {
         super();
+        scrW = Gdx.graphics.getWidth();
+        scrH = Gdx.graphics.getHeight();
         hp = 0;
         rof = 1;
         font = CRAssetManager.getInstance().getFont();
         font.setColor(Color.BLUE);
-        setPosition(5, Gdx.graphics.getHeight() - font.getCapHeight());
+        setPosition(5, scrH - font.getCapHeight());
         texture = new TextureRegion((Texture) CRAssetManager.getInstance().get("border_bar.png"));
-        bar_texture = new TextureRegion((Texture) CRAssetManager.getInstance().get("bar.png"));
-        hpTextureRegion = new TextureRegion((Texture) CRAssetManager.getInstance().get("hp.png"));
-        rofTextureRegion = new TextureRegion((Texture) CRAssetManager.getInstance().get("rof.png"));
+        barTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("bar.png"));
+        hpTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("hp.png"));
+        rofTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("rof.png"));
         tmp_color = new Color();
-        setScaleX(Gdx.graphics.getWidth() * 5.0f / (texture.getRegionWidth() * 100.f));
-        setScaleY(Gdx.graphics.getHeight() * 80.0f / (texture.getRegionHeight() * 100.f));
+        setScaleX(scrW * 5.0f / (texture.getRegionWidth() * 100.f));
+        setScaleY(scrH * 80.0f / (texture.getRegionHeight() * 100.f));
     }
 
     @Override
@@ -57,24 +60,24 @@ public class Hud extends Actor {
 
         // output HP
         batch.draw(texture, 5, 5, texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
-        batch.draw(hpTextureRegion, 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
-                texture.getRegionWidth() * getScaleX(), hpTextureRegion.getRegionHeight() * getScaleX());
+        batch.draw(hpTR, 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
+                texture.getRegionWidth() * getScaleX(), hpTR.getRegionHeight() * getScaleX());
         float height = texture.getRegionHeight() * getScaleY();
-        for (int y = 0; y < hp * height / 100.f; y += bar_texture.getRegionHeight()) {
-            batch.draw(bar_texture, 5, 5 + y, bar_texture.getRegionWidth() * getScaleX(), bar_texture.getRegionHeight());
+        for (int y = 0; y < hp * height / 100.f; y += barTR.getRegionHeight()) {
+            batch.draw(barTR, 5, 5 + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
         }
 
         // output Rof
-        batch.draw(texture, Gdx.graphics.getWidth() - texture.getRegionWidth() - 5, 5,
+        batch.draw(texture, scrW - texture.getRegionWidth() - 5, 5,
                 texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());
-        batch.draw(rofTextureRegion, Gdx.graphics.getWidth() - texture.getRegionWidth() - 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
-                texture.getRegionWidth() * getScaleX(), rofTextureRegion.getRegionHeight() * getScaleX());
+        batch.draw(rofTR, scrW - texture.getRegionWidth() - 5, 5 + texture.getRegionHeight() * getScaleY() + 5,
+                texture.getRegionWidth() * getScaleX(), rofTR.getRegionHeight() * getScaleX());
 
         float prcRof = -(rof - Istrebitel.MIN_ROF) * 100 / (Istrebitel.MIN_ROF - Istrebitel.MAX_ROF);
 
-        for (int y = 0; y < prcRof * height / 100.f; y += bar_texture.getRegionHeight()) {
-            batch.draw(bar_texture, Gdx.graphics.getWidth() - texture.getRegionWidth() - 5,
-                    5 + y, bar_texture.getRegionWidth() * getScaleX(), bar_texture.getRegionHeight());
+        for (int y = 0; y < prcRof * height / 100.f; y += barTR.getRegionHeight()) {
+            batch.draw(barTR, scrW - texture.getRegionWidth() - 5,
+                    5 + y, barTR.getRegionWidth() * getScaleX(), barTR.getRegionHeight());
         }
 
         batch.setColor(tmp_color);
