@@ -14,7 +14,7 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 /**
  * Created by miroshn on 06.04.15.
- * главное действующее лицо
+ * главное действующее  лицо
  */
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.1f;
