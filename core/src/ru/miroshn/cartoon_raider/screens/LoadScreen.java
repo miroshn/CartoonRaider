@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
@@ -29,8 +30,9 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load("bar.png", Texture.class);
         CRAssetManager.getInstance().load("hp.png", Texture.class);
         CRAssetManager.getInstance().load("rof.png", Texture.class);
+        CRAssetManager.getInstance().setFont(new BitmapFont());
     }
-    
+
     @Override
     public void show() {
         batch = new SpriteBatch();

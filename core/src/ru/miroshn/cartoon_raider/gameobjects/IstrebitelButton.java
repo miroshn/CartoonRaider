@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**
  * Created by CAHEK on 11.04.2015.
@@ -15,7 +16,7 @@ public class IstrebitelButton extends Istrebitel {
     public IstrebitelButton(String text) {
         super();
         this.text = text;
-        font = new BitmapFont();
+        font = CRAssetManager.getInstance().getFont();
     }
 
 
@@ -36,6 +37,5 @@ public class IstrebitelButton extends Istrebitel {
     @Override
     public void dispose() {
         super.dispose();
-        font.dispose();
     }
 }

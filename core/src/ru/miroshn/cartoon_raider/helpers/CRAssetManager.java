@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.helpers;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
 /**
@@ -26,11 +27,21 @@ public class CRAssetManager extends AssetManager {
      */
     private Istrebitel player;
 
+    private BitmapFont font;
+
     public static CRAssetManager getInstance() {
         if (instance == null) {
             instance = new CRAssetManager();
         }
         return instance;
+    }
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    public void setFont(BitmapFont font) {
+        this.font = font;
     }
 
     public void init() {
@@ -52,6 +63,7 @@ public class CRAssetManager extends AssetManager {
     @Override
     public synchronized void dispose() {
         super.dispose();
+        if (font != null) font.dispose();
         instance = null;
     }
 

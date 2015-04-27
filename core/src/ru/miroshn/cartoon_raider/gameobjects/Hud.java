@@ -27,7 +27,7 @@ public class Hud extends Actor {
         super();
         hp = 0;
         rof = 1;
-        font = new BitmapFont();
+        font = CRAssetManager.getInstance().getFont();
         font.setColor(Color.BLUE);
         setPosition(5, Gdx.graphics.getHeight() - font.getCapHeight());
         texture = new TextureRegion((Texture) CRAssetManager.getInstance().get("border_bar.png"));
