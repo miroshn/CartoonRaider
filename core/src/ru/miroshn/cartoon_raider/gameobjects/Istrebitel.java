@@ -63,20 +63,20 @@ public class Istrebitel extends GameObject implements Disposable {
         switch (bulletLevel) {
             case 1:
                 PlayerBullet bullet = new PlayerBullet();
-                bullet.setPosition(getX() + getWidth() / 2 - bullet.getWidth() / 2, getY() + (getHeight()) * getScaleY());
+                bullet.setPosition(getX() + getWidth() * getScaleX() / 2 - bullet.getWidth() / 2, getY() + (getHeight()) * getScaleY());
                 bullet.setScale(CartoonRaider.SCALE);
                 bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet);
                 break;
             case 2:
                 PlayerBullet bullet1 = new PlayerBullet();
-                bullet1.setPosition(getX() + getWidth() / 4, getY() + (getHeight() * getScaleY()) / 2);
+                bullet1.setPosition(getX() + getWidth() * getScaleX() / 4, getY() + (getHeight() * getScaleY()) / 2);
                 bullet1.setScale(CartoonRaider.SCALE);
                 bullet1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet1);
 
                 PlayerBullet bullet2 = new PlayerBullet();
-                bullet2.setPosition(getX() + getWidth() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
+                bullet2.setPosition(getX() + getWidth() * getScaleX() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
                 bullet2.setScale(CartoonRaider.SCALE);
                 bullet2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet2);
@@ -84,25 +84,26 @@ public class Istrebitel extends GameObject implements Disposable {
                 break;
             case 3:
                 PlayerBullet bullet3_1 = new PlayerBullet();
-                bullet3_1.setPosition(getX() + getWidth() / 4, getY() + (getHeight() * getScaleY()) / 2);
+                bullet3_1.setPosition(getX() + getWidth() * getScaleX() / 5.0f, getY() + (getHeight() * getScaleY()) / 2);
                 bullet3_1.setScale(CartoonRaider.SCALE);
                 bullet3_1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet3_1);
 
                 PlayerBullet bullet3_2 = new PlayerBullet();
-                bullet3_2.setPosition(getX() + getWidth() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
+                bullet3_2.setPosition(getX() + getWidth() * getScaleX() * 4.0f / 5.0f, getY() + (getHeight() * getScaleY()) / 2);
                 bullet3_2.setScale(CartoonRaider.SCALE);
                 bullet3_2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet3_2);
 
                 PlayerBullet bullet3_3 = new PlayerBullet();
-                bullet3_3.setPosition(getX() + getWidth() / 2, getY() + (getHeight() * getScaleY()));
+                bullet3_3.setPosition(getX() + getWidth() * getScaleX() / 2, getY() + (getHeight() * getScaleY()));
                 bullet3_3.setScale(CartoonRaider.SCALE);
                 bullet3_3.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
                 this.getStage().addActor(bullet3_3);
 
                 break;
             default:
+                bulletLevel = 3;
                 break;
         }
     }
@@ -113,7 +114,7 @@ public class Istrebitel extends GameObject implements Disposable {
         intAction = new IntAction();
         intAction.setValue(100);
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-        bulletLevel = 1;
+        bulletLevel = 2;
         speedBulletFire = MIN_ROF;
         super.init();
     }

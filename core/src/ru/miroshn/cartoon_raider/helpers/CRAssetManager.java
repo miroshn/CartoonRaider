@@ -13,11 +13,6 @@ public class CRAssetManager extends AssetManager {
 
 
     /**
-     * Скорость стрельбы игрока
-     */
-    private float rof;
-
-    /**
      * Счет игры
      */
     private int score;
@@ -76,7 +71,7 @@ public class CRAssetManager extends AssetManager {
     }
 
     public float getRof() {
-        if (player == null) return 0.5f;
+        if (player == null) return Istrebitel.MIN_ROF;
         return player.getRof();
     }
 
