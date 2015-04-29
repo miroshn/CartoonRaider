@@ -96,7 +96,7 @@ public class GameScreen implements ScreenInput {
         action.setDuration(1);
         action.setPosition(scrW / 2 - player.getWidth() / 2, 30);
         player.clearActions();
-        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
+//        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
 
         Gdx.input.setInputProcessor(new InputHandler(this));
@@ -117,6 +117,8 @@ public class GameScreen implements ScreenInput {
                     shapeRenderer.setColor(Color.RED);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                     shapeRenderer.polygon(((GameObject) a).getBoundingPolygon().getTransformedVertices());
+                    shapeRenderer.x(a.getX(), a.getY(), 5);
+                    shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
                     shapeRenderer.end();
                 }
             }
@@ -171,11 +173,11 @@ public class GameScreen implements ScreenInput {
             return true;
         }
         if (paused) return true;
-        vec.x -= player.getWidth() / 2;
+        vec.x -= player.getWidth() * player.getScaleX() / 2;
         player.getActions().removeValue(moveToAction, true);
         moveToAction.reset();
         moveToAction.setPosition(vec.x, vec.y);
-        moveToAction.setDuration(0.5f);
+        moveToAction.setDuration(0.2f);
         player.addAction(moveToAction);
         return true;
     }
@@ -190,8 +192,12 @@ public class GameScreen implements ScreenInput {
         }
 
         if (paused) return true;
-        vec.x -= player.getWidth() / 2;
-        player.addAction(Actions.moveTo(vec.x, vec.y, 0.5f));
+        vec.x -= player.getWidth() * player.getScaleX() / 2;
+        player.getActions().removeValue(moveToAction, true);
+        moveToAction.reset();
+        moveToAction.setPosition(vec.x, vec.y);
+        moveToAction.setDuration(0.5f);
+        player.addAction(moveToAction);
         return true;
     }
 }
