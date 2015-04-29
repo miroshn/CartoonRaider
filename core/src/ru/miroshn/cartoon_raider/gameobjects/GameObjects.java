@@ -10,5 +10,6 @@ public enum GameObjects {
     ENEMY_BULLET,
     ENEMY_ISTREBITEL,
     PLAYER_BULLET,
-    STAR
+    STAR,
+    ROCKET
 }

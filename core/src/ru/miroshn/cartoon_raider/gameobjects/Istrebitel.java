@@ -62,50 +62,42 @@ public class Istrebitel extends GameObject implements Disposable {
     private void fireBullet() {
         switch (bulletLevel) {
             case 1:
-                PlayerBullet bullet = new PlayerBullet();
-                bullet.setPosition(getX() + getWidth() * getScaleX() / 2 - bullet.getWidth() / 2, getY() + (getHeight()) * getScaleY());
-                bullet.setScale(CartoonRaider.SCALE);
-                bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet);
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight()) * getScaleY()));
                 break;
             case 2:
-                PlayerBullet bullet1 = new PlayerBullet();
-                bullet1.setPosition(getX() + getWidth() * getScaleX() / 4, getY() + (getHeight() * getScaleY()) / 2);
-                bullet1.setScale(CartoonRaider.SCALE);
-                bullet1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet1);
-
-                PlayerBullet bullet2 = new PlayerBullet();
-                bullet2.setPosition(getX() + getWidth() * getScaleX() * 3.0f / 4.0f, getY() + (getHeight() * getScaleY()) / 2);
-                bullet2.setScale(CartoonRaider.SCALE);
-                bullet2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet2);
-
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 4), (int) (getY() + (getHeight() * getScaleY()) / 2));
+                fireBullet((int) (getX() + getWidth() * getScaleX() * 3.0f / 4.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 break;
             case 3:
-                PlayerBullet bullet3_1 = new PlayerBullet();
-                bullet3_1.setPosition(getX() + getWidth() * getScaleX() / 5.0f, getY() + (getHeight() * getScaleY()) / 2);
-                bullet3_1.setScale(CartoonRaider.SCALE);
-                bullet3_1.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet3_1);
-
-                PlayerBullet bullet3_2 = new PlayerBullet();
-                bullet3_2.setPosition(getX() + getWidth() * getScaleX() * 4.0f / 5.0f, getY() + (getHeight() * getScaleY()) / 2);
-                bullet3_2.setScale(CartoonRaider.SCALE);
-                bullet3_2.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet3_2);
-
-                PlayerBullet bullet3_3 = new PlayerBullet();
-                bullet3_3.setPosition(getX() + getWidth() * getScaleX() / 2, getY() + (getHeight() * getScaleY()));
-                bullet3_3.setScale(CartoonRaider.SCALE);
-                bullet3_3.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
-                this.getStage().addActor(bullet3_3);
-
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+                fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
+                break;
+            case 4:
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+                fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
+                fireRocket(getX() + getWidth() * getScaleX() / 2, getY() + getHeight() * getScaleY());
                 break;
             default:
                 bulletLevel = 3;
                 break;
         }
+    }
+
+    private void fireRocket(float x, float y) {
+        Rocket r = new Rocket();
+        r.setPosition(x, y);
+        r.setScale(CartoonRaider.SCALE);
+        this.getStage().addActor(r);
+    }
+
+    private void fireBullet(int x, int y) {
+        PlayerBullet bullet = new PlayerBullet();
+        bullet.setPosition(x - bullet.getWidth() / 2, y);
+        bullet.setScale(CartoonRaider.SCALE);
+        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
+        this.getStage().addActor(bullet);
     }
 
 
@@ -114,7 +106,7 @@ public class Istrebitel extends GameObject implements Disposable {
         intAction = new IntAction();
         intAction.setValue(100);
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-        bulletLevel = 1;
+        bulletLevel = 4;
         speedBulletFire = MIN_ROF;
         super.init();
     }
