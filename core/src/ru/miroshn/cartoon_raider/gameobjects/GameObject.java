@@ -69,7 +69,8 @@ public abstract class GameObject extends Actor {
             case NORMAL:
                 break;
             case DEAD:
-                init();
+//                init();
+                this.getStage().getActors().removeValue(this, true);
                 break;
             case EXPLODING:
                 doExplode(delta);
