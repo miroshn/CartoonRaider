@@ -1,6 +1,5 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -52,6 +51,10 @@ public abstract class GameObject extends Actor {
             boundingPolygon = new PolygonOverlaps(new float[]{0, 0, getWidth(), 0,
                     getWidth(), getHeight(), 0, 0 + getHeight()});
         }
+        boundingPolygon.setOrigin(getOriginX(), getOriginY());
+        boundingPolygon.setRotation(getRotation());
+        boundingPolygon.setScale(getScaleX(), getScaleY());
+        boundingPolygon.setPosition(getX(), getY());
         return boundingPolygon;
     }
 
@@ -128,8 +131,8 @@ public abstract class GameObject extends Actor {
         hp = 100;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
-        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
-                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+//        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
     }
 
     public GOState getState() {
