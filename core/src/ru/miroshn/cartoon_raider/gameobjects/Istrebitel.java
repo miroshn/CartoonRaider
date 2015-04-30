@@ -81,7 +81,7 @@ public class Istrebitel extends GameObject implements Disposable {
 //              todo: разделить огонь снарядами и пуск ракет, у каждого должен быть свой таймер запуска
                 break;
             default:
-                bulletLevel = 3;
+                bulletLevel = 4;
                 break;
         }
     }
@@ -107,7 +107,7 @@ public class Istrebitel extends GameObject implements Disposable {
         intAction = new IntAction();
         intAction.setValue(100);
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
-        bulletLevel = 4;
+        bulletLevel = 1;
         speedBulletFire = MIN_ROF;
         super.init();
     }
