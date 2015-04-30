@@ -78,6 +78,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
                 fireRocket(getX() + getWidth() * getScaleX() / 2, getY() + getHeight() * getScaleY());
+//              todo: разделить огонь снарядами и пуск ракет, у каждого должен быть свой таймер запуска
                 break;
             default:
                 bulletLevel = 3;
