@@ -46,11 +46,12 @@ public abstract class GameObject extends Actor {
         return rnd;
     }
 
-    public PolygonOverlaps getBoundingPolygon() {
-        if (boundingPolygon == null) {
+    public PolygonOverlaps getBoundingPolygon(boolean create) {
+        if (boundingPolygon == null && create) {
             boundingPolygon = new PolygonOverlaps(new float[]{0, 0, getWidth(), 0,
                     getWidth(), getHeight(), 0, 0 + getHeight()});
         }
+        if (boundingPolygon == null) return null;
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
         boundingPolygon.setRotation(getRotation());
         boundingPolygon.setScale(getScaleX(), getScaleY());
@@ -65,7 +66,7 @@ public abstract class GameObject extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
+        if (boundingPolygon == null) boundingPolygon = getBoundingPolygon(true);
 
 
         switch (state) {
@@ -102,7 +103,7 @@ public abstract class GameObject extends Actor {
     protected void sizeChanged() {
         super.sizeChanged();
         boundingPolygon = null;
-        getBoundingPolygon();
+        getBoundingPolygon(true);
     }
 
     public TextureRegion getTextureRegion() {
