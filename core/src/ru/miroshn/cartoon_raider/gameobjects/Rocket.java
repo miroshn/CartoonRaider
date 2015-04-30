@@ -23,7 +23,7 @@ public class Rocket extends GameObject {
         lifeTime = 5.0f;
         setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("rocket.png")));
         speedAction = new IntAction(0, MAX_SPEED);
-        speedAction.setDuration(lifeTime);
+        speedAction.setDuration(1f);
 
         moveByAction = new MoveByAction();
     }
