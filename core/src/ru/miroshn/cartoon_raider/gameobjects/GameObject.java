@@ -88,12 +88,19 @@ public abstract class GameObject extends Actor {
         if (explodingTime == 0) explodingTime = delta;
         explodingTime += delta;
         texture = explodeAnimation.getKeyFrame(explodingTime);
-        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+//        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+        setSize(getHeight(), getHeight());
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
 //        Gdx.app.log("GO","delta = "+delta);
     }
 
+    @Override
+    protected void sizeChanged() {
+        super.sizeChanged();
+        boundingPolygon = null;
+        getBoundingPolygon();
+    }
 
     public TextureRegion getTextureRegion() {
         return texture;
