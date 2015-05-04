@@ -2,9 +2,13 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+
+import static java.lang.Math.abs;
 
 /**
  * Created by miroshn on 29.04.15.
@@ -17,6 +21,9 @@ public class Rocket extends GameObject {
     private IntAction speedAction;
     private MoveByAction moveByAction;
 
+    private MoveToAction moveToAction;
+    private Actor target;
+
     public Rocket() {
         super();
         damagePower = 40;
@@ -26,20 +33,29 @@ public class Rocket extends GameObject {
         speedAction.setDuration(1f);
 
         moveByAction = new MoveByAction();
+        moveToAction = new MoveToAction();
     }
 
     @Override
     public void act(float delta) {
+        if (target == null) searchTarget();
         lifeTime -= delta;
         if (lifeTime < 0) setState(GOState.DEAD);
 
-        getActions().removeValue(moveByAction, true);
-        moveByAction.reset();
+        getActions().removeValue(moveToAction, true);
+        moveToAction.reset();
         switch (getState()) {
             case NORMAL:
-                moveByAction.setAmountY((float) (speedAction.getValue()));
-                moveByAction.setDuration(1.f);
-                addAction(moveByAction);
+//              todo: Найти ближайшего противника, вектор направления изначально вперед, плавно изменять вектор на противника
+
+
+//                moveByAction.setAmountY((float) (speedAction.getValue()));
+//                moveByAction.setDuration(1.f);
+//                addAction(moveByAction);
+                moveToAction.setPosition(target.getX() - target.getWidth() * target.getScaleX() / 2,
+                        target.getY() - target.getHeight() * target.getScaleY() / 2);
+                moveToAction.setDuration(1f);
+                addAction(moveToAction);
                 break;
             case DEAD:
                 break;
@@ -57,6 +73,23 @@ public class Rocket extends GameObject {
         speedAction.act(delta);
 
 //        todo: сделать обработку перемещения ракеты, для начала с ускорением, потом с самонаведением
+    }
+
+    private void searchTarget() {
+        if (getStage() == null) return;
+        for (Actor a : this.getStage().getActors()) {
+            if (!(a instanceof GameObject)) continue;
+            if (((GameObject) a).who() == GameObjects.ENEMY_ISTREBITEL) {
+                if (target == null) {
+                    target = a;
+                    continue;
+                }
+                if (((GameObject) a).getState() != GOState.NORMAL) continue;
+                if (abs(getX() - a.getX()) + abs(getY() - a.getY()) < abs(getX() - target.getX()) + abs(getY() - target.getY())) {
+                    target = a;
+                }
+            }
+        }
     }
 
     @Override
