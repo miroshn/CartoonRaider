@@ -35,6 +35,7 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load("pause.png", Texture.class);
         CRAssetManager.getInstance().load("pause_title.png", Texture.class);
         CRAssetManager.getInstance().load("rocket.png", Texture.class);
+        CRAssetManager.getInstance().load("i_16.png", Texture.class);
     }
 
     @Override
