@@ -129,7 +129,7 @@ public abstract class GameObject extends Actor {
     public void init() {
         state = GOState.NORMAL;
         explodingTime = 0;
-        hp = 100;
+        if (hp == 0) hp = 100;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
 //        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
