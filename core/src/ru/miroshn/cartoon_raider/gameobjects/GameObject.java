@@ -1,9 +1,9 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -32,11 +32,11 @@ public abstract class GameObject extends Actor {
         rnd = new Random();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive3.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive3"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
         setScale(CartoonRaider.SCALE);

@@ -1,7 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
@@ -28,7 +27,7 @@ public class Rocket extends GameObject {
         super();
         damagePower = 40;
         lifeTime = 5.0f;
-        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("rocket.png")));
+        setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("rocket"));
         speedAction = new IntAction(0, MAX_SPEED);
         speedAction.setDuration(1f);
 

@@ -1,8 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
@@ -29,7 +28,7 @@ public class Istrebitel extends GameObject implements Disposable {
         super();
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
-        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+//        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         CRAssetManager.getInstance().setPlayer(this);
     }
 
@@ -103,7 +102,7 @@ public class Istrebitel extends GameObject implements Disposable {
     public void init() {
         intAction = new IntAction();
         intAction.setValue(100);
-        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+        setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("istrebitel1"));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));

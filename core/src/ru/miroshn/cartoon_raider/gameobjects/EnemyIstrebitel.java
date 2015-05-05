@@ -2,8 +2,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
@@ -64,15 +63,15 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
         switch (istrebitelType) {
             case I_16:
-                setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("i_16.png")));
+                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("i"));
                 setHp(30);
                 break;
             case Il_2:
-                setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("il-2.png")));
+                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("il-2"));
                 setHp(40);
                 break;
             case SU:
-                setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
+                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("istrebitel1"));
                 setHp(100);
                 break;
         }
