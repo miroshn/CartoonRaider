@@ -39,6 +39,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public PolygonOverlaps getBoundingPolygon(boolean create) {
+        if (!create) return super.getBoundingPolygon(false);
         if (super.getBoundingPolygon(false) == null) {
             float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
             setBoundingPolygon(new PolygonOverlaps(ver));
