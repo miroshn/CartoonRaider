@@ -8,19 +8,19 @@ public enum Titles {
     WELCOME_TITLE {
         @Override
         public String getFilename() {
-            return "title.png";
+            return "title";
         }
     },
     GAME_OVER_TITLE {
         @Override
         public String getFilename() {
-            return "gameover.png";
+            return "gameover";
         }
     },
     GAME_PAUSED_TITLE {
         @Override
         public String getFilename() {
-            return "pause_title.png";
+            return "pause_title";
         }
     };
 

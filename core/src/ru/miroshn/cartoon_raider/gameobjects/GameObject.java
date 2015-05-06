@@ -1,10 +1,9 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -33,11 +32,11 @@ public abstract class GameObject extends Actor {
         rnd = new Random();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive3.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive2.png")));
-        explodingSet.add(new TextureRegion((Texture) CRAssetManager.getInstance().get("explosive1.png")));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive3"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
+        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
         setScale(CartoonRaider.SCALE);
@@ -47,11 +46,12 @@ public abstract class GameObject extends Actor {
         return rnd;
     }
 
-    public PolygonOverlaps getBoundingPolygon() {
-        if (boundingPolygon == null) {
+    public PolygonOverlaps getBoundingPolygon(boolean create) {
+        if (boundingPolygon == null && create) {
             boundingPolygon = new PolygonOverlaps(new float[]{0, 0, getWidth(), 0,
                     getWidth(), getHeight(), 0, 0 + getHeight()});
         }
+        if (boundingPolygon == null) return null;
         boundingPolygon.setOrigin(getOriginX(), getOriginY());
         boundingPolygon.setRotation(getRotation());
         boundingPolygon.setScale(getScaleX(), getScaleY());
@@ -66,14 +66,15 @@ public abstract class GameObject extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (boundingPolygon == null) boundingPolygon = getBoundingPolygon();
+        if (boundingPolygon == null) boundingPolygon = getBoundingPolygon(true);
 
 
         switch (state) {
             case NORMAL:
                 break;
             case DEAD:
-                init();
+//                init();
+                this.getStage().getActors().removeValue(this, true);
                 break;
             case EXPLODING:
                 doExplode(delta);
@@ -91,12 +92,19 @@ public abstract class GameObject extends Actor {
         if (explodingTime == 0) explodingTime = delta;
         explodingTime += delta;
         texture = explodeAnimation.getKeyFrame(explodingTime);
-        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+//        setSize(texture.getRegionWidth(), texture.getRegionHeight());
+        setSize(getHeight(), getHeight());
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
 //        Gdx.app.log("GO","delta = "+delta);
     }
 
+    @Override
+    protected void sizeChanged() {
+        super.sizeChanged();
+        boundingPolygon = null;
+        getBoundingPolygon(true);
+    }
 
     public TextureRegion getTextureRegion() {
         return texture;
@@ -121,11 +129,11 @@ public abstract class GameObject extends Actor {
     public void init() {
         state = GOState.NORMAL;
         explodingTime = 0;
-        hp = 100;
+        if (hp == 0) hp = 100;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
-        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
-                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
+//        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
+//                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
     }
 
     public GOState getState() {

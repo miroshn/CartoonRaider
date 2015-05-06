@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
 /**
@@ -18,22 +19,26 @@ public class LoadScreen implements Screen {
 
     private void loadAssets() {
         CRAssetManager.getInstance().setFont(new BitmapFont());
-        CRAssetManager.getInstance().load("background.jpg", Texture.class);
-        CRAssetManager.getInstance().load("title.png", Texture.class);
-        CRAssetManager.getInstance().load("gameover.png", Texture.class);
-        CRAssetManager.getInstance().load("istrebitel1.png", Texture.class);
-        CRAssetManager.getInstance().load("explosive1.png", Texture.class);
-        CRAssetManager.getInstance().load("explosive2.png", Texture.class);
-        CRAssetManager.getInstance().load("explosive3.png", Texture.class);
-        CRAssetManager.getInstance().load("bullet.png", Texture.class);
-        CRAssetManager.getInstance().load("stars.png", Texture.class);
-        CRAssetManager.getInstance().load("border_bar.png", Texture.class);
-        CRAssetManager.getInstance().load("bar.png", Texture.class);
-        CRAssetManager.getInstance().load("hp.png", Texture.class);
-        CRAssetManager.getInstance().load("rof.png", Texture.class);
-        CRAssetManager.getInstance().load("settings.png", Texture.class);
-        CRAssetManager.getInstance().load("pause.png", Texture.class);
-        CRAssetManager.getInstance().load("pause_title.png", Texture.class);
+        CRAssetManager.getInstance().load("CartoonRaider.pack", TextureAtlas.class);
+//        CRAssetManager.getInstance().load("background.jpg", Texture.class);
+//        CRAssetManager.getInstance().load("title.png", Texture.class);
+//        CRAssetManager.getInstance().load("gameover.png", Texture.class);
+//        CRAssetManager.getInstance().load("istrebitel1.png", Texture.class);
+//        CRAssetManager.getInstance().load("explosive1.png", Texture.class);
+//        CRAssetManager.getInstance().load("explosive2.png", Texture.class);
+//        CRAssetManager.getInstance().load("explosive3.png", Texture.class);
+//        CRAssetManager.getInstance().load("bullet.png", Texture.class);
+//        CRAssetManager.getInstance().load("stars.png", Texture.class);
+//        CRAssetManager.getInstance().load("border_bar.png", Texture.class);
+//        CRAssetManager.getInstance().load("bar.png", Texture.class);
+//        CRAssetManager.getInstance().load("hp.png", Texture.class);
+//        CRAssetManager.getInstance().load("rof.png", Texture.class);
+//        CRAssetManager.getInstance().load("settings.png", Texture.class);
+//        CRAssetManager.getInstance().load("pause.png", Texture.class);
+//        CRAssetManager.getInstance().load("pause_title.png", Texture.class);
+//        CRAssetManager.getInstance().load("rocket.png", Texture.class);
+//        CRAssetManager.getInstance().load("i_16.png", Texture.class);
+//        CRAssetManager.getInstance().load("il-2.png", Texture.class);
     }
 
     @Override

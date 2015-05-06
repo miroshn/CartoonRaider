@@ -1,8 +1,8 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
@@ -15,17 +15,15 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  */
 public class Background extends Actor implements Disposable {
     private static Background instance;
-    private Texture texture;
     private TextureRegion region;
     private MoveByAction action;
     private int SPEED_SCROLL = 5;
 
 
     private Background() {
-        texture = CRAssetManager.getInstance().get("background.jpg");
-        region = new TextureRegion(texture);
+        region = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("background");
         setPosition(0, 0);
-        setSize(texture.getWidth(), texture.getHeight());
+        setSize(region.getRegionWidth(), region.getRegionHeight());
         this.addAction(createAction());
 
     }
@@ -37,7 +35,7 @@ public class Background extends Actor implements Disposable {
 
     private MoveByAction createAction() {
         action = new MoveByAction();
-        action.setAmountY(-texture.getHeight());
+        action.setAmountY(-region.getRegionHeight());
         action.setDuration(SPEED_SCROLL);
         return action;
     }
@@ -45,8 +43,8 @@ public class Background extends Actor implements Disposable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        for (int x = 0; x < Gdx.graphics.getWidth(); x += texture.getWidth()) {
-            for (int y = 0; y < Gdx.graphics.getHeight() * 2; y += texture.getHeight()) {
+        for (int x = 0; x < Gdx.graphics.getWidth(); x += region.getRegionWidth()) {
+            for (int y = 0; y < Gdx.graphics.getHeight() * 2; y += region.getRegionHeight()) {
                 batch.draw(region, getX() + x, getY() + y, getWidth(), getHeight(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
             }
         }
@@ -66,7 +64,7 @@ public class Background extends Actor implements Disposable {
 
     @Override
     public void dispose() {
-        texture.dispose();
+//        texture.dispose();
         instance = null;
     }
 }

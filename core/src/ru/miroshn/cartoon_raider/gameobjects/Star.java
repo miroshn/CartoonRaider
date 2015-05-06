@@ -1,8 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 
@@ -17,7 +16,7 @@ public class Star extends GameObject {
     public Star() {
         super();
         power = getRnd().nextInt(90) + 10;
-        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("stars.png")));
+        setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("stars"));
         this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight() * 2, 20));
         setState(GOState.IMMUN);
     }

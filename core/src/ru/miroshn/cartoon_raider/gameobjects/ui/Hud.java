@@ -2,9 +2,9 @@ package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.CartoonRaider;
@@ -37,11 +37,11 @@ public class Hud extends Actor {
         font = CRAssetManager.getInstance().getFont();
         font.setColor(Color.BLUE);
         setPosition(OFFSET, scrH - font.getCapHeight());
-        texture = new TextureRegion((Texture) CRAssetManager.getInstance().get("border_bar.png"));
-        barTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("bar.png"));
-        hpTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("hp.png"));
-        rofTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("rof.png"));
-        pauseTR = new TextureRegion((Texture) CRAssetManager.getInstance().get("pause.png"));
+        texture = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("border_bar");
+        barTR = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("bar");
+        hpTR = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("hp");
+        rofTR = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("rof");
+        pauseTR = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("pause");
         tmp_color = new Color();
         setScaleX(scrW * 5.0f / (texture.getRegionWidth() * 100.f));
         setScaleY(scrH * 80.0f / (texture.getRegionHeight() * 100.f));

@@ -77,6 +77,7 @@ public class GameScreen implements ScreenInput {
 //        player.setDebug(true);
 
         player.init();
+        CRAssetManager.getInstance().setScore(0);
         for (GameObject g : enemys) {
             g.init();
             g.setPosition(rnd.nextInt(scrW), scrH - g.getHeight() + rnd.nextInt(300));
@@ -89,7 +90,6 @@ public class GameScreen implements ScreenInput {
     }
 
     private void resetScreen() {
-        CRAssetManager.getInstance().setScore(0);
         player.setPosition(scrW / 2, -player.getHeight());
 
         MoveToAction action = new MoveToAction();
@@ -116,7 +116,7 @@ public class GameScreen implements ScreenInput {
                 if (a instanceof GameObject) {
                     shapeRenderer.setColor(Color.RED);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon().getTransformedVertices());
+                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon(true).getTransformedVertices());
                     shapeRenderer.x(a.getX(), a.getY(), 5);
                     shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
                     shapeRenderer.end();
@@ -133,7 +133,7 @@ public class GameScreen implements ScreenInput {
                         GameObject g1 = (GameObject) actor;
                         GameObject g2 = (GameObject) actor1;
                         if (g1 == g2) continue;
-                        if (g1.getBoundingPolygon().overlaps(g2.getBoundingPolygon()) || g2.getBoundingPolygon().overlaps(g1.getBoundingPolygon())) {
+                        if (g1.getBoundingPolygon(true).overlaps(g2.getBoundingPolygon(true)) || g2.getBoundingPolygon(true).overlaps(g1.getBoundingPolygon(true))) {
                             g1.contact(g2);
                         }
                     }

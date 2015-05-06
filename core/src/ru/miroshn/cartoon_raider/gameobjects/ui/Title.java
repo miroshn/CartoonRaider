@@ -2,6 +2,7 @@ package ru.miroshn.cartoon_raider.gameobjects.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -15,9 +16,8 @@ public class Title extends Actor {
     private Texture titleTexture;
 
     public Title(Titles type) {
-        titleTexture = CRAssetManager.getInstance().get(type.getFilename());
-        setSize(titleTexture.getWidth(), titleTexture.getHeight());
-        region = new TextureRegion(titleTexture);
+        region = ((TextureAtlas) (CRAssetManager.getInstance().get("CartoonRaider.pack"))).findRegion(type.getFilename());
+        setSize(region.getRegionWidth(), region.getRegionHeight());
     }
 
     @Override
