@@ -20,6 +20,7 @@ public class Rocket extends GameObject {
     private float lifeTime;
     private IntAction speedAction;
     private MoveByAction moveByAction;
+    private float distToTarget;
 
     private MoveToAction moveToAction;
     private Actor target;
@@ -45,6 +46,10 @@ public class Rocket extends GameObject {
         getActions().removeValue(moveToAction, true);
         float durationComplete = moveToAction.getTime();
         moveToAction.reset();
+//        if (distToTarget - abs(getX() - target.getX()) + abs(getY() - target.getY()) > 10) {
+//            Gdx.app.log(getClass().getSimpleName(),"dist = " + distToTarget + abs(getX() - target.getX()) + abs(getY() - target.getY())));
+//            setState(GOState.DEAD);
+//        }
         switch (getState()) {
             case NORMAL:
 //              todo: Найти ближайшего противника, вектор направления изначально вперед, плавно изменять вектор на противника
@@ -55,11 +60,12 @@ public class Rocket extends GameObject {
 //                addAction(moveByAction);
 //                float dx = (getX() + getWidth()*getScaleX()/2 - target.getX() - target.getWidth()*target.getScaleX() / 2);
 //                float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY() + getHeight() * getScaleY() / 2);
-                float dx = (getX() - target.getX() - target.getWidth() * target.getScaleX() / 2);
+
+                float dx = (getX() - target.getX() + target.getWidth() * target.getScaleX() / 2);
                 float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY());
                 float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dx, dy);
+//                float angle  = MathUtils.radiansToDegrees * (float)Math.atan(dx/dy);
                 this.setRotation(angle);
-
                 moveToAction.setPosition(target.getX() - target.getWidth() * target.getScaleX() / 2,
                         target.getY() - target.getHeight() * target.getScaleY() / 2);
                 moveToAction.setDuration(10);
@@ -96,6 +102,7 @@ public class Rocket extends GameObject {
                 if (((GameObject) a).getState() != GOState.NORMAL) continue;
                 if (abs(getX() - a.getX()) + abs(getY() - a.getY()) < abs(getX() - target.getX()) + abs(getY() - target.getY())) {
                     target = a;
+                    distToTarget = abs(getX() - a.getX()) + abs(getY() - a.getY());
                 }
             }
         }
