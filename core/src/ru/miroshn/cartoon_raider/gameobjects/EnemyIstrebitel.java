@@ -119,9 +119,9 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
                 }
                 break;
             case DEAD:
-                Star star = new Star();
-                star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
-                getStage().addActor(star);
+//                Star star = new Star();
+//                star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
+//                getStage().addActor(star);
                 init();
                 break;
             default:

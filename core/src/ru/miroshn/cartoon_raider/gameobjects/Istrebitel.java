@@ -70,9 +70,9 @@ public class Istrebitel extends GameObject implements Disposable {
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
                 break;
             case 4:
-                fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
-                fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
-                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
+//                fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+//                fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
+//                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
                 fireRocket(getX() + getWidth() * getScaleX() / 2, getY() + getHeight() * getScaleY());
 //              todo: разделить огонь снарядами и пуск ракет, у каждого должен быть свой таймер запуска
                 break;
@@ -107,7 +107,7 @@ public class Istrebitel extends GameObject implements Disposable {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 1;
+        bulletLevel = 4;
         speedBulletFire = MIN_ROF;
         super.init();
     }

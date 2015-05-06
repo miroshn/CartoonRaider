@@ -119,6 +119,8 @@ public class GameScreen implements ScreenInput {
                     shapeRenderer.polygon(((GameObject) a).getBoundingPolygon(true).getTransformedVertices());
                     shapeRenderer.x(a.getX(), a.getY(), 5);
                     shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
+                    shapeRenderer.setColor(Color.GREEN);
+                    shapeRenderer.circle(a.getX() - a.getWidth() * a.getScaleX() / 2, a.getY() - a.getHeight() * a.getScaleY() / 2, 5);
                     shapeRenderer.end();
                 }
             }

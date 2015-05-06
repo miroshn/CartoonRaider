@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
@@ -42,6 +43,7 @@ public class Rocket extends GameObject {
         if (lifeTime < 0) setState(GOState.DEAD);
 
         getActions().removeValue(moveToAction, true);
+        float durationComplete = moveToAction.getTime();
         moveToAction.reset();
         switch (getState()) {
             case NORMAL:
@@ -51,9 +53,17 @@ public class Rocket extends GameObject {
 //                moveByAction.setAmountY((float) (speedAction.getValue()));
 //                moveByAction.setDuration(1.f);
 //                addAction(moveByAction);
+//                float dx = (getX() + getWidth()*getScaleX()/2 - target.getX() - target.getWidth()*target.getScaleX() / 2);
+//                float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY() + getHeight() * getScaleY() / 2);
+                float dx = (getX() - target.getX() - target.getWidth() * target.getScaleX() / 2);
+                float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY());
+                float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dx, dy);
+                this.setRotation(angle);
+
                 moveToAction.setPosition(target.getX() - target.getWidth() * target.getScaleX() / 2,
                         target.getY() - target.getHeight() * target.getScaleY() / 2);
-                moveToAction.setDuration(1f);
+                moveToAction.setDuration(10);
+                moveToAction.setTime(durationComplete);
                 addAction(moveToAction);
                 break;
             case DEAD:
