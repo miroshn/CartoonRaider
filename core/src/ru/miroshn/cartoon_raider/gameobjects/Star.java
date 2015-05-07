@@ -30,7 +30,6 @@ public class Star extends GameObject {
         if (getY() < -getHeight()) {
             this.clearActions();
             this.getStage().getActors().removeValue(this, true);
-            Gdx.app.log(getClass().getSimpleName(), "Stars Destroed");
         }
     }
 
