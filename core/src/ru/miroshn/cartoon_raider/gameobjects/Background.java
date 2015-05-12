@@ -24,6 +24,8 @@ public class Background extends Actor implements Disposable {
         region = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("background");
         setPosition(0, 0);
         setSize(region.getRegionWidth(), region.getRegionHeight());
+        if (Gdx.graphics.getDensity() > 1)
+            setScale(Gdx.graphics.getDensity());
         this.addAction(createAction());
 
     }
