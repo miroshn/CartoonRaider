@@ -32,7 +32,7 @@ public class CRAssetManager extends AssetManager {
     }
 
     public BitmapFont getFont() {
-        return font;
+        return (BitmapFont) get("comic_sans.fnt");
     }
 
     public void setFont(BitmapFont font) {
