@@ -18,30 +18,12 @@ public class LoadScreen implements Screen {
     private SpriteBatch batch;
 
     private void loadAssets() {
-//        CRAssetManager.getInstance().setFont(new BitmapFont(Gdx.files.internal("proba.fnt")));
-        CRAssetManager.getInstance().load("comic_sans_16.fnt", BitmapFont.class);
-        CRAssetManager.getInstance().load("comic_sans.fnt", BitmapFont.class);
+        if (Gdx.graphics.getDensity() > 1)
+            CRAssetManager.getInstance().load("comic_sans.fnt", BitmapFont.class);
+        else
+            CRAssetManager.getInstance().load("comic_sans_16.fnt", BitmapFont.class);
 
         CRAssetManager.getInstance().load("CartoonRaider.pack", TextureAtlas.class);
-//        CRAssetManager.getInstance().load("background.jpg", Texture.class);
-//        CRAssetManager.getInstance().load("title.png", Texture.class);
-//        CRAssetManager.getInstance().load("gameover.png", Texture.class);
-//        CRAssetManager.getInstance().load("istrebitel1.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive1.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive2.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive3.png", Texture.class);
-//        CRAssetManager.getInstance().load("bullet.png", Texture.class);
-//        CRAssetManager.getInstance().load("stars.png", Texture.class);
-//        CRAssetManager.getInstance().load("border_bar.png", Texture.class);
-//        CRAssetManager.getInstance().load("bar.png", Texture.class);
-//        CRAssetManager.getInstance().load("hp.png", Texture.class);
-//        CRAssetManager.getInstance().load("rof.png", Texture.class);
-//        CRAssetManager.getInstance().load("settings.png", Texture.class);
-//        CRAssetManager.getInstance().load("pause.png", Texture.class);
-//        CRAssetManager.getInstance().load("pause_title.png", Texture.class);
-//        CRAssetManager.getInstance().load("rocket.png", Texture.class);
-//        CRAssetManager.getInstance().load("i_16.png", Texture.class);
-//        CRAssetManager.getInstance().load("il-2.png", Texture.class);
     }
 
     @Override
