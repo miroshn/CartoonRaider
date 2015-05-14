@@ -35,7 +35,7 @@ public class CRAssetManager extends AssetManager {
     public BitmapFont getFont() {
         if (Gdx.graphics.getDensity() > 1)
             return (BitmapFont) get("comic_sans.fnt");
-        return (BitmapFont) get("comic_sans_165.fnt");
+        return (BitmapFont) get("comic_sans_16.fnt");
     }
 
     public void setFont(BitmapFont font) {
