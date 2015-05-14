@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.helpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
@@ -32,7 +33,9 @@ public class CRAssetManager extends AssetManager {
     }
 
     public BitmapFont getFont() {
-        return (BitmapFont) get("comic_sans.fnt");
+        if (Gdx.graphics.getDensity() > 1)
+            return (BitmapFont) get("comic_sans.fnt");
+        return (BitmapFont) get("comic_sans_165.fnt");
     }
 
     public void setFont(BitmapFont font) {

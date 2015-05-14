@@ -19,7 +19,9 @@ public class LoadScreen implements Screen {
 
     private void loadAssets() {
 //        CRAssetManager.getInstance().setFont(new BitmapFont(Gdx.files.internal("proba.fnt")));
+        CRAssetManager.getInstance().load("comic_sans_16.fnt", BitmapFont.class);
         CRAssetManager.getInstance().load("comic_sans.fnt", BitmapFont.class);
+
         CRAssetManager.getInstance().load("CartoonRaider.pack", TextureAtlas.class);
 //        CRAssetManager.getInstance().load("background.jpg", Texture.class);
 //        CRAssetManager.getInstance().load("title.png", Texture.class);

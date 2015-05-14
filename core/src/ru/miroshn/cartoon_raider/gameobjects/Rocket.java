@@ -30,8 +30,8 @@ public class Rocket extends GameObject {
         damagePower = 40;
         lifeTime = 5.0f;
         setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("rocket"));
-        speedAction = new IntAction(0, MAX_SPEED);
-        speedAction.setDuration(1f);
+//        speedAction = new IntAction(0, MAX_SPEED);
+//        speedAction.setDuration(1f);
 
         moveByAction = new MoveByAction();
         moveToAction = new MoveToAction();
@@ -52,23 +52,18 @@ public class Rocket extends GameObject {
 //        }
         switch (getState()) {
             case NORMAL:
+                target = null;
+                searchTarget();
 //              todo: Найти ближайшего противника, вектор направления изначально вперед, плавно изменять вектор на противника
 
 
-//                moveByAction.setAmountY((float) (speedAction.getValue()));
-//                moveByAction.setDuration(1.f);
-//                addAction(moveByAction);
-//                float dx = (getX() + getWidth()*getScaleX()/2 - target.getX() - target.getWidth()*target.getScaleX() / 2);
-//                float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY() + getHeight() * getScaleY() / 2);
-
-                float dx = (getX() - target.getX() + target.getWidth() * target.getScaleX() / 2);
+                float dx = (getX() - (target.getX() - target.getWidth() * target.getScaleX() / 2));
                 float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY());
                 float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dx, dy);
-//                float angle  = MathUtils.radiansToDegrees * (float)Math.atan(dx/dy);
                 this.setRotation(angle);
                 moveToAction.setPosition(target.getX() - target.getWidth() * target.getScaleX() / 2,
                         target.getY() - target.getHeight() * target.getScaleY() / 2);
-                moveToAction.setDuration(10);
+                moveToAction.setDuration(40);
                 moveToAction.setTime(durationComplete);
                 addAction(moveToAction);
                 break;
@@ -85,7 +80,7 @@ public class Rocket extends GameObject {
 
 
         super.act(delta);
-        speedAction.act(delta);
+//        speedAction.act(delta);
 
 //        todo: сделать обработку перемещения ракеты, для начала с ускорением, потом с самонаведением
     }
