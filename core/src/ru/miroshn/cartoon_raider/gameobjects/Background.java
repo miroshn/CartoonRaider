@@ -2,12 +2,12 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by miroshn on 08.04.15.
@@ -21,9 +21,11 @@ public class Background extends Actor implements Disposable {
 
 
     private Background() {
-        region = ((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("background");
+        region = CRAssetManager.getInstance().get(Res.BACKGROUND);
         setPosition(0, 0);
         setSize(region.getRegionWidth(), region.getRegionHeight());
+        if (Gdx.graphics.getDensity() > 1)
+            setScale(Gdx.graphics.getDensity());
         this.addAction(createAction());
 
     }

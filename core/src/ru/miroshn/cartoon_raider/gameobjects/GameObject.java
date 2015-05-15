@@ -3,13 +3,13 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 import java.util.Random;
 
@@ -32,11 +32,11 @@ public abstract class GameObject extends Actor {
         rnd = new Random();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
-        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
-        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
-        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive3"));
-        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive2"));
-        explodingSet.add(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("explosive1"));
+        explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE1));
+        explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE2));
+        explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE3));
+        explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE2));
+        explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE1));
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
         setScale(CartoonRaider.SCALE);

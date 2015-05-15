@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by miroshn on 09.04.15.
@@ -18,37 +19,22 @@ public class LoadScreen implements Screen {
     private SpriteBatch batch;
 
     private void loadAssets() {
-        CRAssetManager.getInstance().setFont(new BitmapFont());
-        CRAssetManager.getInstance().load("CartoonRaider.pack", TextureAtlas.class);
-//        CRAssetManager.getInstance().load("background.jpg", Texture.class);
-//        CRAssetManager.getInstance().load("title.png", Texture.class);
-//        CRAssetManager.getInstance().load("gameover.png", Texture.class);
-//        CRAssetManager.getInstance().load("istrebitel1.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive1.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive2.png", Texture.class);
-//        CRAssetManager.getInstance().load("explosive3.png", Texture.class);
-//        CRAssetManager.getInstance().load("bullet.png", Texture.class);
-//        CRAssetManager.getInstance().load("stars.png", Texture.class);
-//        CRAssetManager.getInstance().load("border_bar.png", Texture.class);
-//        CRAssetManager.getInstance().load("bar.png", Texture.class);
-//        CRAssetManager.getInstance().load("hp.png", Texture.class);
-//        CRAssetManager.getInstance().load("rof.png", Texture.class);
-//        CRAssetManager.getInstance().load("settings.png", Texture.class);
-//        CRAssetManager.getInstance().load("pause.png", Texture.class);
-//        CRAssetManager.getInstance().load("pause_title.png", Texture.class);
-//        CRAssetManager.getInstance().load("rocket.png", Texture.class);
-//        CRAssetManager.getInstance().load("i_16.png", Texture.class);
-//        CRAssetManager.getInstance().load("il-2.png", Texture.class);
+        if (Gdx.graphics.getDensity() > 1)
+            CRAssetManager.getInstance().load(Res.FONT.getName(), BitmapFont.class);
+        else
+            CRAssetManager.getInstance().load(Res.FONT_16.getName(), BitmapFont.class);
+
+        CRAssetManager.getInstance().load(Res.GRAPHIC_PACK.getName(), TextureAtlas.class);
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
-        CRAssetManager.getInstance().load("progress_bar.png", Texture.class);
-        CRAssetManager.getInstance().load("progress_bar_base.png", Texture.class);
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR.getName(), Texture.class);
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR_BASE.getName(), Texture.class);
         CRAssetManager.getInstance().finishLoading();
-        progressBarBaseImg = CRAssetManager.getInstance().get("progress_bar_base.png");
-        progressBarImg = CRAssetManager.getInstance().get("progress_bar.png");
+        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
+        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
         loadAssets();
     }
 

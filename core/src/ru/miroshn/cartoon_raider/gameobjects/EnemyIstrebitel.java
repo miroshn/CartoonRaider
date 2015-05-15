@@ -2,12 +2,13 @@ package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by miroshn on 07.04.15.
@@ -63,15 +64,15 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
         switch (istrebitelType) {
             case I_16:
-                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("i"));
+                setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.I_16));
                 setHp(30);
                 break;
             case Il_2:
-                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("il-2"));
+                setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.IL_2));
                 setHp(40);
                 break;
             case SU:
-                setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("istrebitel1"));
+                setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ISTREBITEL));
                 setHp(100);
                 break;
         }

@@ -1,7 +1,10 @@
 package ru.miroshn.cartoon_raider.helpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
 /**
@@ -22,8 +25,6 @@ public class CRAssetManager extends AssetManager {
      */
     private Istrebitel player;
 
-    private BitmapFont font;
-
     public static CRAssetManager getInstance() {
         if (instance == null) {
             instance = new CRAssetManager();
@@ -31,17 +32,6 @@ public class CRAssetManager extends AssetManager {
         return instance;
     }
 
-    public BitmapFont getFont() {
-        return font;
-    }
-
-    public void setFont(BitmapFont font) {
-        this.font = font;
-    }
-
-    public void init() {
-
-    }
 
     public int getScore() {
         return score;
@@ -58,7 +48,6 @@ public class CRAssetManager extends AssetManager {
     @Override
     public synchronized void dispose() {
         super.dispose();
-        if (font != null) font.dispose();
         instance = null;
     }
 
@@ -73,6 +62,24 @@ public class CRAssetManager extends AssetManager {
     public float getRof() {
         if (player == null) return Istrebitel.MIN_ROF;
         return player.getRof();
+    }
+
+    public <T> T get(Res value) {
+        T obj = null;
+        switch (value.getType()) {
+            case TEXTURE:
+                obj = (T) get(value.getName(), Texture.class);
+                break;
+            case TEXTURE_REGION:
+                obj = (T) get(Res.GRAPHIC_PACK.getName(), TextureAtlas.class).findRegion(value.getName());
+                break;
+            case BITMAP_FONT:
+                if (Gdx.graphics.getDensity() > 1)
+                    obj = (T) get(Res.FONT.getName(), BitmapFont.class);
+                else
+                    obj = (T) get(Res.FONT_16.getName(), BitmapFont.class);
+        }
+        return obj;
     }
 
 }
