@@ -1,14 +1,14 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
+import static com.badlogic.gdx.math.MathUtils.*;
 import static java.lang.Math.abs;
 
 /**
@@ -16,14 +16,15 @@ import static java.lang.Math.abs;
  * Ракета
  */
 public class Rocket extends GameObject {
-    private final int MAX_SPEED = 1000;
+    //    private float currSpeed;
+    private final float maxLinearAcceleration = 100.0f; //точек в секунду
     private int damagePower;
     private float lifeTime;
-    private IntAction speedAction;
-    private MoveByAction moveByAction;
     private float distToTarget;
+    private float currAngle;
+    private IntAction maxAngleSpeed; // градусы в секунду
+    private IntAction currSpeed;
 
-    private MoveToAction moveToAction;
     private Actor target;
 
     public Rocket() {
@@ -31,26 +32,24 @@ public class Rocket extends GameObject {
         damagePower = 40;
         lifeTime = 5.0f;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
-//        speedAction = new IntAction(0, MAX_SPEED);
-//        speedAction.setDuration(1f);
 
-        moveByAction = new MoveByAction();
-        moveToAction = new MoveToAction();
+        currSpeed = new IntAction(150, 700);
+        currSpeed.setInterpolation(Interpolation.exp10);
+        currSpeed.setDuration(1f);
+        currAngle = 0;
+        maxAngleSpeed = new IntAction(0, 180);
+        maxAngleSpeed.setDuration(1.5f);
+
+//        currSpeed = 10;
     }
 
     @Override
     public void act(float delta) {
+        delta = 0.01f;
         if (target == null) searchTarget();
         lifeTime -= delta;
         if (lifeTime < 0) setState(GOState.DEAD);
 
-        getActions().removeValue(moveToAction, true);
-        float durationComplete = moveToAction.getTime();
-        moveToAction.reset();
-//        if (distToTarget - abs(getX() - target.getX()) + abs(getY() - target.getY()) > 10) {
-//            Gdx.app.log(getClass().getSimpleName(),"dist = " + distToTarget + abs(getX() - target.getX()) + abs(getY() - target.getY())));
-//            setState(GOState.DEAD);
-//        }
         switch (getState()) {
             case NORMAL:
                 target = null;
@@ -61,12 +60,19 @@ public class Rocket extends GameObject {
                 float dx = (getX() - (target.getX() - target.getWidth() * target.getScaleX() / 2));
                 float dy = (target.getY() - target.getHeight() * target.getScaleY() / 2 - getY());
                 float angle = MathUtils.radiansToDegrees * MathUtils.atan2(dx, dy);
+
+                if (abs(angle - currAngle) > maxAngleSpeed.getValue() * delta) angle = (angle - currAngle) > 0 ?
+                        currAngle + maxAngleSpeed.getValue() * delta : currAngle - maxAngleSpeed.getValue() * delta;
+
+                currAngle = angle;
+                //currSpeed += maxLinearAcceleration * delta;
                 this.setRotation(angle);
-                moveToAction.setPosition(target.getX() - target.getWidth() * target.getScaleX() / 2,
-                        target.getY() - target.getHeight() * target.getScaleY() / 2);
-                moveToAction.setDuration(40);
-                moveToAction.setTime(durationComplete);
-                addAction(moveToAction);
+
+                setPosition(getX() - currSpeed.getValue() * delta * sin(angle * degreesToRadians),
+                        getY() + currSpeed.getValue() * delta * cos(angle * degreesToRadians));
+
+                currSpeed.act(delta);
+                maxAngleSpeed.act(delta);
                 break;
             case DEAD:
                 break;
@@ -77,11 +83,9 @@ public class Rocket extends GameObject {
         }
 
 
-//        setY(getY() + speedAction.getValue() * delta);
 
 
         super.act(delta);
-//        speedAction.act(delta);
 
 //        todo: сделать обработку перемещения ракеты, для начала с ускорением, потом с самонаведением
     }
