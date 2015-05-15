@@ -1,13 +1,14 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
+import ru.miroshn.cartoon_raider.helpers.Res;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
@@ -102,7 +103,7 @@ public class Istrebitel extends GameObject implements Disposable {
     public void init() {
         intAction = new IntAction();
         intAction.setValue(100);
-        setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("istrebitel1"));
+        setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ISTREBITEL));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by miroshn on 09.04.15.
@@ -19,21 +20,21 @@ public class LoadScreen implements Screen {
 
     private void loadAssets() {
         if (Gdx.graphics.getDensity() > 1)
-            CRAssetManager.getInstance().load("comic_sans.fnt", BitmapFont.class);
+            CRAssetManager.getInstance().load(Res.FONT.getName(), BitmapFont.class);
         else
-            CRAssetManager.getInstance().load("comic_sans_16.fnt", BitmapFont.class);
+            CRAssetManager.getInstance().load(Res.FONT_16.getName(), BitmapFont.class);
 
-        CRAssetManager.getInstance().load("CartoonRaider.pack", TextureAtlas.class);
+        CRAssetManager.getInstance().load(Res.GRAPHIC_PACK.getName(), TextureAtlas.class);
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
-        CRAssetManager.getInstance().load("progress_bar.png", Texture.class);
-        CRAssetManager.getInstance().load("progress_bar_base.png", Texture.class);
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR.getName(), Texture.class);
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR_BASE.getName(), Texture.class);
         CRAssetManager.getInstance().finishLoading();
-        progressBarBaseImg = CRAssetManager.getInstance().get("progress_bar_base.png");
-        progressBarImg = CRAssetManager.getInstance().get("progress_bar.png");
+        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
+        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
         loadAssets();
     }
 

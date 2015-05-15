@@ -1,7 +1,8 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by miroshn on 15.04.15.
@@ -13,7 +14,7 @@ public abstract class Bullet extends GameObject {
     public Bullet() {
         super();
         damagePower = 30;
-        setTextureRegion(((TextureAtlas) CRAssetManager.getInstance().get("CartoonRaider.pack")).findRegion("bullet"));
+        setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BULLET));
     }
 
     public int getDamagePower() {

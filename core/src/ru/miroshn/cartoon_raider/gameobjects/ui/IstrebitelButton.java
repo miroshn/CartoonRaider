@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by CAHEK on 11.04.2015.
@@ -17,7 +18,7 @@ public class IstrebitelButton extends Istrebitel {
     public IstrebitelButton(String text) {
         super();
         this.text = text;
-        font = CRAssetManager.getInstance().getFont();
+        font = CRAssetManager.getInstance().get(Res.FONT);
     }
 
 
