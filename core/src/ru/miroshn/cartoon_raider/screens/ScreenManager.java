@@ -12,7 +12,7 @@ import ru.miroshn.cartoon_raider.CartoonRaider;
  */
 public class ScreenManager implements Disposable {
     private static ScreenManager instance;
-    private IntMap<Screen> screens;
+    private final IntMap<Screen> screens;
 
     private ScreenManager() {
         screens = new IntMap<Screen>();

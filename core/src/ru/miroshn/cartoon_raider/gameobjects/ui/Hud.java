@@ -17,16 +17,17 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  */
 public class Hud extends Actor {
     private final int OFFSET = 5;
-    private BitmapFont font;
+    private final BitmapFont font;
+    private final TextureRegion texture;
+    private final TextureRegion barTR;
+    private final TextureRegion hpTR;
+    private final TextureRegion rofTR;
+    private final TextureRegion pauseTR;
+    private final Color tmp_color;
+    private final int scrW;
+    private final int scrH;
     private int hp;
     private float rof;
-    private TextureRegion texture;
-    private TextureRegion barTR;
-    private TextureRegion hpTR;
-    private TextureRegion rofTR;
-    private TextureRegion pauseTR;
-    private Color tmp_color;
-    private int scrW, scrH;
 
     public Hud() {
         super();

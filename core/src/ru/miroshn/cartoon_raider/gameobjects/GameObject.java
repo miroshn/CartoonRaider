@@ -19,13 +19,13 @@ import java.util.Random;
  */
 public abstract class GameObject extends Actor {
 
+    private final Random rnd;
+    private final Animation explodeAnimation;
     private TextureRegion texture;
     private PolygonOverlaps boundingPolygon;
-    private Random rnd;
     private GOState state;
     private float explodingTime;
     private int hp;
-    private Animation explodeAnimation;
 
     public GameObject() {
         hp = 100;

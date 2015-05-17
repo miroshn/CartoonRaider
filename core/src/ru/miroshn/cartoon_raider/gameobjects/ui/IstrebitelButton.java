@@ -12,8 +12,8 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  * кнопка с изображением истребителя и текстом под ней
  */
 public class IstrebitelButton extends Istrebitel {
-    private String text;
-    private BitmapFont font;
+    private final String text;
+    private final BitmapFont font;
 
     public IstrebitelButton(String text) {
         super();
@@ -36,8 +36,8 @@ public class IstrebitelButton extends Istrebitel {
         font.draw(batch, text, getX() + getWidth() * getScaleX() / 2 - tb.width / 2, getY() - 10);
     }
 
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
+//    @Override
+//    public void dispose() {
+//        super.dispose();
+//    }
 }

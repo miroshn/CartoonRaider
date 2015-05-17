@@ -18,13 +18,11 @@ import static java.lang.Math.abs;
 public class Rocket extends GameObject {
     //    private float currSpeed;
     private final float maxLinearAcceleration = 100.0f; //точек в секунду
-    private int damagePower;
+    private final int damagePower;
+    private final IntAction maxAngleSpeed; // градусы в секунду
+    private final IntAction currSpeed;
     private float lifeTime;
-    private float distToTarget;
     private float currAngle;
-    private IntAction maxAngleSpeed; // градусы в секунду
-    private IntAction currSpeed;
-
     private Actor target;
 
     public Rocket() {
@@ -102,7 +100,6 @@ public class Rocket extends GameObject {
                 if (((GameObject) a).getState() != GOState.NORMAL) continue;
                 if (abs(getX() - a.getX()) + abs(getY() - a.getY()) < abs(getX() - target.getX()) + abs(getY() - target.getY())) {
                     target = a;
-                    distToTarget = abs(getX() - a.getX()) + abs(getY() - a.getY());
                 }
             }
         }

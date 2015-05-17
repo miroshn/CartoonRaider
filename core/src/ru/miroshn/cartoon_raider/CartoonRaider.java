@@ -24,10 +24,10 @@ public class CartoonRaider extends Game {
         ScreenManager.getInstance().show(CustomScreen.LOAD_SCREEN);
     }
 
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-    }
+//    @Override
+//    public void resize(int width, int height) {
+//        super.resize(width, height);
+//    }
 
     @Override
     public void dispose() {

@@ -12,7 +12,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  */
 public class Star extends GameObject {
 
-    private int power;
+    private final int power;
 
     public Star() {
         super();

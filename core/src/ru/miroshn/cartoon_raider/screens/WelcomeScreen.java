@@ -15,8 +15,8 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * Показывается экран с названием..
  */
 public class WelcomeScreen implements ScreenInput {
-    private Title title;
-    private Stage stage;
+    private final Title title;
+    private final Stage stage;
     private boolean cliked;
 
     public WelcomeScreen() {

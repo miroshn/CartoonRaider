@@ -29,17 +29,17 @@ import java.util.Random;
  * класс отвечающий за основной этап игры
  */
 public class GameScreen implements ScreenInput {
-    private Stage stage;
-    private Istrebitel player;
-    private Array<GameObject> enemys;
-    private Random rnd;
-    private MoveToAction moveToAction;
+    private final Stage stage;
+    private final Istrebitel player;
+    private final Array<GameObject> enemys;
+    private final Random rnd;
+    private final MoveToAction moveToAction;
+    private final Hud hud;
+    private final int scrH;
+    private final int scrW;
+    private final Title pausedTitle;
+    private final ShapeRenderer shapeRenderer;
     private boolean paused;
-    private Hud hud;
-    private int scrH, scrW;
-    private Title pausedTitle;
-
-    private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);

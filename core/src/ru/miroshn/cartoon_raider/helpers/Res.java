@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by miroshn on 14.05.15.
+ * Тут собраны все имена файлов и ресурсов и превращены в валидируемый enum
  */
 public enum Res {
 
@@ -39,8 +40,8 @@ public enum Res {
     PROGRESS_BAR_BASE("progress_bar_base.png", Types.TEXTURE);
 
 
-    private String name;
-    private Types type;
+    private final String name;
+    private final Types type;
 
     Res(String name, Types type) {
         this.name = name;
@@ -61,7 +62,7 @@ public enum Res {
         BITMAP_FONT(BitmapFont.class);
 
 
-        private Class type;
+        private final Class type;
 
         Types(Class type) {
             this.type = type;

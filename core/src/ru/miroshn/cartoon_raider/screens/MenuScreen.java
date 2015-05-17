@@ -14,8 +14,8 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * меню игры, должно реализовать запуск игры и выход
  */
 public class MenuScreen implements ScreenInput {
-    private Stage stage;
-    private IstrebitelButton gameMenu, exitMenu, aboutMenu;
+    private final Stage stage;
+    private final IstrebitelButton gameMenu, exitMenu, aboutMenu;
 
 
     public MenuScreen() {

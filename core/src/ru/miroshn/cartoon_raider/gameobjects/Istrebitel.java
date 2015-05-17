@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -19,12 +20,12 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.2f;
     public static final float MIN_ROF = 0.5f;
+    private final boolean iddqd = false;
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire;
     private float bulletTime;
     private IntAction intAction;
     private int bulletLevel;
-    private boolean iddqd = false;
 
     public Istrebitel() {
         super();
@@ -92,6 +93,7 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet(int x, int y) {
+        Array<PlayerBullet> playerBullets;
         PlayerBullet bullet = new PlayerBullet();
         bullet.setPosition(x - bullet.getWidth() / 2, y);
         bullet.setScale(CartoonRaider.SCALE);

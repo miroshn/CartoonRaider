@@ -9,7 +9,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  * простой снаряд
  */
 public abstract class Bullet extends GameObject {
-    private int damagePower;
+    private final int damagePower;
 
     public Bullet() {
         super();
@@ -22,10 +22,10 @@ public abstract class Bullet extends GameObject {
     }
 
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
+//    @Override
+//    public void act(float delta) {
+//        super.act(delta);
+//    }
 
 
 }
