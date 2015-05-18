@@ -19,7 +19,7 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.2f;
     public static final float MIN_ROF = 0.5f;
-    private final boolean iddqd = false;
+    private boolean iddqd = false;
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire;
     private float bulletTime;
@@ -109,7 +109,7 @@ public class Istrebitel extends GameObject implements Disposable {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 4;
+        bulletLevel = 1;
         speedBulletFire = MIN_ROF;
         super.init();
     }
