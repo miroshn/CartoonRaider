@@ -15,9 +15,9 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * Экран - конец игры
  */
 public class GameOverScreen implements ScreenInput {
-    private Stage stage;
-    private Title title;
-    private Hud hud;
+    private final Stage stage;
+    private final Title title;
+    private final Hud hud;
 
     public GameOverScreen() {
         stage = new Stage();

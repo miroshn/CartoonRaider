@@ -17,7 +17,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
 public class EnemyIstrebitel extends GameObject implements Disposable {
 
     private final float BULLET_FIRE_TIME = 1;
-    private int bulletPrc;
+    private final int bulletPrc;
     private float bulletTime;
     private IstrebitelType istrebitelType;
 
@@ -102,6 +102,23 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     @Override
     public GameObjects who() {
         return GameObjects.ENEMY_ISTREBITEL;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case PLAYER:
+                ret = true;
+                break;
+            case PLAYER_BULLET:
+                ret = true;
+                break;
+            case ROCKET:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

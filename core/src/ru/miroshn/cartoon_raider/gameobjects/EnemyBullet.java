@@ -20,9 +20,26 @@ public class EnemyBullet extends Bullet {
     }
 
     @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case PLAYER:
+                ret = true;
+                break;
+            case ROCKET:
+                ret = true;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
             case PLAYER:
+                gameObject.contact(this);
+                break;
+            case ROCKET:
                 gameObject.contact(this);
                 break;
             default:

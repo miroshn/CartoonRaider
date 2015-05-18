@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,17 +30,17 @@ import java.util.Random;
  * класс отвечающий за основной этап игры
  */
 public class GameScreen implements ScreenInput {
-    private Stage stage;
-    private Istrebitel player;
-    private Array<GameObject> enemys;
-    private Random rnd;
-    private MoveToAction moveToAction;
+    private final Stage stage;
+    private final Istrebitel player;
+    private final Array<GameObject> enemys;
+    private final Random rnd;
+    private final MoveToAction moveToAction;
+    private final Hud hud;
+    private final int scrH;
+    private final int scrW;
+    private final Title pausedTitle;
+    private final ShapeRenderer shapeRenderer;
     private boolean paused;
-    private Hud hud;
-    private int scrH, scrW;
-    private Title pausedTitle;
-
-    private ShapeRenderer shapeRenderer;
 
     public GameScreen() {
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
@@ -121,6 +122,9 @@ public class GameScreen implements ScreenInput {
                     shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
                     shapeRenderer.setColor(Color.GREEN);
                     shapeRenderer.circle(a.getX() - a.getWidth() * a.getScaleX() / 2, a.getY() - a.getHeight() * a.getScaleY() / 2, 5);
+                    shapeRenderer.setColor(Color.BLUE);
+                    Rectangle r = ((GameObject) a).getBoundingPolygon().getBoundingRectangle();
+                    shapeRenderer.rect(r.x, r.y, r.width, r.height);
                     shapeRenderer.end();
                 }
             }
@@ -135,7 +139,8 @@ public class GameScreen implements ScreenInput {
                         GameObject g1 = (GameObject) actor;
                         GameObject g2 = (GameObject) actor1;
                         if (g1 == g2) continue;
-                        if (g1.getBoundingPolygon(true).overlaps(g2.getBoundingPolygon(true)) || g2.getBoundingPolygon(true).overlaps(g1.getBoundingPolygon(true))) {
+//                        if (g1.getBoundingPolygon(true).overlaps(g2.getBoundingPolygon(true)) || g2.getBoundingPolygon(true).overlaps(g1.getBoundingPolygon(true))) {
+                        if (g1.checkCollision(g2)) {
                             g1.contact(g2);
                         }
                     }

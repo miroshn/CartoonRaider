@@ -12,7 +12,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  */
 public class Star extends GameObject {
 
-    private int power;
+    private final int power;
 
     public Star() {
         super();
@@ -41,6 +41,17 @@ public class Star extends GameObject {
     @Override
     public GameObjects who() {
         return GameObjects.STAR;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case PLAYER:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

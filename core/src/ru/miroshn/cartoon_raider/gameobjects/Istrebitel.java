@@ -19,18 +19,17 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.2f;
     public static final float MIN_ROF = 0.5f;
+    private boolean iddqd = false;
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire;
     private float bulletTime;
     private IntAction intAction;
     private int bulletLevel;
-    private boolean iddqd = false;
 
     public Istrebitel() {
         super();
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
-//        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         CRAssetManager.getInstance().setPlayer(this);
     }
 
@@ -92,6 +91,7 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet(int x, int y) {
+
         PlayerBullet bullet = new PlayerBullet();
         bullet.setPosition(x - bullet.getWidth() / 2, y);
         bullet.setScale(CartoonRaider.SCALE);
@@ -117,6 +117,23 @@ public class Istrebitel extends GameObject implements Disposable {
     @Override
     public GameObjects who() {
         return GameObjects.PLAYER;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case ENEMY_BULLET:
+                ret = true;
+                break;
+            case ENEMY_ISTREBITEL:
+                ret = true;
+                break;
+            case STAR:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

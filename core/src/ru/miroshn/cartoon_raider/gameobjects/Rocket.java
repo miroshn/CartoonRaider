@@ -8,7 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
-import static com.badlogic.gdx.math.MathUtils.*;
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static java.lang.Math.abs;
 
 /**
@@ -18,13 +19,11 @@ import static java.lang.Math.abs;
 public class Rocket extends GameObject {
     //    private float currSpeed;
     private final float maxLinearAcceleration = 100.0f; //точек в секунду
-    private int damagePower;
+    private final int damagePower;
+    private final IntAction maxAngleSpeed; // градусы в секунду
+    private final IntAction currSpeed;
     private float lifeTime;
-    private float distToTarget;
     private float currAngle;
-    private IntAction maxAngleSpeed; // градусы в секунду
-    private IntAction currSpeed;
-
     private Actor target;
 
     public Rocket() {
@@ -45,7 +44,7 @@ public class Rocket extends GameObject {
 
     @Override
     public void act(float delta) {
-        delta = 0.01f;
+//        delta = 0.01f;
         if (target == null) searchTarget();
         lifeTime -= delta;
         if (lifeTime < 0) setState(GOState.DEAD);
@@ -68,8 +67,8 @@ public class Rocket extends GameObject {
                 //currSpeed += maxLinearAcceleration * delta;
                 this.setRotation(angle);
 
-                setPosition(getX() - currSpeed.getValue() * delta * sin(angle * degreesToRadians),
-                        getY() + currSpeed.getValue() * delta * cos(angle * degreesToRadians));
+                setPosition(getX() - currSpeed.getValue() * delta * sinDeg(angle),
+                        getY() + currSpeed.getValue() * delta * cosDeg(angle));
 
                 currSpeed.act(delta);
                 maxAngleSpeed.act(delta);
@@ -102,7 +101,6 @@ public class Rocket extends GameObject {
                 if (((GameObject) a).getState() != GOState.NORMAL) continue;
                 if (abs(getX() - a.getX()) + abs(getY() - a.getY()) < abs(getX() - target.getX()) + abs(getY() - target.getY())) {
                     target = a;
-                    distToTarget = abs(getX() - a.getX()) + abs(getY() - a.getY());
                 }
             }
         }
@@ -111,6 +109,20 @@ public class Rocket extends GameObject {
     @Override
     public GameObjects who() {
         return GameObjects.ROCKET;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case ENEMY_BULLET:
+                ret = true;
+                break;
+            case ENEMY_ISTREBITEL:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

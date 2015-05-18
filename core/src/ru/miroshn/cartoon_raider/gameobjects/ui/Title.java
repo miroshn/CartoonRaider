@@ -11,7 +11,7 @@ import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
  * Заголовок игры
  */
 public class Title extends Actor {
-    private TextureRegion region;
+    private final TextureRegion region;
     private Texture titleTexture;
 
     public Title(Titles type) {

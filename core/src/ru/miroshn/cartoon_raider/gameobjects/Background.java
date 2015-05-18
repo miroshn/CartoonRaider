@@ -15,7 +15,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  */
 public class Background extends Actor implements Disposable {
     private static Background instance;
-    private TextureRegion region;
+    private final TextureRegion region;
     private MoveByAction action;
     private int SPEED_SCROLL = 5;
 

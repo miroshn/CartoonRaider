@@ -64,10 +64,12 @@ public class CRAssetManager extends AssetManager {
         return player.getRof();
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T get(Res value) {
         T obj = null;
         switch (value.getType()) {
             case TEXTURE:
+                //noinspection unchecked
                 obj = (T) get(value.getName(), Texture.class);
                 break;
             case TEXTURE_REGION:

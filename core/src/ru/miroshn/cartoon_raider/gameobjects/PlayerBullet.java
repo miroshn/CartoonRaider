@@ -33,6 +33,17 @@ public class PlayerBullet extends Bullet {
     }
 
     @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case ENEMY_ISTREBITEL:
+                ret = true;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
             case ENEMY_ISTREBITEL:

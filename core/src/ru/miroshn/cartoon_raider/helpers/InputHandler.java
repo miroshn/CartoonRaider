@@ -4,9 +4,10 @@ import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by miroshn on 10.04.15.
+ * Создан для упрощения классов с управлением
  */
 public class InputHandler implements InputProcessor {
-    private ScreenInput screen;
+    private final ScreenInput screen;
 
     public InputHandler(ScreenInput screen) {
         this.screen = screen;
