@@ -46,21 +46,38 @@ public abstract class GameObject extends Actor {
         return rnd;
     }
 
+    @Override
+    protected void positionChanged() {
+        super.positionChanged();
+        boundingPolygon.setPosition(getX(), getY());
+    }
+
+    @Override
+    public void setRotation(float degrees) {
+        super.setRotation(degrees);
+        boundingPolygon.setRotation(getRotation());
+    }
+
+    @Override
+    public void setOrigin(float originX, float originY) {
+        super.setOrigin(originX, originY);
+        boundingPolygon.setOrigin(originX, originY);
+    }
+
+    @Override
+    public void setScale(float scaleX, float scaleY) {
+        super.setScale(scaleX, scaleY);
+        boundingPolygon.setScale(getScaleX(), getScaleY());
+    }
+
     public PolygonOverlaps getBoundingPolygon(boolean create) {
         if (boundingPolygon == null && create) {
             boundingPolygon = new PolygonOverlaps(new float[]{0, 0, getWidth(), 0,
                     getWidth(), getHeight(), 0, 0 + getHeight()});
+//            Gdx.app.log(getClass().getSimpleName(),"Created");
         }
         if (boundingPolygon == null) return null;
-        boundingPolygon.setOrigin(getOriginX(), getOriginY());
-        boundingPolygon.setRotation(getRotation());
-        boundingPolygon.setScale(getScaleX(), getScaleY());
-        boundingPolygon.setPosition(getX(), getY());
         return boundingPolygon;
-    }
-
-    public void setBoundingPolygon(PolygonOverlaps boundingPolygon) {
-        this.boundingPolygon = boundingPolygon;
     }
 
     @Override
@@ -81,10 +98,6 @@ public abstract class GameObject extends Actor {
                 break;
         }
 
-        boundingPolygon.setOrigin(getOriginX(), getOriginY());
-        boundingPolygon.setRotation(getRotation());
-        boundingPolygon.setScale(getScaleX(), getScaleY());
-        boundingPolygon.setPosition(getX(), getY());
 
     }
 
@@ -115,7 +128,6 @@ public abstract class GameObject extends Actor {
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
     }
 
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -132,6 +144,11 @@ public abstract class GameObject extends Actor {
         if (hp == 0) hp = 100;
         if (texture == null) return;
         setSize(texture.getRegionWidth(), texture.getRegionHeight());
+        boundingPolygon.setOrigin(getOriginX(), getOriginY());
+        boundingPolygon.setRotation(getRotation());
+        boundingPolygon.setScale(getScaleX(), getScaleY());
+        boundingPolygon.setPosition(getX(), getY());
+
 //        setPosition(rnd.nextInt(Gdx.graphics.getWidth()) + getWidth() * getScaleX(),
 //                Gdx.graphics.getHeight() + getHeight() + rnd.nextInt(300));
     }
@@ -166,7 +183,27 @@ public abstract class GameObject extends Actor {
 
     public abstract GameObjects who();
 
+    public abstract boolean processCollision(GameObjects gameObjects);
+
     public abstract void contact(GameObject gameObject);
+
+    public boolean checkCollision(GameObject gameObject) {
+        if (!processCollision(gameObject.who())) {
+            return false;
+        }
+        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle()))
+            return false;
+
+        return getBoundingPolygon().overlaps(gameObject.getBoundingPolygon()) || gameObject.getBoundingPolygon().overlaps(getBoundingPolygon());
+    }
+
+    public PolygonOverlaps getBoundingPolygon() {
+        return getBoundingPolygon(true);
+    }
+
+    public void setBoundingPolygon(PolygonOverlaps boundingPolygon) {
+        this.boundingPolygon = boundingPolygon;
+    }
 
     public enum GOState {
         NORMAL, DEAD, EXPLODING, IMMUN

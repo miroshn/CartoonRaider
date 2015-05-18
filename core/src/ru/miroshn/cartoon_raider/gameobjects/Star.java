@@ -44,6 +44,17 @@ public class Star extends GameObject {
     }
 
     @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case PLAYER:
+                ret = true;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
             case PLAYER:

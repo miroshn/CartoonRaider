@@ -18,7 +18,7 @@ public class PolygonOverlaps extends Polygon {
 
     public boolean overlaps(Polygon polygon) {
         boolean res = false;
-        float[] pVer = polygon.getTransformedVertices();
+        final float[] pVer = polygon.getTransformedVertices();
         for (int i = 0; i < pVer.length; i += 2) {
             res |= this.contains(pVer[i], pVer[i + 1]);
         }

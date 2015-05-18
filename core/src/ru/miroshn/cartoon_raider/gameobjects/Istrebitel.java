@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -31,7 +30,6 @@ public class Istrebitel extends GameObject implements Disposable {
         super();
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
-//        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         CRAssetManager.getInstance().setPlayer(this);
     }
 
@@ -93,7 +91,7 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
     private void fireBullet(int x, int y) {
-        Array<PlayerBullet> playerBullets;
+
         PlayerBullet bullet = new PlayerBullet();
         bullet.setPosition(x - bullet.getWidth() / 2, y);
         bullet.setScale(CartoonRaider.SCALE);
@@ -111,7 +109,7 @@ public class Istrebitel extends GameObject implements Disposable {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 1;
+        bulletLevel = 4;
         speedBulletFire = MIN_ROF;
         super.init();
     }
@@ -119,6 +117,23 @@ public class Istrebitel extends GameObject implements Disposable {
     @Override
     public GameObjects who() {
         return GameObjects.PLAYER;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case ENEMY_BULLET:
+                ret = true;
+                break;
+            case ENEMY_ISTREBITEL:
+                ret = true;
+                break;
+            case STAR:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

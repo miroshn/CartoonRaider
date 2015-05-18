@@ -8,7 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
-import static com.badlogic.gdx.math.MathUtils.*;
+import static com.badlogic.gdx.math.MathUtils.cosDeg;
+import static com.badlogic.gdx.math.MathUtils.sinDeg;
 import static java.lang.Math.abs;
 
 /**
@@ -43,7 +44,7 @@ public class Rocket extends GameObject {
 
     @Override
     public void act(float delta) {
-        delta = 0.01f;
+//        delta = 0.01f;
         if (target == null) searchTarget();
         lifeTime -= delta;
         if (lifeTime < 0) setState(GOState.DEAD);
@@ -66,8 +67,8 @@ public class Rocket extends GameObject {
                 //currSpeed += maxLinearAcceleration * delta;
                 this.setRotation(angle);
 
-                setPosition(getX() - currSpeed.getValue() * delta * sin(angle * degreesToRadians),
-                        getY() + currSpeed.getValue() * delta * cos(angle * degreesToRadians));
+                setPosition(getX() - currSpeed.getValue() * delta * sinDeg(angle),
+                        getY() + currSpeed.getValue() * delta * cosDeg(angle));
 
                 currSpeed.act(delta);
                 maxAngleSpeed.act(delta);
@@ -108,6 +109,20 @@ public class Rocket extends GameObject {
     @Override
     public GameObjects who() {
         return GameObjects.ROCKET;
+    }
+
+    @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case ENEMY_BULLET:
+                ret = true;
+                break;
+            case ENEMY_ISTREBITEL:
+                ret = true;
+                break;
+        }
+        return ret;
     }
 
     @Override

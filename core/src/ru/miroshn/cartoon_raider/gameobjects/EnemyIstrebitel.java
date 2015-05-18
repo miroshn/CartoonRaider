@@ -105,6 +105,23 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
     }
 
     @Override
+    public boolean processCollision(GameObjects gameObjects) {
+        boolean ret = false;
+        switch (gameObjects) {
+            case PLAYER:
+                ret = true;
+                break;
+            case PLAYER_BULLET:
+                ret = true;
+                break;
+            case ROCKET:
+                ret = true;
+                break;
+        }
+        return ret;
+    }
+
+    @Override
     public void act(float delta) {
         switch (getState()) {
             case NORMAL:
