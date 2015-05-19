@@ -124,12 +124,9 @@ public class Istrebitel extends GameObject implements Disposable {
         boolean ret = false;
         switch (gameObjects) {
             case ENEMY_BULLET:
-                ret = true;
-                break;
             case ENEMY_ISTREBITEL:
-                ret = true;
-                break;
             case STAR:
+            case BOSS1:
                 ret = true;
                 break;
         }
@@ -144,6 +141,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 damageDeal(((EnemyBullet) gameObject).getDamagePower());
                 gameObject.setState(GOState.DEAD);
                 break;
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (iddqd) break;
                 if (gameObject.getState() == GOState.NORMAL) {
@@ -173,6 +171,7 @@ public class Istrebitel extends GameObject implements Disposable {
     @Override
     protected void setHp(int hp) {
 //        this.getActions().removeValue(intAction,true);
+        if (hp > 100) hp = 100;
         intAction.reset();
         intAction.setStart(getHp());
         intAction.setEnd(hp);

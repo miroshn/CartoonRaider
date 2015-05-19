@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
+import java.util.Random;
+
 /**
  * Created by miroshn on 09.04.15.
  * менеджер ресурсов в виде сингтона
@@ -24,6 +26,11 @@ public class CRAssetManager extends AssetManager {
      * Ссылка на текущего игрока
      */
     private Istrebitel player;
+    private Random random;
+
+    private CRAssetManager() {
+        random = new Random();
+    }
 
     public static CRAssetManager getInstance() {
         if (instance == null) {
@@ -32,6 +39,9 @@ public class CRAssetManager extends AssetManager {
         return instance;
     }
 
+    public Random getRandom() {
+        return random;
+    }
 
     public int getScore() {
         return score;

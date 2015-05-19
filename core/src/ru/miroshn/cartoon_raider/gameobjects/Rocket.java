@@ -116,9 +116,8 @@ public class Rocket extends GameObject {
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
         switch (gameObjects) {
+            case BOSS1:
             case ENEMY_BULLET:
-                ret = true;
-                break;
             case ENEMY_ISTREBITEL:
                 ret = true;
                 break;
@@ -133,6 +132,7 @@ public class Rocket extends GameObject {
             case ENEMY_BULLET:
                 setState(GOState.EXPLODING);
                 break;
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (gameObject.getState() != GOState.NORMAL) break;
                 setState(GOState.EXPLODING);

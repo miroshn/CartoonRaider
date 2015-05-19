@@ -29,7 +29,7 @@ public abstract class GameObject extends Actor {
 
     public GameObject() {
         hp = 100;
-        rnd = new Random();
+        rnd = CRAssetManager.getInstance().getRandom();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
         explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE1));
@@ -167,7 +167,7 @@ public abstract class GameObject extends Actor {
 
     protected void setHp(int hp) {
         this.hp = hp;
-        if (this.hp > 100) this.hp = 100;
+//        if (this.hp > 100) this.hp = 100;
         if (hp <= 0) {
             setState(GOState.EXPLODING);
         }

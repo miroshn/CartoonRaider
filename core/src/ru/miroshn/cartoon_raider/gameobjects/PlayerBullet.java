@@ -36,6 +36,7 @@ public class PlayerBullet extends Bullet {
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
         switch (gameObjects) {
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 ret = true;
                 break;
@@ -46,6 +47,7 @@ public class PlayerBullet extends Bullet {
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (getState() != GOState.NORMAL) break;
                 if (gameObject.getState() != GOState.NORMAL) break;

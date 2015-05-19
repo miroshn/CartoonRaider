@@ -12,10 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
-import ru.miroshn.cartoon_raider.gameobjects.Background;
-import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
-import ru.miroshn.cartoon_raider.gameobjects.GameObject;
-import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
+import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
@@ -42,6 +39,8 @@ public class GameScreen implements ScreenInput {
     private final ShapeRenderer shapeRenderer;
     private boolean paused;
 
+    private GameStages gameGtage = GameStages.BEGIN;
+
     public GameScreen() {
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
         scrW = Gdx.graphics.getWidth();
@@ -53,7 +52,7 @@ public class GameScreen implements ScreenInput {
         enemys = new Array<GameObject>();
         player = new Istrebitel();
         stage = new Stage();
-        rnd = new Random();
+        rnd = CRAssetManager.getInstance().getRandom();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
@@ -99,6 +98,7 @@ public class GameScreen implements ScreenInput {
         player.clearActions();
 //        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
+        gameGtage = GameStages.BEGIN;
 
         Gdx.input.setInputProcessor(new InputHandler(this));
     }
@@ -117,7 +117,7 @@ public class GameScreen implements ScreenInput {
                 if (a instanceof GameObject) {
                     shapeRenderer.setColor(Color.RED);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon(true).getTransformedVertices());
+                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon().getTransformedVertices());
                     shapeRenderer.x(a.getX(), a.getY(), 5);
                     shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
                     shapeRenderer.setColor(Color.GREEN);
@@ -130,6 +130,24 @@ public class GameScreen implements ScreenInput {
             }
         }
 
+        switch (gameGtage) {
+            case BEGIN:
+                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS1_BATTLE.beginScore) {
+                    gameGtage = GameStages.BOSS1_BATTLE;
+                    Boss1 boss1 = new Boss1();
+                    boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
+                    boss1.addAction(Actions.moveBy(0, -400, 30));
+                    stage.addActor(boss1);
+                }
+                break;
+            case BOSS1_BATTLE:
+                break;
+            case STAGE1:
+                break;
+            default:
+                break;
+        }
+
         for (int j = 0; j < stage.getActors().size; j++) {
             Actor actor = stage.getActors().get(j);
             if (actor instanceof GameObject) {
@@ -139,7 +157,6 @@ public class GameScreen implements ScreenInput {
                         GameObject g1 = (GameObject) actor;
                         GameObject g2 = (GameObject) actor1;
                         if (g1 == g2) continue;
-//                        if (g1.getBoundingPolygon(true).overlaps(g2.getBoundingPolygon(true)) || g2.getBoundingPolygon(true).overlaps(g1.getBoundingPolygon(true))) {
                         if (g1.checkCollision(g2)) {
                             g1.contact(g2);
                         }
@@ -206,5 +223,17 @@ public class GameScreen implements ScreenInput {
         moveToAction.setDuration(0.5f);
         player.addAction(moveToAction);
         return true;
+    }
+
+    private enum GameStages {
+        BEGIN(0),
+        BOSS1_BATTLE(50),
+        STAGE1(50);
+
+        int beginScore;
+
+        GameStages(int beginScore) {
+            this.beginScore = beginScore;
+        }
     }
 }

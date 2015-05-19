@@ -6,7 +6,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
  */
 public enum GameObjects {
     PLAYER,
-    BULLET,
+    BOSS1,
     ENEMY_BULLET,
     ENEMY_ISTREBITEL,
     PLAYER_BULLET,

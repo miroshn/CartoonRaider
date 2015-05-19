@@ -5,8 +5,22 @@ package ru.miroshn.cartoon_raider.gameobjects;
  * Снаряд выпущенный вражиной
  */
 public class EnemyBullet extends Bullet {
+    private float oldx,oldy;
+
+    public EnemyBullet() {
+        super();
+        oldx = getX();
+        oldy = getY();
+    }
+
     @Override
     public void act(float delta) {
+        if (oldx == getX() && oldy == getY())
+            setState(GOState.DEAD);
+        else {
+            oldx = getX();
+            oldy = getY();
+        }
         if (getY() < -getHeight())
             setState(GOState.DEAD);
         if (this.getState() == GOState.DEAD)

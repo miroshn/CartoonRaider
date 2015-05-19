@@ -22,7 +22,7 @@ public enum Res {
     ISTREBITEL("istrebitel1", Types.TEXTURE_REGION),
     ROCKET("rocket", Types.TEXTURE_REGION),
     STAR("stars", Types.TEXTURE_REGION),
-    SB_SH_2("cb-sh-2", Types.TEXTURE_REGION),
+    BOSS1("cb-sh-2", Types.TEXTURE_REGION),
     //    FONT
     FONT("comic_sans.fnt", Types.BITMAP_FONT),
     FONT_16("comic_sans_16.fnt", Types.BITMAP_FONT),
