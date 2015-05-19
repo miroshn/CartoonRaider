@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -32,7 +33,7 @@ public class Rocket extends GameObject {
         lifeTime = 5.0f;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
 
-        currSpeed = new IntAction(150, 700);
+        currSpeed = new IntAction((int) (150 * CartoonRaider.SCALE), (int) (700 * CartoonRaider.SCALE));
         currSpeed.setInterpolation(Interpolation.exp10);
         currSpeed.setDuration(1f);
         currAngle = 0;
