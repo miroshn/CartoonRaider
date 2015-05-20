@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
@@ -14,7 +15,7 @@ public class CartoonRaider extends Game {
     * */
 
     //                public static final boolean DEBUG = true;
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = Conf.DEBUG;
     public static final Color NORMAL_COLOR = new Color(0, 0, 1, 1);
     public static final Color ENEMY_COLOR = new Color(0, 0, 0, 1);
     public static final Color BOSS_COLOR = new Color(1, 0, 0, 1);

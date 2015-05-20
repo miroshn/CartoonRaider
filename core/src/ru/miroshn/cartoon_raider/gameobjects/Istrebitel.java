@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
@@ -19,7 +20,7 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.2f;
     public static final float MIN_ROF = 0.5f;
-    private boolean iddqd = false;
+    private boolean iddqd = Conf.IDDQD;
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire;
     private float bulletTime;

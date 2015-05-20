@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -15,7 +16,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  * Первый в игре босс
  */
 public class Boss1 extends GameObject {
-    private final float BULLET_FIRE_TIME = 0.5f;
+    private final float BULLET_FIRE_TIME = Conf.BOSS1_BULLET_FIRE_TIME;
     private int bulletPrc = 70;
     private float bulletTime;
 
@@ -55,8 +56,7 @@ public class Boss1 extends GameObject {
         if (oldx == getX() && oldy == getY()) {
             float tox = MathUtils.random(moveToX);
             float toy = Gdx.graphics.getHeight() / 2.0f + MathUtils.random(moveToY);
-            addAction(Actions.moveTo(tox, toy, 10.0f));
-            Gdx.app.log(getClass().getSimpleName(), "Move to (" + tox + ", " + toy + ")");
+            addAction(Actions.moveTo(tox, toy, Conf.BOSS_MOVE_TIME));
         }
         oldx = getX();
         oldy = getY();

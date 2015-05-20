@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -138,7 +139,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
                 }
                 break;
             case DEAD:
-                if (MathUtils.random(100) < 50) {
+                if (MathUtils.random(100) < Conf.STAR_DROP_PRC) {
                     Star star = new Star();
                     star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
                     getStage().addActor(star);
