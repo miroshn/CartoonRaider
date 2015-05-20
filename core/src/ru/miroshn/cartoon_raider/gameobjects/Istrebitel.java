@@ -31,6 +31,7 @@ public class Istrebitel extends GameObject implements Disposable {
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
         CRAssetManager.getInstance().setPlayer(this);
+        setColor(CartoonRaider.NORMAL_COLOR);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class Istrebitel extends GameObject implements Disposable {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 1;
+        bulletLevel = 4;
         speedBulletFire = MIN_ROF;
         super.init();
     }

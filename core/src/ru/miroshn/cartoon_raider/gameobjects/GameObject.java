@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -17,7 +17,7 @@ import java.util.Random;
  * Created by miroshn on 06.04.15.
  *
  */
-public abstract class GameObject extends Actor {
+public abstract class GameObject extends Group {
 
     private final Random rnd;
     private final Animation explodeAnimation;
@@ -191,8 +191,9 @@ public abstract class GameObject extends Actor {
         if (!processCollision(gameObject.who())) {
             return false;
         }
-        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle()))
+        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle())) {
             return false;
+        }
 
         return getBoundingPolygon().overlaps(gameObject.getBoundingPolygon()) || gameObject.getBoundingPolygon().overlaps(getBoundingPolygon());
     }

@@ -21,6 +21,7 @@ public enum Res {
     IL_2("il-2", Types.TEXTURE_REGION),
     ISTREBITEL("istrebitel1", Types.TEXTURE_REGION),
     ROCKET("rocket", Types.TEXTURE_REGION),
+    ROCKET_FLAME("rocket_flame", Types.TEXTURE_REGION),
     STAR("stars", Types.TEXTURE_REGION),
     BOSS1("cb-sh-2", Types.TEXTURE_REGION),
     //    FONT

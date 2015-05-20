@@ -15,7 +15,9 @@ public class CartoonRaider extends Game {
 
     //            public static final boolean DEBUG = true;
     public static final boolean DEBUG = false;
-    public static final Color COLOR = new Color(0, 0, 1, 1);
+    public static final Color NORMAL_COLOR = new Color(0, 0, 1, 1);
+    public static final Color ENEMY_COLOR = new Color(0, 0, 0, 1);
+    public static final Color BOSS_COLOR = new Color(1, 0, 0, 1);
     public static float SCALE;
 
     @Override

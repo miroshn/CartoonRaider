@@ -143,3 +143,10 @@ bullet
   orig: 7, 21
   offset: 0, 0
   index: -1
+rocket_flame
+  rotate: false
+  xy: 515, 118
+  size: 16, 11
+  orig: 16, 11
+  offset: 0, 0
+  index: -1

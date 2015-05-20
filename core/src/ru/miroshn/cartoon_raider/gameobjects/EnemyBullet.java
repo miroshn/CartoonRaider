@@ -1,5 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import ru.miroshn.cartoon_raider.CartoonRaider;
+
 /**
  * Created by miroshn on 16.04.15.
  * Снаряд выпущенный вражиной
@@ -9,6 +11,7 @@ public class EnemyBullet extends Bullet {
 
     public EnemyBullet() {
         super();
+        setColor(CartoonRaider.ENEMY_COLOR);
         oldx = getX();
         oldy = getY();
     }

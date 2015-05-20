@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -20,6 +21,7 @@ public class Star extends GameObject {
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.STAR));
         this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight() * 2, 20));
         setState(GOState.IMMUN);
+        setColor(CartoonRaider.NORMAL_COLOR);
     }
 
     @Override

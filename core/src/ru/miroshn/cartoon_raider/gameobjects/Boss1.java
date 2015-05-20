@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.miroshn.cartoon_raider.CartoonRaider;
@@ -27,6 +28,7 @@ public class Boss1 extends GameObject {
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BOSS1));
         setHp(1000);
         bulletTime = BULLET_FIRE_TIME;
+        setColor(Color.RED);
         oldx = getX();
         oldy = getY();
     }
