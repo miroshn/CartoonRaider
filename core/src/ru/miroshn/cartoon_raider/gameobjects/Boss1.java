@@ -124,7 +124,7 @@ public class Boss1 extends GameObject {
 
     @Override
     public PolygonOverlaps getBoundingPolygon(boolean create) {
-        if (!create) return super.getBoundingPolygon(create);
+        if (!create) return super.getBoundingPolygon(false);
         if (super.getBoundingPolygon(false) == null) {
             float[] ver = new float[]{0, getHeight() * getScaleY() * 2.0f / 3.0f
                     , getWidth() * getScaleX() / 2.0f, getHeight() * getScaleY()
