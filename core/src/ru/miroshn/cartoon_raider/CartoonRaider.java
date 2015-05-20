@@ -13,7 +13,7 @@ public class CartoonRaider extends Game {
     * Различные константы использующиеся в игре
     * */
 
-    //            public static final boolean DEBUG = true;
+    //                public static final boolean DEBUG = true;
     public static final boolean DEBUG = false;
     public static final Color NORMAL_COLOR = new Color(0, 0, 1, 1);
     public static final Color ENEMY_COLOR = new Color(0, 0, 0, 1);

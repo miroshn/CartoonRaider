@@ -3,13 +3,12 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
-
-import java.util.Random;
 
 /**
  * Created by miroshn on 19.05.15.
@@ -31,15 +30,10 @@ public class Boss1 extends GameObject {
         setColor(Color.RED);
         oldx = getX();
         oldy = getY();
-    }
-
-
-    @Override
-    public void init() {
-        super.init();
         moveToX = Gdx.graphics.getWidth() - getWidth() * getScaleX();
         moveToY = Gdx.graphics.getHeight() / 2.0f - getHeight() * getScaleY();
     }
+
 
     @Override
     public GameObjects who() {
@@ -59,11 +53,21 @@ public class Boss1 extends GameObject {
         }
 
         if (oldx == getX() && oldy == getY()) {
-            Random rnd = CRAssetManager.getInstance().getRandom();
-            addAction(Actions.moveTo(rnd.nextInt((int) moveToX), Gdx.graphics.getHeight() / 2.0f + rnd.nextInt((int) moveToY), 10.0f));
+            float tox = MathUtils.random(moveToX);
+            float toy = Gdx.graphics.getHeight() / 2.0f + MathUtils.random(moveToY);
+            addAction(Actions.moveTo(tox, toy, 10.0f));
+            Gdx.app.log(getClass().getSimpleName(), "Move to (" + tox + ", " + toy + ")");
         }
         oldx = getX();
         oldy = getY();
+
+        if (getState() == GOState.DEAD) {
+            for (int i = 0; i < 5; i++) {
+                Star star = new Star();
+                star.setPosition(getX() + getWidth() / 2.0f, getY() + getHeight() / 2.0f);
+                getStage().addActor(star);
+            }
+        }
 
         super.act(delta);
     }
@@ -73,13 +77,15 @@ public class Boss1 extends GameObject {
         Istrebitel player = CRAssetManager.getInstance().getPlayer();
         float distToPlayer = (float) Math.sqrt(Math.pow(getX() - player.getX(), 2) + Math.pow(getY() - player.getY(), 2));
         float bt = distToPlayer / Gdx.graphics.getHeight() * 1.5f;
-        Gdx.app.log(getClass().getSimpleName(), "bt = " + bt);
-        Gdx.app.log(getClass().getSimpleName(), "dist = " + distToPlayer);
         EnemyBullet bullet = new EnemyBullet();
-        bullet.setPosition(getX() + getWidth() / 2 * CartoonRaider.SCALE, getY() + getHeight() / 4.0f * CartoonRaider.SCALE);
+        float bulletX = getX() + getWidth() / 2 * CartoonRaider.SCALE;
+        float bulletY = getY() + getHeight() / 4.0f * CartoonRaider.SCALE;
+        bullet.setPosition(bulletX, bulletY);
         bullet.setScale(CartoonRaider.SCALE);
-        bullet.addAction(Actions.moveTo(player.getX() + player.getWidth() / 2.0f * CartoonRaider.SCALE,
-                player.getY() + player.getHeight() / 2.0f * CartoonRaider.SCALE, bt));
+
+        float dx = (player.getX() + player.getWidth() / 2.0f * CartoonRaider.SCALE - bulletX) * 3.0f;
+        float dy = (player.getY() + player.getHeight() / 2.0f * CartoonRaider.SCALE - bulletY) * 3.0f;
+        bullet.addAction(Actions.moveBy(dx, dy, bt * 3));
         this.getStage().addActor(bullet);
     }
 

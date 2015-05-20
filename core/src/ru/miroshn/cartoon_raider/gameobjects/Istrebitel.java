@@ -110,7 +110,7 @@ public class Istrebitel extends GameObject implements Disposable {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 4;
+        bulletLevel = 1;
         speedBulletFire = MIN_ROF;
         super.init();
     }

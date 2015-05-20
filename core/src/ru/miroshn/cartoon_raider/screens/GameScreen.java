@@ -38,6 +38,7 @@ public class GameScreen implements ScreenInput {
     private final Title pausedTitle;
     private final ShapeRenderer shapeRenderer;
     private boolean paused;
+    private Boss1 boss1;
 
     private GameStages gameGtage = GameStages.BEGIN;
 
@@ -134,13 +135,15 @@ public class GameScreen implements ScreenInput {
             case BEGIN:
                 if (CRAssetManager.getInstance().getScore() > GameStages.BOSS1_BATTLE.beginScore) {
                     gameGtage = GameStages.BOSS1_BATTLE;
-                    Boss1 boss1 = new Boss1();
+                    boss1 = new Boss1();
                     boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
-                    boss1.addAction(Actions.moveBy(0, -400, 30));
+                    boss1.addAction(Actions.moveBy(0, -400, 3));
                     stage.addActor(boss1);
                 }
                 break;
             case BOSS1_BATTLE:
+                if (boss1.getState() == GameObject.GOState.DEAD)
+                    gameGtage = GameStages.STAGE1;
                 break;
             case STAGE1:
                 break;
