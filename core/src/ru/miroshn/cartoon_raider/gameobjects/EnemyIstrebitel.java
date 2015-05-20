@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
@@ -137,9 +138,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
                 }
                 break;
             case DEAD:
-                Star star = new Star();
-                star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
-                getStage().addActor(star);
+                if (MathUtils.random(100) < 50) {
+                    Star star = new Star();
+                    star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
+                    getStage().addActor(star);
+                }
                 init();
                 break;
             default:
