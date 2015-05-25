@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -26,6 +27,9 @@ public abstract class GameObject extends Group {
     private GOState state;
     private float explodingTime;
     private int hp;
+    private Sound explodingSound;
+    private boolean exPlayed = false;
+
 
     public GameObject() {
         hp = 100;
@@ -40,6 +44,7 @@ public abstract class GameObject extends Group {
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
         setScale(CartoonRaider.SCALE);
+        explodingSound = CRAssetManager.getInstance().get(Res.EXPLOSIVE_SOUND);
     }
 
     public Random getRnd() {
@@ -109,6 +114,10 @@ public abstract class GameObject extends Group {
         setSize(getHeight(), getHeight());
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
+        if (!exPlayed) {
+            explodingSound.play();
+            exPlayed = true;
+        }
 //        Gdx.app.log("GO","delta = "+delta);
     }
 
@@ -139,6 +148,7 @@ public abstract class GameObject extends Group {
     }
 
     public void init() {
+        exPlayed = false;
         state = GOState.NORMAL;
         explodingTime = 0;
         if (hp == 0) hp = 100;

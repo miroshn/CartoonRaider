@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -16,10 +17,7 @@ import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
-import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
-import ru.miroshn.cartoon_raider.helpers.Conf;
-import ru.miroshn.cartoon_raider.helpers.InputHandler;
-import ru.miroshn.cartoon_raider.helpers.ScreenInput;
+import ru.miroshn.cartoon_raider.helpers.*;
 
 import java.util.Random;
 
@@ -42,6 +40,7 @@ public class GameScreen implements ScreenInput {
     private Boss1 boss1;
     private Boss1 boss2;
     private GameStages gameGtage = GameStages.BEGIN;
+    private Sound alramSound;
 
     public GameScreen() {
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
@@ -60,6 +59,7 @@ public class GameScreen implements ScreenInput {
             enemys.get(i).setRotation(180);
         }
 
+        alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
         resetScreen();
     }
 
@@ -69,6 +69,7 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void show() {
+        alramSound.play();
         pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
         pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
                 (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);

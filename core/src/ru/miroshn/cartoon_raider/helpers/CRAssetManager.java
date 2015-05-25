@@ -2,6 +2,7 @@ package ru.miroshn.cartoon_raider.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -90,6 +91,10 @@ public class CRAssetManager extends AssetManager {
                     obj = (T) get(Res.FONT.getName(), BitmapFont.class);
                 else
                     obj = (T) get(Res.FONT_16.getName(), BitmapFont.class);
+                break;
+            case SOUND:
+                obj = (T) get(value.getName(), Sound.class);
+                break;
         }
         return obj;
     }

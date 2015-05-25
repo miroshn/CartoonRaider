@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -25,6 +26,7 @@ public class Rocket extends GameObject {
     private float lifeTime;
     private float currAngle;
     private Actor target;
+    private Sound rocketSound;
 
     private RocketFlame rocketFlame;
     private Group group;
@@ -45,6 +47,8 @@ public class Rocket extends GameObject {
 
         rocketFlame = new RocketFlame();
         addActor(rocketFlame);
+        rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
+        rocketSound.play();
 //        rocketFlame.pa
 
 //        currSpeed = 10;
