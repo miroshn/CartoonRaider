@@ -62,9 +62,14 @@ public class Boss1 extends GameObject {
         oldy = getY();
 
         if (getState() == GOState.DEAD) {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Conf.NUM_STARS_AFTER_KILL_BOSS; i++) {
                 Star star = new Star();
-                star.setPosition(getX() + getWidth() / 2.0f, getY() + getHeight() / 2.0f);
+                float posx = getX() + getWidth() / 2.0f;
+                float posy = getY() + getHeight() / 2.0f;
+                star.setPosition(posx, posy);
+                star.addAction(Actions.moveBy(MathUtils.random(-Conf.STARS_MOVE_RANGE, Conf.STARS_MOVE_RANGE)
+                        , MathUtils.random(-Conf.STARS_MOVE_RANGE, Conf.STARS_MOVE_RANGE), 1));
+
                 getStage().addActor(star);
             }
         }

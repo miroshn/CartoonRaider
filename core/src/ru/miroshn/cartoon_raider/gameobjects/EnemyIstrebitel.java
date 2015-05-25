@@ -29,10 +29,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         bulletTime = BULLET_FIRE_TIME;
         bulletPrc = 5;
 
-//        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
-//        float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
-//        setBoundingPolygon(new PolygonOverlaps(ver));
         setColor(Color.BLACK);
     }
 
@@ -59,10 +56,10 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void init() {
-        int rnd = getRnd().nextInt(CRAssetManager.getInstance().getScore() + 1) + CRAssetManager.getInstance().getScore();
-        if (rnd >= 200) istrebitelType = IstrebitelType.SU;
-        if (rnd < 200) istrebitelType = IstrebitelType.Il_2;
-        if (rnd < 100) istrebitelType = IstrebitelType.I_16;
+        int rnd = MathUtils.random(CRAssetManager.getInstance().getScore() + 1);// + CRAssetManager.getInstance().getScore();
+        if (rnd >= Conf.BOSS2_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.SU;
+        if (rnd < Conf.BOSS2_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.Il_2;
+        if (rnd < Conf.BOSS1_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.I_16;
 
         switch (istrebitelType) {
             case I_16:

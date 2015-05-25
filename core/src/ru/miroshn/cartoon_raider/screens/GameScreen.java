@@ -17,6 +17,7 @@ import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.InputHandler;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
@@ -39,7 +40,7 @@ public class GameScreen implements ScreenInput {
     private final ShapeRenderer shapeRenderer;
     private boolean paused;
     private Boss1 boss1;
-
+    private Boss1 boss2;
     private GameStages gameGtage = GameStages.BEGIN;
 
     public GameScreen() {
@@ -60,6 +61,10 @@ public class GameScreen implements ScreenInput {
         }
 
         resetScreen();
+    }
+
+    public GameStages getGameGtage() {
+        return gameGtage;
     }
 
     @Override
@@ -137,7 +142,7 @@ public class GameScreen implements ScreenInput {
                     gameGtage = GameStages.BOSS1_BATTLE;
                     boss1 = new Boss1();
                     boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
-                    boss1.addAction(Actions.moveBy(0, -400, 3));
+                    boss1.addAction(Actions.moveTo(boss1.getX(), scrH - boss1.getHeight() * boss1.getScaleY(), Conf.BOSS_MOVE_TIME));
                     stage.addActor(boss1);
                 }
                 break;
@@ -146,6 +151,13 @@ public class GameScreen implements ScreenInput {
                     gameGtage = GameStages.STAGE1;
                 break;
             case STAGE1:
+                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS2_BATTLE.beginScore) {
+                    gameGtage = GameStages.BOSS2_BATTLE;
+                    boss2 = new Boss1();
+                    boss2.setPosition(scrW / 2.0f - boss2.getWidth() / 2.0f * boss2.getScaleX(), -boss2.getHeight());
+                    boss2.addAction(Actions.moveTo(boss2.getX(), scrH - boss2.getHeight() * boss2.getScaleY(), Conf.BOSS_MOVE_TIME * 3));
+                    stage.addActor(boss2);
+                }
                 break;
             default:
                 break;
@@ -228,10 +240,11 @@ public class GameScreen implements ScreenInput {
         return true;
     }
 
-    private enum GameStages {
+    public enum GameStages {
         BEGIN(0),
-        BOSS1_BATTLE(50),
-        STAGE1(50);
+        BOSS1_BATTLE(Conf.BOSS1_BATTLE_BEGIN_SCORE),
+        STAGE1(0),
+        BOSS2_BATTLE(Conf.BOSS2_BATTLE_BEGIN_SCORE);
 
         int beginScore;
 
