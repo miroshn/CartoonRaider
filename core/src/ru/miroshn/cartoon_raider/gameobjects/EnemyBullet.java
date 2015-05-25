@@ -1,12 +1,29 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import ru.miroshn.cartoon_raider.CartoonRaider;
+
 /**
  * Created by miroshn on 16.04.15.
  * Снаряд выпущенный вражиной
  */
 public class EnemyBullet extends Bullet {
+    private float oldx,oldy;
+
+    public EnemyBullet() {
+        super();
+        setColor(CartoonRaider.ENEMY_COLOR);
+        oldx = getX();
+        oldy = getY();
+    }
+
     @Override
     public void act(float delta) {
+        if (oldx == getX() && oldy == getY())
+            setState(GOState.DEAD);
+        else {
+            oldx = getX();
+            oldy = getY();
+        }
         if (getY() < -getHeight())
             setState(GOState.DEAD);
         if (this.getState() == GOState.DEAD)

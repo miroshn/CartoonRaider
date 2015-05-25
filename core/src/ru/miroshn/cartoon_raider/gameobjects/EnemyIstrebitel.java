@@ -3,10 +3,12 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -27,10 +29,7 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         bulletTime = BULLET_FIRE_TIME;
         bulletPrc = 5;
 
-//        setTextureRegion(new TextureRegion((Texture) CRAssetManager.getInstance().get("istrebitel1.png")));
         setSize(getTextureRegion().getRegionWidth(), getTextureRegion().getRegionHeight());
-//        float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
-//        setBoundingPolygon(new PolygonOverlaps(ver));
         setColor(Color.BLACK);
     }
 
@@ -57,10 +56,10 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
 
     @Override
     public void init() {
-        int rnd = getRnd().nextInt(CRAssetManager.getInstance().getScore() + 1) + CRAssetManager.getInstance().getScore();
-        if (rnd >= 200) istrebitelType = IstrebitelType.SU;
-        if (rnd < 200) istrebitelType = IstrebitelType.Il_2;
-        if (rnd < 100) istrebitelType = IstrebitelType.I_16;
+        int rnd = MathUtils.random(CRAssetManager.getInstance().getScore() + 1);// + CRAssetManager.getInstance().getScore();
+        if (rnd >= Conf.BOSS2_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.SU;
+        if (rnd < Conf.BOSS2_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.Il_2;
+        if (rnd < Conf.BOSS1_BATTLE_BEGIN_SCORE) istrebitelType = IstrebitelType.I_16;
 
         switch (istrebitelType) {
             case I_16:
@@ -137,9 +136,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
                 }
                 break;
             case DEAD:
-                Star star = new Star();
-                star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
-                getStage().addActor(star);
+                if (MathUtils.random(100) < Conf.STAR_DROP_PRC) {
+                    Star star = new Star();
+                    star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
+                    getStage().addActor(star);
+                }
                 init();
                 break;
             default:

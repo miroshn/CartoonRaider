@@ -46,6 +46,7 @@ public class Hud extends Actor {
         tmp_color = new Color();
         setScaleX(scrW * 5.0f / (texture.getRegionWidth() * 100.f));
         setScaleY(scrH * 80.0f / (texture.getRegionHeight() * 100.f));
+        setColor(CartoonRaider.NORMAL_COLOR);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class Hud extends Actor {
         font.drawMultiLine(batch, "Score: " + CRAssetManager.getInstance().getScore(), getX(), getY());
 
         tmp_color.set(batch.getColor());
-        batch.setColor(tmp_color.r, tmp_color.g, tmp_color.b, 0.5f);
+        batch.setColor(getColor().r, getColor().g, getColor().b, 0.5f);
 
         // output HP
         batch.draw(texture, OFFSET, OFFSET, texture.getRegionWidth() * getScaleX(), texture.getRegionHeight() * getScaleY());

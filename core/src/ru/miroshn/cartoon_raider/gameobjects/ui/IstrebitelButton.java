@@ -32,7 +32,7 @@ public class IstrebitelButton extends Istrebitel {
         super.draw(batch, parentAlpha);
         BitmapFont.TextBounds tb = font.getBounds(text);
 //        tb.width
-        font.setColor(CartoonRaider.COLOR);
+        font.setColor(CartoonRaider.NORMAL_COLOR);
         font.draw(batch, text, getX() + getWidth() * getScaleX() / 2 - tb.width / 2, getY() - 10);
     }
 

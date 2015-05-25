@@ -1,10 +1,13 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -17,14 +20,16 @@ import static java.lang.Math.abs;
  * Ракета
  */
 public class Rocket extends GameObject {
-    //    private float currSpeed;
-    private final float maxLinearAcceleration = 100.0f; //точек в секунду
     private final int damagePower;
     private final IntAction maxAngleSpeed; // градусы в секунду
     private final IntAction currSpeed;
     private float lifeTime;
     private float currAngle;
     private Actor target;
+    private Sound rocketSound;
+
+    private RocketFlame rocketFlame;
+    private Group group;
 
     public Rocket() {
         super();
@@ -32,12 +37,19 @@ public class Rocket extends GameObject {
         lifeTime = 5.0f;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
 
-        currSpeed = new IntAction(150, 700);
+        currSpeed = new IntAction((int) (150 * CartoonRaider.SCALE), (int) (700 * CartoonRaider.SCALE));
         currSpeed.setInterpolation(Interpolation.exp10);
         currSpeed.setDuration(1f);
         currAngle = 0;
         maxAngleSpeed = new IntAction(0, 180);
         maxAngleSpeed.setDuration(1.5f);
+        setColor(CartoonRaider.NORMAL_COLOR);
+
+        rocketFlame = new RocketFlame();
+        addActor(rocketFlame);
+        rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
+        rocketSound.play();
+//        rocketFlame.pa
 
 //        currSpeed = 10;
     }
@@ -76,6 +88,7 @@ public class Rocket extends GameObject {
             case DEAD:
                 break;
             case EXPLODING:
+                removeActor(rocketFlame);
                 break;
             case IMMUN:
                 break;
@@ -115,9 +128,8 @@ public class Rocket extends GameObject {
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
         switch (gameObjects) {
+            case BOSS1:
             case ENEMY_BULLET:
-                ret = true;
-                break;
             case ENEMY_ISTREBITEL:
                 ret = true;
                 break;
@@ -132,6 +144,7 @@ public class Rocket extends GameObject {
             case ENEMY_BULLET:
                 setState(GOState.EXPLODING);
                 break;
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (gameObject.getState() != GOState.NORMAL) break;
                 setState(GOState.EXPLODING);
@@ -150,6 +163,28 @@ public class Rocket extends GameObject {
 
     public int getDamagePower() {
         return damagePower;
+    }
+
+
+    private class RocketFlame extends GameObject {
+        public RocketFlame() {
+            super();
+            setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET_FLAME));
+        }
+
+        @Override
+        public GameObjects who() {
+            return GameObjects.ROCKET;
+        }
+
+        @Override
+        public boolean processCollision(GameObjects gameObjects) {
+            return false;
+        }
+
+        @Override
+        public void contact(GameObject gameObject) {
+        }
     }
 
 }

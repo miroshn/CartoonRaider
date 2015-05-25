@@ -1,12 +1,18 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
  * Created by miroshn on 16.04.15.
  * Снаряд выпущенный игроком
  */
 public class PlayerBullet extends Bullet {
+
+    public PlayerBullet() {
+        super();
+        setColor(CartoonRaider.NORMAL_COLOR);
+    }
 
     @Override
     public void act(float delta) {
@@ -36,6 +42,7 @@ public class PlayerBullet extends Bullet {
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
         switch (gameObjects) {
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 ret = true;
                 break;
@@ -46,6 +53,7 @@ public class PlayerBullet extends Bullet {
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (getState() != GOState.NORMAL) break;
                 if (gameObject.getState() != GOState.NORMAL) break;

@@ -2,6 +2,7 @@ package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,6 +26,10 @@ public class LoadScreen implements Screen {
             CRAssetManager.getInstance().load(Res.FONT_16.getName(), BitmapFont.class);
 
         CRAssetManager.getInstance().load(Res.GRAPHIC_PACK.getName(), TextureAtlas.class);
+        CRAssetManager.getInstance().load(Res.SHOT_SOUND.getName(), Sound.class);
+        CRAssetManager.getInstance().load(Res.EXPLOSIVE_SOUND.getName(), Sound.class);
+        CRAssetManager.getInstance().load(Res.ROCKET_SOUND.getName(), Sound.class);
+        CRAssetManager.getInstance().load(Res.ALRAM_SOUND.getName(), Sound.class);
     }
 
     @Override

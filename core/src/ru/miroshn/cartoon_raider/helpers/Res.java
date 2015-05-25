@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.helpers;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,6 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public enum Res {
 
+    SHOT_SOUND("shot.ogg", Types.SOUND),
+    EXPLOSIVE_SOUND("explosive.ogg", Types.SOUND),
+    ROCKET_SOUND("rocket.ogg", Types.SOUND),
+    ALRAM_SOUND("alram.ogg", Types.SOUND),
 
     BACKGROUND("background", Types.TEXTURE_REGION),
     BULLET("bullet", Types.TEXTURE_REGION),
@@ -21,7 +26,9 @@ public enum Res {
     IL_2("il-2", Types.TEXTURE_REGION),
     ISTREBITEL("istrebitel1", Types.TEXTURE_REGION),
     ROCKET("rocket", Types.TEXTURE_REGION),
+    ROCKET_FLAME("rocket_flame", Types.TEXTURE_REGION),
     STAR("stars", Types.TEXTURE_REGION),
+    BOSS1("cb-sh-2", Types.TEXTURE_REGION),
     //    FONT
     FONT("comic_sans.fnt", Types.BITMAP_FONT),
     FONT_16("comic_sans_16.fnt", Types.BITMAP_FONT),
@@ -57,6 +64,7 @@ public enum Res {
     }
 
     public enum Types {
+        SOUND(Sound.class),
         TEXTURE(Texture.class),
         TEXTURE_REGION(TextureRegion.class),
         BITMAP_FONT(BitmapFont.class);

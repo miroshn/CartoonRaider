@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -12,16 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
-import ru.miroshn.cartoon_raider.gameobjects.Background;
-import ru.miroshn.cartoon_raider.gameobjects.EnemyIstrebitel;
-import ru.miroshn.cartoon_raider.gameobjects.GameObject;
-import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
+import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
-import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
-import ru.miroshn.cartoon_raider.helpers.InputHandler;
-import ru.miroshn.cartoon_raider.helpers.ScreenInput;
+import ru.miroshn.cartoon_raider.helpers.*;
 
 import java.util.Random;
 
@@ -41,6 +37,10 @@ public class GameScreen implements ScreenInput {
     private final Title pausedTitle;
     private final ShapeRenderer shapeRenderer;
     private boolean paused;
+    private Boss1 boss1;
+    private Boss1 boss2;
+    private GameStages gameGtage = GameStages.BEGIN;
+    private Sound alramSound;
 
     public GameScreen() {
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
@@ -53,17 +53,23 @@ public class GameScreen implements ScreenInput {
         enemys = new Array<GameObject>();
         player = new Istrebitel();
         stage = new Stage();
-        rnd = new Random();
+        rnd = CRAssetManager.getInstance().getRandom();
         for (int i = 0; i < 10; i++) {
             enemys.add(new EnemyIstrebitel());
             enemys.get(i).setRotation(180);
         }
 
+        alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
         resetScreen();
+    }
+
+    public GameStages getGameGtage() {
+        return gameGtage;
     }
 
     @Override
     public void show() {
+        alramSound.play();
         pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
         pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
                 (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);
@@ -99,6 +105,7 @@ public class GameScreen implements ScreenInput {
         player.clearActions();
 //        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
+        gameGtage = GameStages.BEGIN;
 
         Gdx.input.setInputProcessor(new InputHandler(this));
     }
@@ -117,7 +124,7 @@ public class GameScreen implements ScreenInput {
                 if (a instanceof GameObject) {
                     shapeRenderer.setColor(Color.RED);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon(true).getTransformedVertices());
+                    shapeRenderer.polygon(((GameObject) a).getBoundingPolygon().getTransformedVertices());
                     shapeRenderer.x(a.getX(), a.getY(), 5);
                     shapeRenderer.circle(a.getOriginX() + a.getX(), a.getOriginY() + a.getY(), 5);
                     shapeRenderer.setColor(Color.GREEN);
@@ -130,6 +137,33 @@ public class GameScreen implements ScreenInput {
             }
         }
 
+        switch (gameGtage) {
+            case BEGIN:
+                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS1_BATTLE.beginScore) {
+                    gameGtage = GameStages.BOSS1_BATTLE;
+                    boss1 = new Boss1();
+                    boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
+                    boss1.addAction(Actions.moveTo(boss1.getX(), scrH - boss1.getHeight() * boss1.getScaleY(), Conf.BOSS_MOVE_TIME));
+                    stage.addActor(boss1);
+                }
+                break;
+            case BOSS1_BATTLE:
+                if (boss1.getState() == GameObject.GOState.DEAD)
+                    gameGtage = GameStages.STAGE1;
+                break;
+            case STAGE1:
+                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS2_BATTLE.beginScore) {
+                    gameGtage = GameStages.BOSS2_BATTLE;
+                    boss2 = new Boss1();
+                    boss2.setPosition(scrW / 2.0f - boss2.getWidth() / 2.0f * boss2.getScaleX(), -boss2.getHeight());
+                    boss2.addAction(Actions.moveTo(boss2.getX(), scrH - boss2.getHeight() * boss2.getScaleY(), Conf.BOSS_MOVE_TIME * 3));
+                    stage.addActor(boss2);
+                }
+                break;
+            default:
+                break;
+        }
+
         for (int j = 0; j < stage.getActors().size; j++) {
             Actor actor = stage.getActors().get(j);
             if (actor instanceof GameObject) {
@@ -139,7 +173,6 @@ public class GameScreen implements ScreenInput {
                         GameObject g1 = (GameObject) actor;
                         GameObject g2 = (GameObject) actor1;
                         if (g1 == g2) continue;
-//                        if (g1.getBoundingPolygon(true).overlaps(g2.getBoundingPolygon(true)) || g2.getBoundingPolygon(true).overlaps(g1.getBoundingPolygon(true))) {
                         if (g1.checkCollision(g2)) {
                             g1.contact(g2);
                         }
@@ -206,5 +239,18 @@ public class GameScreen implements ScreenInput {
         moveToAction.setDuration(0.5f);
         player.addAction(moveToAction);
         return true;
+    }
+
+    public enum GameStages {
+        BEGIN(0),
+        BOSS1_BATTLE(Conf.BOSS1_BATTLE_BEGIN_SCORE),
+        STAGE1(0),
+        BOSS2_BATTLE(Conf.BOSS2_BATTLE_BEGIN_SCORE);
+
+        int beginScore;
+
+        GameStages(int beginScore) {
+            this.beginScore = beginScore;
+        }
     }
 }

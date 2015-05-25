@@ -1,10 +1,11 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -17,7 +18,7 @@ import java.util.Random;
  * Created by miroshn on 06.04.15.
  *
  */
-public abstract class GameObject extends Actor {
+public abstract class GameObject extends Group {
 
     private final Random rnd;
     private final Animation explodeAnimation;
@@ -26,10 +27,13 @@ public abstract class GameObject extends Actor {
     private GOState state;
     private float explodingTime;
     private int hp;
+    private Sound explodingSound;
+    private boolean exPlayed = false;
+
 
     public GameObject() {
         hp = 100;
-        rnd = new Random();
+        rnd = CRAssetManager.getInstance().getRandom();
         state = GOState.NORMAL;
         Array<TextureRegion> explodingSet = new Array<TextureRegion>();
         explodingSet.add((TextureRegion) CRAssetManager.getInstance().get(Res.EXPLOSIVE1));
@@ -40,6 +44,7 @@ public abstract class GameObject extends Actor {
         explodeAnimation = new Animation(0.5f / 3f, explodingSet, Animation.PlayMode.NORMAL);
         init();
         setScale(CartoonRaider.SCALE);
+        explodingSound = CRAssetManager.getInstance().get(Res.EXPLOSIVE_SOUND);
     }
 
     public Random getRnd() {
@@ -109,6 +114,10 @@ public abstract class GameObject extends Actor {
         setSize(getHeight(), getHeight());
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
+        if (!exPlayed) {
+            explodingSound.play();
+            exPlayed = true;
+        }
 //        Gdx.app.log("GO","delta = "+delta);
     }
 
@@ -139,6 +148,7 @@ public abstract class GameObject extends Actor {
     }
 
     public void init() {
+        exPlayed = false;
         state = GOState.NORMAL;
         explodingTime = 0;
         if (hp == 0) hp = 100;
@@ -167,7 +177,7 @@ public abstract class GameObject extends Actor {
 
     protected void setHp(int hp) {
         this.hp = hp;
-        if (this.hp > 100) this.hp = 100;
+//        if (this.hp > 100) this.hp = 100;
         if (hp <= 0) {
             setState(GOState.EXPLODING);
         }
@@ -191,8 +201,9 @@ public abstract class GameObject extends Actor {
         if (!processCollision(gameObject.who())) {
             return false;
         }
-        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle()))
+        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle())) {
             return false;
+        }
 
         return getBoundingPolygon().overlaps(gameObject.getBoundingPolygon()) || gameObject.getBoundingPolygon().overlaps(getBoundingPolygon());
     }

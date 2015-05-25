@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
@@ -19,7 +20,7 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject implements Disposable {
     public static final float MAX_ROF = 0.2f;
     public static final float MIN_ROF = 0.5f;
-    private boolean iddqd = false;
+    private boolean iddqd = Conf.IDDQD;
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire;
     private float bulletTime;
@@ -31,6 +32,7 @@ public class Istrebitel extends GameObject implements Disposable {
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
         CRAssetManager.getInstance().setPlayer(this);
+        setColor(CartoonRaider.NORMAL_COLOR);
     }
 
     @Override
@@ -124,12 +126,9 @@ public class Istrebitel extends GameObject implements Disposable {
         boolean ret = false;
         switch (gameObjects) {
             case ENEMY_BULLET:
-                ret = true;
-                break;
             case ENEMY_ISTREBITEL:
-                ret = true;
-                break;
             case STAR:
+            case BOSS1:
                 ret = true;
                 break;
         }
@@ -144,6 +143,7 @@ public class Istrebitel extends GameObject implements Disposable {
                 damageDeal(((EnemyBullet) gameObject).getDamagePower());
                 gameObject.setState(GOState.DEAD);
                 break;
+            case BOSS1:
             case ENEMY_ISTREBITEL:
                 if (iddqd) break;
                 if (gameObject.getState() == GOState.NORMAL) {
@@ -173,6 +173,7 @@ public class Istrebitel extends GameObject implements Disposable {
     @Override
     protected void setHp(int hp) {
 //        this.getActions().removeValue(intAction,true);
+        if (hp > 100) hp = 100;
         intAction.reset();
         intAction.setStart(getHp());
         intAction.setEnd(hp);
