@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.miroshn.cartoon_raider.android"
     android:versionCode="1"
-          android:versionName="0.7">
+          android:versionName="0.9">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="20" />
 
