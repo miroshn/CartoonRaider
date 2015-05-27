@@ -41,8 +41,10 @@ public class GameScreen implements ScreenInput {
     private Boss1 boss2;
     private GameStages gameGtage = GameStages.BEGIN;
     private Sound alramSound;
+    private float dX, dY;
 
     public GameScreen() {
+        dX = dY = -1;
         pausedTitle = new Title(Titles.GAME_PAUSED_TITLE);
         scrW = Gdx.graphics.getWidth();
         scrH = Gdx.graphics.getHeight();
@@ -216,7 +218,7 @@ public class GameScreen implements ScreenInput {
         vec.x -= player.getWidth() * player.getScaleX() / 2;
         player.getActions().removeValue(moveToAction, true);
         moveToAction.reset();
-        moveToAction.setPosition(vec.x, vec.y);
+        moveToAction.setPosition(vec.x - dX, vec.y + dY);
         moveToAction.setDuration(0.2f);
         player.addAction(moveToAction);
         return true;
@@ -224,20 +226,9 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
-        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
-            paused = !paused;
-            pausedTitle.setVisible(paused);
-            return true;
-        }
-
-        if (paused) return true;
-        vec.x -= player.getWidth() * player.getScaleX() / 2;
-        player.getActions().removeValue(moveToAction, true);
-        moveToAction.reset();
-        moveToAction.setPosition(vec.x, vec.y);
-        moveToAction.setDuration(0.5f);
-        player.addAction(moveToAction);
+        Vector2 dVec = stage.stageToScreenCoordinates(new Vector2(player.getX(), player.getY()));
+        dX = (screenX - dVec.x - player.getWidth() * player.getScaleX() / 2);
+        dY = screenY - (int) dVec.y;
         return true;
     }
 
