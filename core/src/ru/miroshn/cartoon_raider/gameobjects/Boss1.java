@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,6 +24,8 @@ public class Boss1 extends GameObject {
     private float oldx, oldy;
     private float moveToX, moveToY;
 
+    private Sound alramSound;
+
     public Boss1() {
         super();
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BOSS1));
@@ -33,6 +36,8 @@ public class Boss1 extends GameObject {
         oldy = getY();
         moveToX = Gdx.graphics.getWidth() - getWidth() * getScaleX();
         moveToY = Gdx.graphics.getHeight() / 2.0f - getHeight() * getScaleY();
+        alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
+        alramSound.play(Conf.SOUD_VOLUME);
     }
 
 
