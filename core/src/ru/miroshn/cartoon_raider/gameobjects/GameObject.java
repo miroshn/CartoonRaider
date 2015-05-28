@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -115,7 +116,7 @@ public abstract class GameObject extends Group {
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
         if (!exPlayed) {
-            explodingSound.play();
+            explodingSound.play(Conf.SOUD_VOLUME);
             exPlayed = true;
         }
 //        Gdx.app.log("GO","delta = "+delta);
@@ -201,11 +202,13 @@ public abstract class GameObject extends Group {
         if (!processCollision(gameObject.who())) {
             return false;
         }
-        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle())) {
-            return false;
-        }
+//        if (!getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle())) {
+//            return false;
+//        }
 
-        return getBoundingPolygon().overlaps(gameObject.getBoundingPolygon()) || gameObject.getBoundingPolygon().overlaps(getBoundingPolygon());
+        return getBoundingPolygon().getBoundingRectangle().overlaps(gameObject.getBoundingPolygon().getBoundingRectangle())
+                && getBoundingPolygon().overlaps(gameObject.getBoundingPolygon())
+                || gameObject.getBoundingPolygon().overlaps(getBoundingPolygon());
     }
 
     public PolygonOverlaps getBoundingPolygon() {

@@ -19,4 +19,6 @@ public class Conf {
     public static final int BOSS1_BATTLE_BEGIN_SCORE = 100;
     //boss2
     public static final int BOSS2_BATTLE_BEGIN_SCORE = 150;
+
+    public static final float SOUD_VOLUME = 0.5f;
 }

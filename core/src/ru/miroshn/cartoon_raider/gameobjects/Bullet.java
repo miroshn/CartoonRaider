@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
@@ -18,7 +19,7 @@ public abstract class Bullet extends GameObject {
         damagePower = 30;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BULLET));
         shotSound = CRAssetManager.getInstance().get(Res.SHOT_SOUND);
-        shotSound.play();
+        shotSound.play(Conf.SOUD_VOLUME);
     }
 
     public int getDamagePower() {

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
@@ -48,7 +49,7 @@ public class Rocket extends GameObject {
         rocketFlame = new RocketFlame();
         addActor(rocketFlame);
         rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
-        rocketSound.play();
+        rocketSound.play(Conf.SOUD_VOLUME);
 //        rocketFlame.pa
 
 //        currSpeed = 10;
