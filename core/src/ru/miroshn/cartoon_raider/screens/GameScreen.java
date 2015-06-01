@@ -226,6 +226,14 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public boolean OnClick(int screenX, int screenY, int pointer, int button) {
+        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
+        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
+            paused = !paused;
+            pausedTitle.setVisible(paused);
+            return true;
+        }
+
+
         Vector2 dVec = stage.stageToScreenCoordinates(new Vector2(player.getX(), player.getY()));
         dX = (screenX - dVec.x - player.getWidth() * player.getScaleX() / 2);
         dY = screenY - (int) dVec.y;
