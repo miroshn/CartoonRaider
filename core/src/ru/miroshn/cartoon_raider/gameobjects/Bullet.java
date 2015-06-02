@@ -7,13 +7,16 @@ import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
+ * Простой снаряд
  * Created by miroshn on 15.04.15.
- * простой снаряд
  */
 public abstract class Bullet extends GameObject {
-    private final int damagePower;
-    private Sound shotSound;
+    private final int damagePower; // Количество повреждений которые нанесет снаряд
+    private Sound shotSound; // Звук выстрела
 
+    /**
+     * Конструктор, устанавливает начальную силу снаряда, подготавливает графику и проигрывает звук выстрела.
+     */
     public Bullet() {
         super();
         damagePower = 30;
@@ -22,15 +25,13 @@ public abstract class Bullet extends GameObject {
         shotSound.play(Conf.SOUD_VOLUME);
     }
 
+    /**
+     * Получить силу снаряда
+     *
+     * @return сила снаряда
+     */
     public int getDamagePower() {
         return damagePower;
     }
-
-
-//    @Override
-//    public void act(float delta) {
-//        super.act(delta);
-//    }
-
 
 }
