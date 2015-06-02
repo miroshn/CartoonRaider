@@ -14,6 +14,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
 /**
  * Класс вражеского истребителя <br/>
  * Created by miroshn on 07.04.15.
+ * @author miroshn
  */
 public class EnemyIstrebitel extends GameObject {
 
@@ -125,7 +126,7 @@ public class EnemyIstrebitel extends GameObject {
 
     /**
      * самоидентификация объекта
-     * @return всегда GameObjects.ENEMY_ISTREBITEL
+     * @return всегда {@link GameObjects#ENEMY_ISTREBITEL}
      */
     @Override
     public GameObjects who() {
@@ -207,16 +208,12 @@ public class EnemyIstrebitel extends GameObject {
      */
     private enum IstrebitelType {
         /**
-         * маленький винтовой
+         * тип истребителя маленький винтовой
          */
         I_16,
-        /**
-         * средний винтовой
-         */
+        /** тип истребителя средний винтовой */
         Il_2,
-        /**
-         * реактивный
-         */
+        /** тип истребителя реактивный */
         SU
     }
 }
