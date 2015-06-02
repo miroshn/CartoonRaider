@@ -3,12 +3,15 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
+ * Снаряд выпущенный вражиной <br/>
  * Created by miroshn on 16.04.15.
- * Снаряд выпущенный вражиной
  */
 public class EnemyBullet extends Bullet {
-    private float oldx,oldy;
+    private float oldx, oldy; // предыдущее положение объекта
 
+    /**
+     * Конструктор, устанавливает цвет снаряда.
+     */
     public EnemyBullet() {
         super();
         setColor(CartoonRaider.ENEMY_COLOR);
@@ -16,6 +19,13 @@ public class EnemyBullet extends Bullet {
         oldy = getY();
     }
 
+    /**
+     * Работа игровой логики объекта <br/>
+     * Если движение объекта пекратилось - он уничтожается <br/>
+     * Если объект вышел за пределы экрана вниз он уничтожается
+     *
+     * @param delta время в секундах прошедшее с последнего вызова act
+     */
     @Override
     public void act(float delta) {
         if (oldx == getX() && oldy == getY())
@@ -31,11 +41,22 @@ public class EnemyBullet extends Bullet {
         super.act(delta);
     }
 
+    /**
+     * самоидентификация объекта
+     * @return Всегда GameObjects.ENEMY_BULLET
+     * @see GameObjects#ENEMY_BULLET
+     */
     @Override
     public GameObjects who() {
         return GameObjects.ENEMY_BULLET;
     }
 
+    /**
+     * Определение с каким объектами имеет смысл проверять столкновения, обрабатываются столкновения только с игроком и
+     * ракетой
+     * @param gameObjects объект с которым возможно столкновение
+     * @return true если есть смысл проверять столкновение, false - если столкновение не важно
+     */
     @Override
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
@@ -50,6 +71,10 @@ public class EnemyBullet extends Bullet {
         return ret;
     }
 
+    /**
+     * Столкновение с объектом gameObject произошло - проводится обработка столкновения
+     * @param gameObject объект с которым произошло столкновение
+     */
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {

@@ -7,7 +7,7 @@ import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
- * Простой снаряд
+ * Простой снаряд <br/>
  * Created by miroshn on 15.04.15.
  */
 public abstract class Bullet extends GameObject {
