@@ -13,19 +13,22 @@ import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
+ * Первый в игре босс <br/>
  * Created by miroshn on 19.05.15.
- * Первый в игре босс
  */
 public class Boss1 extends GameObject {
-    private final float BULLET_FIRE_TIME = Conf.BOSS1_BULLET_FIRE_TIME;
-    private int bulletPrc = 70;
-    private float bulletTime;
+    private final float BULLET_FIRE_TIME = Conf.BOSS1_BULLET_FIRE_TIME; // Скорострельность босса
+    private int bulletPrc = 70; // шанс того что выстрел произойдет
+    private float bulletTime; // текущее время оставшееся до попытки выстрела
 
-    private float oldx, oldy;
-    private float moveToX, moveToY;
+    private float oldx, oldy; // старые координаты объекта, для обнаружения остановки объекта
+    private float moveToX, moveToY; // куда будет двигаться объект
 
-    private Sound alramSound;
+    private Sound alramSound; // Звук появления босса
 
+    /**
+     * Конструктор, подготовка графики, установка количества жизни, установка цвета и проигрывание звука появления босса
+     */
     public Boss1() {
         super();
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BOSS1));
@@ -41,12 +44,29 @@ public class Boss1 extends GameObject {
     }
 
 
+    /**
+     * Самоидентификация объекта
+     *
+     * @return Всегда возвращает значение GameObjects.BOSS1
+     * @see GameObjects
+     * @see GameObject#who()
+     */
     @Override
     public GameObjects who() {
         return GameObjects.BOSS1;
     }
 
 
+    /**
+     * Обработка логики работы объекта <br/>
+     * Если пришло время выстрела делается попытка выстрела <br/>
+     * Проверка на то что объект с прошлого вызова методе не изменил позицию - означает что нужно пересоздать команду
+     * на перемещение. <br/>
+     * Если состояние объекта стало GOState.DEAD вместо объекта создается группа звезд (Star)
+     * @param delta время прошедшее с последнего вызова метода act в секундах
+     * @see ru.miroshn.cartoon_raider.gameobjects.GameObject.GOState
+     * @see Star
+     */
     @Override
     public void act(float delta) {
         bulletTime -= delta;
@@ -83,6 +103,10 @@ public class Boss1 extends GameObject {
     }
 
 
+    /**
+     * Выстрел. <br/>
+     * Создает снаряд который летит в игрока. Расчитывается скорость пули.
+     */
     private void fireBullet() {
         Istrebitel player = CRAssetManager.getInstance().getPlayer();
         float distToPlayer = (float) Math.sqrt(Math.pow(getX() - player.getX(), 2) + Math.pow(getY() - player.getY(), 2));
@@ -99,6 +123,11 @@ public class Boss1 extends GameObject {
         this.getStage().addActor(bullet);
     }
 
+    /**
+     * Обработка столкновений, босс реагирует только на столкновения с игроком, снарядом игрока и ракетой
+     * @param gameObjects Объект с которым возможно столкновение
+     * @return true - обрабатывать столкновение, false - столкновение не важно
+     */
     @Override
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
@@ -116,7 +145,10 @@ public class Boss1 extends GameObject {
         return ret;
     }
 
-
+    /**
+     * Обработка столкновений
+     * @param gameObject объект с которым произошло столкновение
+     */
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
@@ -132,6 +164,11 @@ public class Boss1 extends GameObject {
         }
     }
 
+    /**
+     * Генерация описывающего многоугольника, необходимого для определения столкновений
+     * @param create создавать ли многоугольник если он еще не готов к эксплуатации
+     * @return Описывающий многоугольник
+     */
     @Override
     public PolygonOverlaps getBoundingPolygon(boolean create) {
         if (!create) return super.getBoundingPolygon(false);
