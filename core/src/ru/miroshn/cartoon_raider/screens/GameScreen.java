@@ -204,7 +204,6 @@ public class GameScreen implements ScreenInput {
 
     @Override
     public void dispose() {
-        player.dispose();
         stage.dispose();
     }
 

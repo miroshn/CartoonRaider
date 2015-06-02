@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
-import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
@@ -14,18 +13,18 @@ import ru.miroshn.cartoon_raider.screens.CustomScreen;
 import ru.miroshn.cartoon_raider.screens.ScreenManager;
 
 /**
+ * Игрок - главное действующее  лицо <br/>
  * Created by miroshn on 06.04.15.
- * главное действующее  лицо
  */
-public class Istrebitel extends GameObject implements Disposable {
-    public static final float MAX_ROF = 0.2f;
-    public static final float MIN_ROF = 0.5f;
-    private boolean iddqd = Conf.IDDQD;
+public class Istrebitel extends GameObject {
+    public static final float MAX_ROF = 0.2f; // максимальная скорострельность
+    public static final float MIN_ROF = 0.5f; // минимальная скорострельность
+    private boolean iddqd = Conf.IDDQD;  // неуязвимость, для тестовых целей
     //    public static final float MIN_ROF = 1f;
-    private float speedBulletFire;
-    private float bulletTime;
-    private IntAction intAction;
-    private int bulletLevel;
+    private float speedBulletFire; // текущая скорострельность
+    private float bulletTime;   // время до очередного выстрела
+    private IntAction intAction; // действие для плавного изменения жизни
+    private int bulletLevel; // уровень прокачки стрельбы
 
     public Istrebitel() {
         super();
@@ -35,6 +34,16 @@ public class Istrebitel extends GameObject implements Disposable {
         setColor(CartoonRaider.NORMAL_COLOR);
     }
 
+    /**
+     * Обработка игровой логики игрока
+     * <ul>
+     * <li>Статус игрока DEAD - сменить игровой экран на GameOver</li>
+     * <li>Статус игрока NORMAL - если пришло время выстрела, выстрелить и обновить количество жизни</li>
+     * <li>Статус игрока EXPLODING - обновить показатели жизни</li>
+     * </ul>
+     *
+     * @param delta время в секундах прошедшее с последнего вызова act
+     */
     @Override
     public void act(float delta) {
         switch (getState()) {
@@ -58,6 +67,10 @@ public class Istrebitel extends GameObject implements Disposable {
         super.act(delta);
     }
 
+    /**
+     * выстрел <br/>
+     * В зависимости от уровня прокачки орудия создактся 1, 2 или 3 снаряда и ракеты
+     */
     private void fireBullet() {
         switch (bulletLevel) {
             case 1:
@@ -85,6 +98,11 @@ public class Istrebitel extends GameObject implements Disposable {
         }
     }
 
+    /**
+     * Запуск ракеты
+     * @param x координата запуска ракеты
+     * @param y координата запуска ракеты
+     */
     private void fireRocket(float x, float y) {
         Rocket r = new Rocket();
         r.setPosition(x, y);
@@ -92,6 +110,11 @@ public class Istrebitel extends GameObject implements Disposable {
         this.getStage().addActor(r);
     }
 
+    /**
+     * Выстрел снарядом
+     * @param x координата выстрела
+     * @param y координата выстрела
+     */
     private void fireBullet(int x, int y) {
 
         PlayerBullet bullet = new PlayerBullet();
@@ -102,6 +125,9 @@ public class Istrebitel extends GameObject implements Disposable {
     }
 
 
+    /**
+     * Повторная нинициализация объекта
+     */
     @Override
     public void init() {
         intAction = new IntAction();
@@ -116,11 +142,20 @@ public class Istrebitel extends GameObject implements Disposable {
         super.init();
     }
 
+    /**
+     * самоидентификация объекта
+     * @return всегда возвращает {@link GameObjects#PLAYER}
+     */
     @Override
     public GameObjects who() {
         return GameObjects.PLAYER;
     }
 
+    /**
+     * Проверка целесообразности проведения проверки на столкновение с объектом gameObject
+     * @param gameObjects объект с которым возможно столкновение
+     * @return <ul><li>true - проводить проверку столкновения</li><li>false - не проводить проверку столкновений</li></ul>
+     */
     @Override
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
@@ -135,6 +170,10 @@ public class Istrebitel extends GameObject implements Disposable {
         return ret;
     }
 
+    /**
+     * Обработка столкновения с объектом gameObject
+     * @param gameObject объект с которым произошло столкновение
+     */
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
@@ -170,6 +209,10 @@ public class Istrebitel extends GameObject implements Disposable {
         }
     }
 
+    /**
+     * Устанавливает количество жизни.
+     * @param hp количество жизни которое нужно установить
+     */
     @Override
     protected void setHp(int hp) {
 //        this.getActions().removeValue(intAction,true);
@@ -182,10 +225,10 @@ public class Istrebitel extends GameObject implements Disposable {
         this.addAction(intAction);
     }
 
-    @Override
-    public void dispose() {
-    }
-
+    /**
+     * Получить значение скорострельности
+     * @return текущее значение скорострельности
+     */
     public float getRof() {
         return speedBulletFire;
     }
