@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Disposable;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
@@ -13,16 +12,24 @@ import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
+ * Класс вражеского истребителя <br/>
  * Created by miroshn on 07.04.15.
- * Класс вражеского истребителя
  */
-public class EnemyIstrebitel extends GameObject implements Disposable {
+public class EnemyIstrebitel extends GameObject {
 
-    private final float BULLET_FIRE_TIME = 1;
-    private final int bulletPrc;
-    private float bulletTime;
-    private IstrebitelType istrebitelType;
+    private final float BULLET_FIRE_TIME = 1; // пауза между выстрелами в секундах
+    private final int bulletPrc;  // вероятность с которой выстрел произойдет
+    private float bulletTime;  // сколько времени осталось до попытки выстрела
+    private IstrebitelType istrebitelType; // тип истребителя
 
+    /**
+     * конструктор, первичная инициализация объекта
+     * <ul>
+     * <li>Установка цвета</li>
+     * <li>Подготовка графики</li>
+     * <li>Установка вероятности выстрела и времени выстрела</li>
+     * </ul>
+     */
     public EnemyIstrebitel() {
         super();
 
@@ -33,6 +40,11 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         setColor(Color.BLACK);
     }
 
+    /**
+     * Вычисление описывающего многоугольника, дла вычисления столкновений
+     * @param create создавать ли неинициализированный полигон
+     * @return описывающий полигон
+     */
     @Override
     public PolygonOverlaps getBoundingPolygon(boolean create) {
         if (!create) return super.getBoundingPolygon(false);
@@ -54,6 +66,15 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         return super.getBoundingPolygon(true);
     }
 
+    /**
+     * Повторная инициализация объекта <br/>
+     * <ul>
+     *     <li>Случайным образом в зависимости от набраный очков игроком менять тип истребителя</li>
+     *     <li>В зависимости от выбора подставить текстуру и установить количество жизни</li>
+     *     <li>Изменить позицию истребителя</li>
+     *     <li>Задать перемещение</li>
+     * </ul>
+     */
     @Override
     public void init() {
         int rnd = MathUtils.random(CRAssetManager.getInstance().getScore() + 1);// + CRAssetManager.getInstance().getScore();
@@ -82,6 +103,10 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         super.init();
     }
 
+    /**
+     * Обработка столкновения с объектом gameObject
+     * @param gameObject Объект с которым произошло столкновение
+     */
     @Override
     public void contact(GameObject gameObject) {
         switch (gameObject.who()) {
@@ -98,11 +123,20 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         }
     }
 
+    /**
+     * самоидентификация объекта
+     * @return всегда GameObjects.ENEMY_ISTREBITEL
+     */
     @Override
     public GameObjects who() {
         return GameObjects.ENEMY_ISTREBITEL;
     }
 
+    /**
+     * Проверка целесообразности проведения проверки на столкновение с объектом gameObject
+     * @param gameObjects объект с которым возможно столкновение
+     * @return <ul><li>true - проводить проверку столкновения</li><li>false - не проводить проверку столкновений</li></ul>
+     */
     @Override
     public boolean processCollision(GameObjects gameObjects) {
         boolean ret = false;
@@ -120,6 +154,14 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         return ret;
     }
 
+    /**
+     * Обработка игровой логики объекта
+     * <ul>
+     *     <li>Состояние объекта - NORMAL - проверка на возможность выстрела</li>
+     *     <li>Состояние объекта - DEAD - случайно создать звезду и проинициализировать объект для повторного использования</li>
+     * </ul>
+     * @param delta время в секундах прошедшее с последнего вызова метода act
+     */
     @Override
     public void act(float delta) {
         switch (getState()) {
@@ -148,6 +190,9 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         super.act(delta);
     }
 
+    /**
+     * Создание снаряда (выстрел)
+     */
     private void fireBullet() {
         EnemyBullet bullet = new EnemyBullet();
         bullet.setPosition(getX() - getWidth() / 2 * CartoonRaider.SCALE, getY() - getHeight() * CartoonRaider.SCALE);
@@ -157,11 +202,21 @@ public class EnemyIstrebitel extends GameObject implements Disposable {
         this.getStage().addActor(bullet);
     }
 
-    @Override
-    public void dispose() {
-    }
-
+    /**
+     * Возможные типы истребителей
+     */
     private enum IstrebitelType {
-        I_16, Il_2, SU
+        /**
+         * маленький винтовой
+         */
+        I_16,
+        /**
+         * средний винтовой
+         */
+        Il_2,
+        /**
+         * реактивный
+         */
+        SU
     }
 }
