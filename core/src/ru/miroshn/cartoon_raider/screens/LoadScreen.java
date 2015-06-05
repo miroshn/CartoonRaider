@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Interpolation;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
@@ -18,6 +19,7 @@ import ru.miroshn.cartoon_raider.helpers.Res;
 public class LoadScreen implements Screen {
     private Texture progressBarImg, progressBarBaseImg;
     private SpriteBatch batch;
+    private float percent;
 
     private void loadAssets() {
         if (Gdx.graphics.getDensity() > 1)
@@ -30,6 +32,7 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load(Res.EXPLOSIVE_SOUND.getName(), Sound.class);
         CRAssetManager.getInstance().load(Res.ROCKET_SOUND.getName(), Sound.class);
         CRAssetManager.getInstance().load(Res.ALRAM_SOUND.getName(), Sound.class);
+        percent = 0;
     }
 
     @Override
@@ -48,16 +51,18 @@ public class LoadScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        percent = Interpolation.linear.apply(percent, CRAssetManager.getInstance().getProgress(), 0.1f);
+
         batch.begin();
         batch.draw(progressBarBaseImg, 10, Gdx.graphics.getHeight() / 2 - progressBarBaseImg.getHeight() / 2,
                 Gdx.graphics.getWidth() - 20, progressBarBaseImg.getHeight());
         batch.draw(progressBarImg, 10, Gdx.graphics.getHeight() / 2 - progressBarImg.getHeight() / 2,
-                (Gdx.graphics.getWidth() - 20) * CRAssetManager.getInstance().getProgress(), progressBarImg.getHeight());
+                (Gdx.graphics.getWidth() - 20) * percent, progressBarImg.getHeight());
         batch.end();
-
         if (CRAssetManager.getInstance().update()) {
             ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
         }
+
     }
 
     @Override
