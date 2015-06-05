@@ -41,8 +41,8 @@ public class LoadScreen implements Screen {
         CRAssetManager.getInstance().load(Res.PROGRESS_BAR.getName(), Texture.class);
         CRAssetManager.getInstance().load(Res.PROGRESS_BAR_BASE.getName(), Texture.class);
         CRAssetManager.getInstance().finishLoading();
-        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
-        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
+        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
+        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
         loadAssets();
     }
 
@@ -60,7 +60,8 @@ public class LoadScreen implements Screen {
                 (Gdx.graphics.getWidth() - 20) * percent, progressBarImg.getHeight());
         batch.end();
         if (CRAssetManager.getInstance().update()) {
-            ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
+            if (percent > 0.9f)
+                ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
         }
 
     }
