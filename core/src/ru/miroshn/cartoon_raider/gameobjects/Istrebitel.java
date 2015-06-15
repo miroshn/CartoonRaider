@@ -104,7 +104,7 @@ public class Istrebitel extends GameObject {
      * @param y координата запуска ракеты
      */
     private void fireRocket(float x, float y) {
-        Rocket r = new Rocket();
+        Rocket r = Rocket.createInstance();
         r.setPosition(x, y);
         r.setScale(CartoonRaider.SCALE);
         this.getStage().addActor(r);
@@ -137,7 +137,7 @@ public class Istrebitel extends GameObject {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = 1;
+        bulletLevel = Conf.PLAYER_LEVEL;
         speedBulletFire = MIN_ROF;
         super.init();
     }

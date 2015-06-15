@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
@@ -30,29 +30,27 @@ public class Rocket extends GameObject {
     private Sound rocketSound;
 
     private RocketFlame rocketFlame;
-    private Group group;
 
-    public Rocket() {
+    private Rocket() {
         super();
         damagePower = 40;
-        lifeTime = 5.0f;
-        setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
-
-        currSpeed = new IntAction((int) (150 * CartoonRaider.SCALE), (int) (700 * CartoonRaider.SCALE));
-        currSpeed.setInterpolation(Interpolation.exp10);
-        currSpeed.setDuration(1f);
-        currAngle = 0;
-        maxAngleSpeed = new IntAction(0, 180);
-        maxAngleSpeed.setDuration(1.5f);
+        maxAngleSpeed = new IntAction();
+        currSpeed = new IntAction();
         setColor(CartoonRaider.NORMAL_COLOR);
 
         rocketFlame = new RocketFlame();
-        addActor(rocketFlame);
+//        addActor(rocketFlame);
         rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
-        rocketSound.play(Conf.SOUD_VOLUME);
+        init();
 //        rocketFlame.pa
 
 //        currSpeed = 10;
+    }
+
+    public static Rocket createInstance() {
+        Rocket rocket = Pools.obtain(Rocket.class);
+        rocket.init();
+        return rocket;
     }
 
     @Override
@@ -118,6 +116,31 @@ public class Rocket extends GameObject {
                 }
             }
         }
+    }
+
+    @Override
+    public void init() {
+        lifeTime = Conf.ROCKET_LIFE_TIME;
+        setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
+
+        currAngle = 0;
+        try {
+            currSpeed.restart();
+            currSpeed.setStart((int) (150 * CartoonRaider.SCALE));
+            currSpeed.setEnd((int) (700 * CartoonRaider.SCALE));
+            currSpeed.setInterpolation(Interpolation.exp10);
+            currSpeed.setDuration(1f);
+            maxAngleSpeed.restart();
+            maxAngleSpeed.setStart(0);
+            maxAngleSpeed.setEnd(180);
+            maxAngleSpeed.setDuration(1.5f);
+            rocketSound.play(Conf.SOUD_VOLUME);
+            addActor(rocketFlame);
+        } catch (NullPointerException e) {
+        }
+        setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
+        lifeTime = Conf.ROCKET_LIFE_TIME;
+        super.init();
     }
 
     @Override
