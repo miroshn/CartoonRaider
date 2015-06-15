@@ -117,7 +117,7 @@ public class Istrebitel extends GameObject {
      */
     private void fireBullet(int x, int y) {
 
-        PlayerBullet bullet = new PlayerBullet();
+        PlayerBullet bullet = PlayerBullet.createInstance();
         bullet.setPosition(x - bullet.getWidth() / 2, y);
         bullet.setScale(CartoonRaider.SCALE);
         bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));
