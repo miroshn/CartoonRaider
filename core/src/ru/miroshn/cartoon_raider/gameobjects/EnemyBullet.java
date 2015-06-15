@@ -1,6 +1,5 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
@@ -9,7 +8,6 @@ import ru.miroshn.cartoon_raider.CartoonRaider;
  * Created by miroshn on 16.04.15.
  */
 public class EnemyBullet extends Bullet {
-    private static int numBullets = 0;
     private float oldx, oldy; // предыдущее положение объекта
 
 
@@ -18,7 +16,6 @@ public class EnemyBullet extends Bullet {
      */
     private EnemyBullet() {
         super();
-        numBullets++;
         setColor(CartoonRaider.ENEMY_COLOR);
         oldx = getX();
         oldy = getY();
@@ -32,7 +29,6 @@ public class EnemyBullet extends Bullet {
     public static EnemyBullet createInstance() {
         EnemyBullet bullet = Pools.obtain(EnemyBullet.class);
         bullet.init();
-        Gdx.app.log("EnemyBullet", "numBullets = " + numBullets);
         return bullet;
     }
 
