@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
@@ -98,6 +99,7 @@ public abstract class GameObject extends Group {
             case DEAD:
 //                init();
                 this.getStage().getActors().removeValue(this, true);
+                Pools.free(this);
                 break;
             case EXPLODING:
                 doExplode(delta);

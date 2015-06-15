@@ -1,5 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
@@ -7,16 +9,31 @@ import ru.miroshn.cartoon_raider.CartoonRaider;
  * Created by miroshn on 16.04.15.
  */
 public class EnemyBullet extends Bullet {
+    private static int numBullets = 0;
     private float oldx, oldy; // предыдущее положение объекта
+
 
     /**
      * Конструктор, устанавливает цвет снаряда.
      */
-    public EnemyBullet() {
+    private EnemyBullet() {
         super();
+        numBullets++;
         setColor(CartoonRaider.ENEMY_COLOR);
         oldx = getX();
         oldy = getY();
+    }
+
+    /**
+     * Выдает экземпляр класса из пула
+     *
+     * @return экземпляр класса
+     */
+    public static EnemyBullet createInstance() {
+        EnemyBullet bullet = Pools.obtain(EnemyBullet.class);
+        bullet.init();
+        Gdx.app.log("EnemyBullet", "numBullets = " + numBullets);
+        return bullet;
     }
 
     /**
@@ -28,16 +45,19 @@ public class EnemyBullet extends Bullet {
      */
     @Override
     public void act(float delta) {
-        if (oldx == getX() && oldy == getY())
+        if (oldx == getX() && oldy == getY()) {
             setState(GOState.DEAD);
+        }
         else {
             oldx = getX();
             oldy = getY();
         }
         if (getY() < -getHeight())
             setState(GOState.DEAD);
-        if (this.getState() == GOState.DEAD)
+        if (this.getState() == GOState.DEAD) {
             getStage().getActors().removeValue(this, true);
+//            Pools.free(this);
+        }
         super.act(delta);
     }
 

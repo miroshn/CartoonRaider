@@ -17,13 +17,29 @@ public abstract class Bullet extends GameObject {
     /**
      * Конструктор, устанавливает начальную силу снаряда, подготавливает графику и проигрывает звук выстрела.
      */
-    public Bullet() {
+    protected Bullet() {
         super();
         damagePower = 30;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BULLET));
         shotSound = CRAssetManager.getInstance().get(Res.SHOT_SOUND);
-        shotSound.play(Conf.SOUD_VOLUME);
     }
+
+    @Override
+    public void init() {
+        super.init();
+        setState(GOState.NORMAL);
+        playShoot();
+        clearActions();
+    }
+
+    /**
+     * Проигрывает звук выстрела
+     */
+    protected void playShoot() {
+        if (shotSound != null)
+            shotSound.play(Conf.SOUD_VOLUME);
+    }
+
 
     /**
      * Получить силу снаряда

@@ -111,7 +111,8 @@ public class Boss1 extends GameObject {
         Istrebitel player = CRAssetManager.getInstance().getPlayer();
         float distToPlayer = (float) Math.sqrt(Math.pow(getX() - player.getX(), 2) + Math.pow(getY() - player.getY(), 2));
         float bt = distToPlayer / Gdx.graphics.getHeight() * 1.5f;
-        EnemyBullet bullet = new EnemyBullet();
+//        EnemyBullet bullet = new EnemyBullet();
+        EnemyBullet bullet = EnemyBullet.createInstance();
         float bulletX = getX() + getWidth() / 2 * CartoonRaider.SCALE;
         float bulletY = getY() + getHeight() / 4.0f * CartoonRaider.SCALE;
         bullet.setPosition(bulletX, bulletY);

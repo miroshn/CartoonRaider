@@ -195,7 +195,7 @@ public class EnemyIstrebitel extends GameObject {
      * Создание снаряда (выстрел)
      */
     private void fireBullet() {
-        EnemyBullet bullet = new EnemyBullet();
+        EnemyBullet bullet = EnemyBullet.createInstance();
         bullet.setPosition(getX() - getWidth() / 2 * CartoonRaider.SCALE, getY() - getHeight() * CartoonRaider.SCALE);
         bullet.setScale(CartoonRaider.SCALE);
 //        bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight()*2,5f));
