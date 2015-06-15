@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Res;
@@ -13,15 +14,27 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  */
 public class Star extends GameObject {
 
-    private final int power;
+    private int power;
 
-    public Star() {
+    private Star() {
         super();
-        power = getRnd().nextInt(90) + 10;
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.STAR));
+        setColor(CartoonRaider.NORMAL_COLOR);
+    }
+
+    public static Star createInstance() {
+        Star star = Pools.obtain(Star.class);
+        star.init();
+        return star;
+    }
+
+    @Override
+    public void init() {
+        power = getRnd().nextInt(90) + 10;
+        this.clearActions();
         this.addAction(Actions.moveBy(0, -Gdx.graphics.getHeight() * 2, 20));
         setState(GOState.IMMUN);
-        setColor(CartoonRaider.NORMAL_COLOR);
+        super.init();
     }
 
     @Override

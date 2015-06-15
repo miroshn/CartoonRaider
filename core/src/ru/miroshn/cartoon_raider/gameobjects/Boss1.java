@@ -88,7 +88,7 @@ public class Boss1 extends GameObject {
 
         if (getState() == GOState.DEAD) {
             for (int i = 0; i < Conf.NUM_STARS_AFTER_KILL_BOSS; i++) {
-                Star star = new Star();
+                Star star = Star.createInstance();
                 float posx = getX() + getWidth() / 2.0f;
                 float posy = getY() + getHeight() / 2.0f;
                 star.setPosition(posx, posy);

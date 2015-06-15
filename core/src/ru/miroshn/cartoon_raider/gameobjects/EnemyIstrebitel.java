@@ -180,7 +180,7 @@ public class EnemyIstrebitel extends GameObject {
                 break;
             case DEAD:
                 if (MathUtils.random(100) < Conf.STAR_DROP_PRC) {
-                    Star star = new Star();
+                    Star star = Star.createInstance();
                     star.setPosition(getX() - getWidth() * getScaleX() / 2, getY() - getHeight() * getScaleY() / 2);
                     getStage().addActor(star);
                 }
