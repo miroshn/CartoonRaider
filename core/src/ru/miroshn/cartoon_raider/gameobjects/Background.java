@@ -30,7 +30,6 @@ public class Background extends Actor implements Disposable {
         if (Gdx.graphics.getDensity() > 1)
             setScale(Gdx.graphics.getDensity());
         this.addAction(createAction());
-
     }
 
     /**
@@ -61,12 +60,14 @@ public class Background extends Actor implements Disposable {
      */
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.disableBlending();
         super.draw(batch, parentAlpha);
         for (int x = 0; x < Gdx.graphics.getWidth(); x += backgroundTR.getRegionWidth()) {
             for (int y = 0; y < Gdx.graphics.getHeight() * 2; y += backgroundTR.getRegionHeight()) {
                 batch.draw(backgroundTR, getX() + x, getY() + y, getWidth(), getHeight(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
             }
         }
+        batch.enableBlending();
     }
 
     /**
