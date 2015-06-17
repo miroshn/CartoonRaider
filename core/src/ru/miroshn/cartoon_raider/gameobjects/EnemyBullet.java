@@ -1,6 +1,5 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
-import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
@@ -21,16 +20,6 @@ public class EnemyBullet extends Bullet {
         oldy = getY();
     }
 
-    /**
-     * Выдает экземпляр класса из пула
-     *
-     * @return экземпляр класса
-     */
-    public static EnemyBullet createInstance() {
-        EnemyBullet bullet = Pools.obtain(EnemyBullet.class);
-        bullet.init();
-        return bullet;
-    }
 
     /**
      * Работа игровой логики объекта <br/>

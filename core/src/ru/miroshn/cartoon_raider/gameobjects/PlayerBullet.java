@@ -1,7 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 
 /**
@@ -15,11 +14,6 @@ public class PlayerBullet extends Bullet {
         setColor(CartoonRaider.NORMAL_COLOR);
     }
 
-    public static PlayerBullet createInstance() {
-        PlayerBullet bullet = Pools.obtain(PlayerBullet.class);
-        bullet.init();
-        return bullet;
-    }
 
     @Override
     public void act(float delta) {

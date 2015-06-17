@@ -104,7 +104,7 @@ public class Istrebitel extends GameObject {
      * @param y координата запуска ракеты
      */
     private void fireRocket(float x, float y) {
-        Rocket r = Rocket.createInstance();
+        Rocket r = Rocket.createInstance(Rocket.class);
         r.setPosition(x, y);
         r.setScale(CartoonRaider.SCALE);
         this.getStage().addActor(r);
@@ -117,7 +117,7 @@ public class Istrebitel extends GameObject {
      */
     private void fireBullet(int x, int y) {
 
-        PlayerBullet bullet = PlayerBullet.createInstance();
+        PlayerBullet bullet = PlayerBullet.createInstance(PlayerBullet.class);
         bullet.setPosition(x - bullet.getWidth() / 2, y);
         bullet.setScale(CartoonRaider.SCALE);
         bullet.addAction(Actions.moveBy(0, Gdx.graphics.getHeight() * 2, 2f));

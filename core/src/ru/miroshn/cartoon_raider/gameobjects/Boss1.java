@@ -88,7 +88,7 @@ public class Boss1 extends GameObject {
 
         if (getState() == GOState.DEAD) {
             for (int i = 0; i < Conf.NUM_STARS_AFTER_KILL_BOSS; i++) {
-                Star star = Star.createInstance();
+                Star star = Star.createInstance(Star.class);
                 float posx = getX() + getWidth() / 2.0f;
                 float posy = getY() + getHeight() / 2.0f;
                 star.setPosition(posx, posy);
@@ -112,7 +112,7 @@ public class Boss1 extends GameObject {
         float distToPlayer = (float) Math.sqrt(Math.pow(getX() - player.getX(), 2) + Math.pow(getY() - player.getY(), 2));
         float bt = distToPlayer / Gdx.graphics.getHeight() * 1.5f;
 //        EnemyBullet bullet = new EnemyBullet();
-        EnemyBullet bullet = EnemyBullet.createInstance();
+        EnemyBullet bullet = EnemyBullet.createInstance(EnemyBullet.class);
         float bulletX = getX() + getWidth() / 2 * CartoonRaider.SCALE;
         float bulletY = getY() + getHeight() / 4.0f * CartoonRaider.SCALE;
         bullet.setPosition(bulletX, bulletY);

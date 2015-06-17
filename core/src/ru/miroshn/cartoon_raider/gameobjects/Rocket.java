@@ -1,12 +1,12 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
-import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
@@ -47,11 +47,6 @@ public class Rocket extends GameObject {
 //        currSpeed = 10;
     }
 
-    public static Rocket createInstance() {
-        Rocket rocket = Pools.obtain(Rocket.class);
-        rocket.init();
-        return rocket;
-    }
 
     @Override
     public void act(float delta) {
@@ -137,6 +132,7 @@ public class Rocket extends GameObject {
             rocketSound.play(Conf.SOUD_VOLUME);
             addActor(rocketFlame);
         } catch (NullPointerException e) {
+            Gdx.app.log(getClass().getSimpleName(), "null detected");
         }
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
         lifeTime = Conf.ROCKET_LIFE_TIME;

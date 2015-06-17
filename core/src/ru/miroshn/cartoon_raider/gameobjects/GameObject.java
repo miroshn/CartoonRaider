@@ -49,6 +49,12 @@ public abstract class GameObject extends Group {
         explodingSound = CRAssetManager.getInstance().get(Res.EXPLOSIVE_SOUND);
     }
 
+    public static <T> T createInstance(Class<T> type) {
+        T obj = Pools.obtain(type);
+        ((GameObject) obj).init();
+        return obj;
+    }
+
     public Random getRnd() {
         return rnd;
     }
