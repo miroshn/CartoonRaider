@@ -59,7 +59,6 @@ public class Rocket extends GameObject {
             case NORMAL:
                 target = null;
                 searchTarget();
-//              todo: Найти ближайшего противника, вектор направления изначально вперед, плавно изменять вектор на противника
 
 
                 float dx = (getX() - (target.getX() - target.getWidth() * target.getScaleX() / 2));
@@ -93,7 +92,6 @@ public class Rocket extends GameObject {
 
         super.act(delta);
 
-//        todo: сделать обработку перемещения ракеты, для начала с ускорением, потом с самонаведением
     }
 
     private void searchTarget() {
@@ -137,6 +135,9 @@ public class Rocket extends GameObject {
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET));
         lifeTime = Conf.ROCKET_LIFE_TIME;
         super.init();
+//        Gdx.app.log(getClass().getSimpleName(), "OrigX = " + getOriginX() + " OrigY = " + getOriginY() + "Scale = " + getScaleX());
+        if (rocketFlame != null)
+            Gdx.app.log(getClass().getSimpleName(), "OrigX = " + rocketFlame.getOriginX() + " OrigY = " + rocketFlame.getOriginY() + "Scale = " + rocketFlame.getScaleX());
     }
 
     @Override
@@ -190,6 +191,8 @@ public class Rocket extends GameObject {
         public RocketFlame() {
             super();
             setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.ROCKET_FLAME));
+            setPosition(0, 0);
+            setScale(1.f);
         }
 
         @Override

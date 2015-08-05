@@ -5,147 +5,147 @@ filter: Nearest,Nearest
 repeat: none
 background
   rotate: false
-  xy: 1, 7
+  xy: 1, 428
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 border_bar
   rotate: false
-  xy: 515, 131
+  xy: 1, 38
   size: 30, 388
   orig: 30, 388
   offset: 0, 0
   index: -1
 gameover
   rotate: false
-  xy: 547, 372
+  xy: 515, 793
   size: 202, 147
   orig: 202, 147
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 547, 277
+  xy: 33, 333
   size: 201, 93
   orig: 201, 93
   offset: 0, 0
   index: -1
 cb-sh-2
   rotate: false
-  xy: 547, 167
+  xy: 515, 683
   size: 177, 108
   orig: 177, 108
   offset: 0, 0
   index: -1
 pause_title
   rotate: false
-  xy: 547, 102
+  xy: 719, 877
   size: 186, 63
   orig: 186, 63
   offset: 0, 0
   index: -1
 explosive3
   rotate: false
-  xy: 751, 417
+  xy: 33, 229
   size: 106, 102
   orig: 106, 102
   offset: 0, 0
   index: -1
 explosive1
   rotate: false
-  xy: 751, 313
+  xy: 515, 579
   size: 106, 102
   orig: 106, 102
   offset: 0, 0
   index: -1
 explosive2
   rotate: false
-  xy: 750, 209
+  xy: 33, 125
   size: 106, 102
   orig: 106, 102
   offset: 0, 0
   index: -1
+istrebitel1
+  rotate: false
+  xy: 141, 231
+  size: 69, 100
+  orig: 69, 100
+  offset: 0, 0
+  index: -1
 il-2
   rotate: false
-  xy: 515, 25
+  xy: 236, 351
   size: 90, 75
   orig: 90, 75
   offset: 0, 0
   index: -1
 i
   rotate: false
-  xy: 607, 45
+  xy: 719, 820
   size: 80, 55
   orig: 80, 55
   offset: 0, 0
   index: 16
-istrebitel1
-  rotate: false
-  xy: 735, 107
-  size: 69, 100
-  orig: 69, 100
-  offset: 0, 0
-  index: -1
 rof
   rotate: false
-  xy: 806, 157
+  xy: 907, 890
   size: 52, 50
   orig: 52, 50
   offset: 0, 0
   index: -1
 hp
   rotate: false
-  xy: 689, 50
+  xy: 515, 527
   size: 40, 50
   orig: 40, 50
   offset: 0, 0
   index: -1
 settings
   rotate: false
-  xy: 806, 120
+  xy: 623, 646
   size: 35, 35
   orig: 35, 35
   offset: 0, 0
   index: -1
-bar
-  rotate: false
-  xy: 1, 1
-  size: 30, 4
-  orig: 30, 4
-  offset: 0, 0
-  index: -1
 stars
   rotate: false
-  xy: 607, 12
+  xy: 33, 92
   size: 36, 31
   orig: 36, 31
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 645, 8
+  xy: 141, 194
   size: 32, 35
   orig: 32, 35
   offset: 0, 0
   index: -1
 rocket
   rotate: false
-  xy: 726, 240
+  xy: 1, 1
   size: 16, 35
   orig: 16, 35
   offset: 0, 0
   index: -1
+bar
+  rotate: false
+  xy: 236, 345
+  size: 30, 4
+  orig: 30, 4
+  offset: 0, 0
+  index: -1
 bullet
   rotate: false
-  xy: 858, 290
+  xy: 694, 770
   size: 7, 21
   orig: 7, 21
   offset: 0, 0
   index: -1
 rocket_flame
   rotate: false
-  xy: 515, 118
+  xy: 212, 320
   size: 16, 11
   orig: 16, 11
   offset: 0, 0
