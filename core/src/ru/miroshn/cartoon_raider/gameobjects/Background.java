@@ -1,6 +1,7 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -62,12 +63,15 @@ public class Background extends Actor implements Disposable {
     public void draw(Batch batch, float parentAlpha) {
         batch.disableBlending();
         super.draw(batch, parentAlpha);
+        Color tmpColor = batch.getColor();
+        batch.setColor(getColor());
         for (int x = 0; x < Gdx.graphics.getWidth(); x += backgroundTR.getRegionWidth()) {
             for (int y = 0; y < Gdx.graphics.getHeight() * 2; y += backgroundTR.getRegionHeight()) {
                 batch.draw(backgroundTR, getX() + x, getY() + y, getWidth(), getHeight(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
             }
         }
         batch.enableBlending();
+        batch.setColor(tmpColor);
     }
 
     /**
