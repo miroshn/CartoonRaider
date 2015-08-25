@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
@@ -28,10 +29,13 @@ public class Istrebitel extends GameObject {
 
     public Istrebitel() {
         super();
+        setColor(CartoonRaider.NORMAL_COLOR);
+        if (this instanceof IstrebitelButton) {  // извращение!!! todo: избавиться от этого!!!!
+            return;
+        }
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
         CRAssetManager.getInstance().setPlayer(this);
-        setColor(CartoonRaider.NORMAL_COLOR);
     }
 
     /**
