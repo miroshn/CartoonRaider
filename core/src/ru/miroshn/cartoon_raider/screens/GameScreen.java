@@ -72,7 +72,7 @@ public class GameScreen implements ScreenInput {
     @Override
     public void show() {
         if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
-            alramSound.play(Conf.SOUD_VOLUME);
+            alramSound.play(Gdx.app.getPreferences(Conf.OPTIONS_NAME).getFloat(Conf.SOUND_VOLUME_PREF_KEY, Conf.SOUD_VOLUME));
         pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
         pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
                 (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);

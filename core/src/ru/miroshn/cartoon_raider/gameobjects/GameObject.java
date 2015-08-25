@@ -125,8 +125,9 @@ public abstract class GameObject extends Group {
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
         if (!exPlayed) {
-            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
-                explodingSound.play(Conf.SOUD_VOLUME);
+            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true)) {
+                explodingSound.play(Gdx.app.getPreferences(Conf.OPTIONS_NAME).getFloat(Conf.SOUND_VOLUME_PREF_KEY, Conf.SOUD_VOLUME));
+            }
             exPlayed = true;
         }
 //        Gdx.app.log("GO","delta = "+delta);

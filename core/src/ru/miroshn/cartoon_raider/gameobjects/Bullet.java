@@ -37,9 +37,11 @@ public abstract class Bullet extends GameObject {
      * Проигрывает звук выстрела
      */
     protected void playShoot() {
-        if (shotSound != null)
-            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
-                shotSound.play(Conf.SOUD_VOLUME);
+        if (shotSound != null) {
+            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true)) {
+                shotSound.play(Gdx.app.getPreferences(Conf.OPTIONS_NAME).getFloat(Conf.SOUND_VOLUME_PREF_KEY, Conf.SOUD_VOLUME));
+            }
+        }
     }
 
 

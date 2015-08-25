@@ -31,6 +31,7 @@ public enum Res {
     BOSS1("cb-sh-2", Types.TEXTURE_REGION),
     CHECK_BOX("cb", Types.TEXTURE_REGION),
     CHECK_BOX_CHECKED("cbCheked", Types.TEXTURE_REGION),
+    SLIDER("Slider", Types.TEXTURE_REGION),
     //    FONT
     FONT("comic_sans.fnt", Types.BITMAP_FONT),
     FONT_16("comic_sans_16.fnt", Types.BITMAP_FONT),

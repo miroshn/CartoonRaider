@@ -3,25 +3,151 @@ CartoonRaider.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Slider
+  rotate: false
+  xy: 1, 521
+  size: 1625, 15
+  orig: 1625, 15
+  offset: 0, 0
+  index: -1
 background
   rotate: false
-  xy: 1, 85
+  xy: 1, 7
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
+cb
+  rotate: false
+  xy: 515, 235
+  size: 241, 284
+  orig: 241, 284
+  offset: 0, 0
+  index: -1
+cbCheked
+  rotate: false
+  xy: 758, 235
+  size: 241, 284
+  orig: 241, 284
+  offset: 0, 0
+  index: -1
+gameover
+  rotate: false
+  xy: 515, 86
+  size: 202, 147
+  orig: 202, 147
+  offset: 0, 0
+  index: -1
+border_bar
+  rotate: false
+  xy: 1001, 131
+  size: 30, 388
+  orig: 30, 388
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 1033, 426
+  size: 201, 93
+  orig: 201, 93
+  offset: 0, 0
+  index: -1
+cb-sh-2
+  rotate: false
+  xy: 719, 125
+  size: 177, 108
+  orig: 177, 108
+  offset: 0, 0
+  index: -1
 pause_title
   rotate: false
-  xy: 1, 20
+  xy: 515, 21
   size: 186, 63
   orig: 186, 63
   offset: 0, 0
   index: -1
-rocket_flame
+explosive3
   rotate: false
-  xy: 1, 7
-  size: 16, 11
-  orig: 16, 11
+  xy: 1033, 322
+  size: 106, 102
+  orig: 106, 102
+  offset: 0, 0
+  index: -1
+explosive1
+  rotate: false
+  xy: 1033, 218
+  size: 106, 102
+  orig: 106, 102
+  offset: 0, 0
+  index: -1
+explosive2
+  rotate: false
+  xy: 1236, 417
+  size: 106, 102
+  orig: 106, 102
+  offset: 0, 0
+  index: -1
+istrebitel1
+  rotate: false
+  xy: 898, 133
+  size: 69, 100
+  orig: 69, 100
+  offset: 0, 0
+  index: -1
+il-2
+  rotate: false
+  xy: 1033, 141
+  size: 90, 75
+  orig: 90, 75
+  offset: 0, 0
+  index: -1
+i
+  rotate: false
+  xy: 1344, 464
+  size: 80, 55
+  orig: 80, 55
+  offset: 0, 0
+  index: 16
+rof
+  rotate: false
+  xy: 1141, 374
+  size: 52, 50
+  orig: 52, 50
+  offset: 0, 0
+  index: -1
+hp
+  rotate: false
+  xy: 1426, 469
+  size: 40, 50
+  orig: 40, 50
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 719, 88
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+stars
+  rotate: false
+  xy: 1344, 431
+  size: 36, 31
+  orig: 36, 31
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 1141, 337
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 969, 198
+  size: 16, 35
+  orig: 16, 35
   offset: 0, 0
   index: -1
 bar
@@ -31,136 +157,17 @@ bar
   orig: 30, 4
   offset: 0, 0
   index: -1
-il-2
-  rotate: false
-  xy: 189, 8
-  size: 90, 75
-  orig: 90, 75
-  offset: 0, 0
-  index: -1
-i
-  rotate: false
-  xy: 281, 28
-  size: 80, 55
-  orig: 80, 55
-  offset: 0, 0
-  index: 16
 bullet
   rotate: false
-  xy: 281, 5
+  xy: 703, 63
   size: 7, 21
   orig: 7, 21
   offset: 0, 0
   index: -1
-rof
+rocket_flame
   rotate: false
-  xy: 363, 33
-  size: 52, 50
-  orig: 52, 50
-  offset: 0, 0
-  index: -1
-hp
-  rotate: false
-  xy: 417, 33
-  size: 40, 50
-  orig: 40, 50
-  offset: 0, 0
-  index: -1
-settings
-  rotate: false
-  xy: 459, 48
-  size: 35, 35
-  orig: 35, 35
-  offset: 0, 0
-  index: -1
-pause
-  rotate: false
-  xy: 459, 11
-  size: 32, 35
-  orig: 32, 35
-  offset: 0, 0
-  index: -1
-stars
-  rotate: false
-  xy: 493, 15
-  size: 36, 31
-  orig: 36, 31
-  offset: 0, 0
-  index: -1
-rocket
-  rotate: false
-  xy: 496, 48
-  size: 16, 35
-  orig: 16, 35
-  offset: 0, 0
-  index: -1
-cb
-  rotate: false
-  xy: 515, 313
-  size: 241, 284
-  orig: 241, 284
-  offset: 0, 0
-  index: -1
-cbCheked
-  rotate: false
-  xy: 531, 27
-  size: 241, 284
-  orig: 241, 284
-  offset: 0, 0
-  index: -1
-gameover
-  rotate: false
-  xy: 758, 450
-  size: 202, 147
-  orig: 202, 147
-  offset: 0, 0
-  index: -1
-border_bar
-  rotate: false
-  xy: 962, 209
-  size: 30, 388
-  orig: 30, 388
-  offset: 0, 0
-  index: -1
-cb-sh-2
-  rotate: false
-  xy: 758, 340
-  size: 177, 108
-  orig: 177, 108
-  offset: 0, 0
-  index: -1
-title
-  rotate: false
-  xy: 774, 114
-  size: 201, 93
-  orig: 201, 93
-  offset: 0, 0
-  index: -1
-explosive3
-  rotate: false
-  xy: 774, 236
-  size: 106, 102
-  orig: 106, 102
-  offset: 0, 0
-  index: -1
-istrebitel1
-  rotate: false
-  xy: 882, 238
-  size: 69, 100
-  orig: 69, 100
-  offset: 0, 0
-  index: -1
-explosive1
-  rotate: false
-  xy: 774, 10
-  size: 106, 102
-  orig: 106, 102
-  offset: 0, 0
-  index: -1
-explosive2
-  rotate: false
-  xy: 882, 10
-  size: 106, 102
-  orig: 106, 102
+  xy: 515, 8
+  size: 16, 11
+  orig: 16, 11
   offset: 0, 0
   index: -1

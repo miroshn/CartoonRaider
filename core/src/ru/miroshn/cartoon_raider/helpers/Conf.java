@@ -27,5 +27,6 @@ public class Conf {
     // config
     public static final String OPTIONS_NAME = "Options";
     public static final String SOUND_ENABLE_PREF_KEY = "soundEnabled";
+    public static final String SOUND_VOLUME_PREF_KEY = "soundValue";
 
 }
