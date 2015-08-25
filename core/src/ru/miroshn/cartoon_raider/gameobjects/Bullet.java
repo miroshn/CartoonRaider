@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
@@ -37,7 +38,8 @@ public abstract class Bullet extends GameObject {
      */
     protected void playShoot() {
         if (shotSound != null)
-            shotSound.play(Conf.SOUD_VOLUME);
+            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
+                shotSound.play(Conf.SOUD_VOLUME);
     }
 
 

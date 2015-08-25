@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -124,7 +125,8 @@ public abstract class GameObject extends Group {
         if (explodeAnimation.isAnimationFinished(explodingTime))
             setState(GOState.DEAD);
         if (!exPlayed) {
-            explodingSound.play(Conf.SOUD_VOLUME);
+            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
+                explodingSound.play(Conf.SOUD_VOLUME);
             exPlayed = true;
         }
 //        Gdx.app.log("GO","delta = "+delta);

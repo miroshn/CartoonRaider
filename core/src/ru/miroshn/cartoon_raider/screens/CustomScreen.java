@@ -41,6 +41,12 @@ public enum CustomScreen {
         protected com.badlogic.gdx.Screen getScreenInstance() {
             return new GameOverScreen();
         }
+    },
+    OPTIONS_SCREEN {
+        @Override
+        protected Screen getScreenInstance() {
+            return new OptionsScreen();
+        }
     };
 
 //    BATTLE {

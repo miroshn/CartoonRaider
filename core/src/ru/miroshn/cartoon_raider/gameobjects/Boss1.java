@@ -39,8 +39,10 @@ public class Boss1 extends GameObject {
         oldy = getY();
         moveToX = Gdx.graphics.getWidth() - getWidth() * getScaleX();
         moveToY = Gdx.graphics.getHeight() / 2.0f - getHeight() * getScaleY();
-        alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
-        alramSound.play(Conf.SOUD_VOLUME);
+        if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true)) {
+            alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
+            alramSound.play(Conf.SOUD_VOLUME);
+        }
     }
 
 

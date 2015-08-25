@@ -16,9 +16,9 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * меню игры, должно реализовать запуск игры и выход
  */
 public class MenuScreen implements ScreenInput {
-    private final float BUTTON_SIZE = 1.0f / 5.0f;
+    private final float BUTTON_SIZE = 1.0f / 6.0f;
     private final Stage stage;
-    private final IstrebitelButton gameMenu, exitMenu, aboutMenu;
+    private final IstrebitelButton gameMenu, exitMenu, aboutMenu, optionsMenu;
     private Table table;
 
 
@@ -26,10 +26,11 @@ public class MenuScreen implements ScreenInput {
         gameMenu = new IstrebitelButton("Play");
         exitMenu = new IstrebitelButton("Exit");
         aboutMenu = new IstrebitelButton("About");
+        optionsMenu = new IstrebitelButton("Settings");
 
         table = new Table();
         table.setDebug(Conf.DEBUG);
-        table.add(gameMenu, aboutMenu, exitMenu);
+        table.add(gameMenu, aboutMenu, optionsMenu, exitMenu);
         float proportion = gameMenu.getHeight() / gameMenu.getWidth();
         for (Cell cell : table.getCells()) {
             cell.size(Gdx.graphics.getWidth() * BUTTON_SIZE, Gdx.graphics.getWidth() * BUTTON_SIZE * proportion);
@@ -57,6 +58,13 @@ public class MenuScreen implements ScreenInput {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
+            }
+        });
+
+        optionsMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ScreenManager.getInstance().show(CustomScreen.OPTIONS_SCREEN);
             }
         });
     }

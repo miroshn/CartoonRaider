@@ -6,8 +6,8 @@ package ru.miroshn.cartoon_raider.helpers;
  */
 public class Conf {
     public static final int DESKTOP_WIDTH = 320 * 2;
-    //    public static final int DESKTOP_HEIGHT = 480 * 2;
-    public static final int DESKTOP_HEIGHT = 850;
+    public static final int DESKTOP_HEIGHT = 480 * 2;
+    //    public static final int DESKTOP_HEIGHT = 850;
     public static final boolean DEBUG = false;
     public static final boolean IDDQD = false;
     public static final int STAR_DROP_PRC = 50;
@@ -23,4 +23,9 @@ public class Conf {
     public static final float SOUD_VOLUME = 0.5f;
     public static final int PLAYER_LEVEL = 1;
     public static final float ROCKET_LIFE_TIME = 5.0f;
+
+    // config
+    public static final String OPTIONS_NAME = "Options";
+    public static final String SOUND_ENABLE_PREF_KEY = "soundEnabled";
+
 }

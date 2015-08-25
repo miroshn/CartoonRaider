@@ -29,6 +29,8 @@ public enum Res {
     ROCKET_FLAME("rocket_flame", Types.TEXTURE_REGION),
     STAR("stars", Types.TEXTURE_REGION),
     BOSS1("cb-sh-2", Types.TEXTURE_REGION),
+    CHECK_BOX("cb", Types.TEXTURE_REGION),
+    CHECK_BOX_CHECKED("cbCheked", Types.TEXTURE_REGION),
     //    FONT
     FONT("comic_sans.fnt", Types.BITMAP_FONT),
     FONT_16("comic_sans_16.fnt", Types.BITMAP_FONT),

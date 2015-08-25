@@ -40,7 +40,8 @@ public class Rocket extends GameObject {
 
         rocketFlame = new RocketFlame();
 //        addActor(rocketFlame);
-        rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
+        if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
+            rocketSound = CRAssetManager.getInstance().get(Res.ROCKET_SOUND);
         init();
 //        rocketFlame.pa
 
@@ -127,7 +128,8 @@ public class Rocket extends GameObject {
             maxAngleSpeed.setStart(0);
             maxAngleSpeed.setEnd(180);
             maxAngleSpeed.setDuration(1.5f);
-            rocketSound.play(Conf.SOUD_VOLUME);
+            if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
+                rocketSound.play(Conf.SOUD_VOLUME);
             addActor(rocketFlame);
         } catch (NullPointerException e) {
             Gdx.app.log(getClass().getSimpleName(), "null detected");
