@@ -3,10 +3,12 @@ package ru.miroshn.cartoon_raider.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
@@ -14,22 +16,28 @@ import ru.miroshn.cartoon_raider.helpers.ScreenInput;
  * меню игры, должно реализовать запуск игры и выход
  */
 public class MenuScreen implements ScreenInput {
+    private final float BUTTON_SIZE = 1.0f / 5.0f;
     private final Stage stage;
     private final IstrebitelButton gameMenu, exitMenu, aboutMenu;
+    private Table table;
 
 
     public MenuScreen() {
         gameMenu = new IstrebitelButton("Play");
         exitMenu = new IstrebitelButton("Exit");
         aboutMenu = new IstrebitelButton("About");
-        stage = new Stage();
 
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-        float yCoord = height / 2 - gameMenu.getWidth() / 2;
-        gameMenu.setPosition(width * 1 / 5 - gameMenu.getWidth() / 2, yCoord);
-        exitMenu.setPosition(width * 4 / 5 - exitMenu.getWidth() / 2, yCoord);
-        aboutMenu.setPosition(width * 2.5f / 5 - aboutMenu.getWidth() / 2, yCoord);
+        table = new Table();
+        table.setDebug(Conf.DEBUG);
+        table.add(gameMenu, aboutMenu, exitMenu);
+        float proportion = gameMenu.getHeight() / gameMenu.getWidth();
+        for (Cell cell : table.getCells()) {
+            cell.size(Gdx.graphics.getWidth() * BUTTON_SIZE, Gdx.graphics.getWidth() * BUTTON_SIZE * proportion);
+            cell.pad(Gdx.graphics.getWidth() * BUTTON_SIZE / 4.0f);
+        }
+        table.setFillParent(true);
+
+        stage = new Stage();
 
         exitMenu.addListener(new ClickListener() {
             @Override
@@ -51,18 +59,12 @@ public class MenuScreen implements ScreenInput {
                 ScreenManager.getInstance().show(CustomScreen.WELCOME_SCREEN);
             }
         });
-        gameMenu.setScale(CartoonRaider.SCALE * 2);
-        exitMenu.setScale(CartoonRaider.SCALE * 2);
-        aboutMenu.setScale(CartoonRaider.SCALE * 2);
-
     }
 
     @Override
     public void show() {
         stage.addActor(Background.getInstance());
-        stage.addActor(gameMenu);
-        stage.addActor(exitMenu);
-        stage.addActor(aboutMenu);
+        stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
     }
 
