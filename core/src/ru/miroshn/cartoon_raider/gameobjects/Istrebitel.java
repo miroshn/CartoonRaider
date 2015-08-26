@@ -57,7 +57,6 @@ public class Istrebitel extends GameObject {
                     fireBullet();
                 }
                 super.setHp(intAction.getValue());
-                Gdx.app.log(getClass().getSimpleName(), "hp = " + intAction.getValue());
                 break;
             case EXPLODING:
                 this.clearActions();

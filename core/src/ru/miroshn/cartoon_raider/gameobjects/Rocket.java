@@ -138,8 +138,6 @@ public class Rocket extends GameObject {
         lifeTime = Conf.ROCKET_LIFE_TIME;
         super.init();
 //        Gdx.app.log(getClass().getSimpleName(), "OrigX = " + getOriginX() + " OrigY = " + getOriginY() + "Scale = " + getScaleX());
-        if (rocketFlame != null)
-            Gdx.app.log(getClass().getSimpleName(), "OrigX = " + rocketFlame.getOriginX() + " OrigY = " + rocketFlame.getOriginY() + "Scale = " + rocketFlame.getScaleX());
     }
 
     @Override
