@@ -1,12 +1,14 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -39,15 +41,26 @@ public class OptionsScreen implements ScreenInput {
     private final CheckBox cbSoundEnable;
     private final Slider slider;
     private final Sound sound;
+    private final Preferences preferences;
 
 
     public OptionsScreen() {
-        final Preferences preferences = Gdx.app.getPreferences(Conf.OPTIONS_NAME);
+        preferences = Gdx.app.getPreferences(Conf.OPTIONS_NAME);
 
         CRAssetManager asset = CRAssetManager.getInstance();
         sound = asset.get(Res.SHOT_SOUND);
 
         stage = new Stage();
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+                    saveExit();
+                }
+                return true;
+            }
+        });
+
         table = new Table();
         table.setDebug(Conf.DEBUG);
         table.setFillParent(true);
@@ -88,16 +101,20 @@ public class OptionsScreen implements ScreenInput {
         okButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                preferences.putBoolean(Conf.SOUND_ENABLE_PREF_KEY, cbSoundEnable.isChecked());
-                preferences.putFloat(Conf.SOUND_VOLUME_PREF_KEY, slider.getValue());
-                preferences.flush();
-                ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
+                saveExit();
             }
         });
         final float proportion = okButton.getHeight() / okButton.getWidth();
         table.add(okButton).bottom().size(width * BUTTON_SIZE, width * BUTTON_SIZE * proportion).fillY()
                 .padTop(Gdx.graphics.getHeight() / 2.0f).colspan(2);
 
+    }
+
+    private void saveExit() {
+        preferences.putBoolean(Conf.SOUND_ENABLE_PREF_KEY, cbSoundEnable.isChecked());
+        preferences.putFloat(Conf.SOUND_VOLUME_PREF_KEY, slider.getValue());
+        preferences.flush();
+        ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
     }
 
     @Override
