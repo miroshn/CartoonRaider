@@ -32,6 +32,13 @@ public enum Res {
     CHECK_BOX("cb", Types.TEXTURE_REGION),
     CHECK_BOX_CHECKED("cbCheked", Types.TEXTURE_REGION),
     SLIDER("Slider", Types.TEXTURE_REGION),
+    //    EXIT DIALOG
+    EXIT_DIALOG("dialog", Types.TEXTURE_REGION),
+    EXIT_DIALOG_OK("ok", Types.TEXTURE_REGION),
+    EXIT_DIALOG_OK_PRESSED("ok_pressed", Types.TEXTURE_REGION),
+    EXIT_DIALOG_CANCEL("cancel", Types.TEXTURE_REGION),
+    EXIT_DIALOG_CANCEL_PRESSED("cancel_pressed", Types.TEXTURE_REGION),
+    EXIT_DIALOG_TRANSPARENT_BG("transparent_bg", Types.TEXTURE_REGION),
     //    FONT
     FONT("comic_sans.fnt", Types.BITMAP_FONT),
     FONT_16("comic_sans_16.fnt", Types.BITMAP_FONT),

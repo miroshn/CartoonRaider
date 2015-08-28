@@ -1,15 +1,21 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
-import ru.miroshn.cartoon_raider.helpers.Conf;
-import ru.miroshn.cartoon_raider.helpers.ScreenInput;
+import ru.miroshn.cartoon_raider.helpers.*;
 
 /**
  * Created by CAHEK on 11.04.2015.
@@ -39,6 +45,27 @@ public class MenuScreen implements ScreenInput {
         table.setFillParent(true);
 
         stage = new Stage();
+        stage.addListener(new InputListener() {
+            private ExitDialog exitDialog;
+
+            {
+                Window.WindowStyle windowStyle = new Window.WindowStyle(((BitmapFont) CRAssetManager.getInstance().get(Res.FONT))
+                        , Color.BLACK, new TextureRegionDrawable(((TextureRegion) CRAssetManager.getInstance().get(Res.EXIT_DIALOG))));
+                exitDialog = new ExitDialog("", windowStyle);
+            }
+
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+                    if (exitDialog.getStage() != null) {
+                        exitDialog.hide();
+                    } else {
+                        exitDialog.show(stage);
+                    }
+                }
+                return true;
+            }
+        });
 
         exitMenu.addListener(new ClickListener() {
             @Override
@@ -73,6 +100,7 @@ public class MenuScreen implements ScreenInput {
     public void show() {
         stage.addActor(Background.getInstance());
         stage.addActor(table);
+        Gdx.input.setCatchBackKey(true);
         Gdx.input.setInputProcessor(stage);
     }
 
