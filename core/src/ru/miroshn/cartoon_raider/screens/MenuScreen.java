@@ -26,6 +26,7 @@ public class MenuScreen implements ScreenInput {
     private final Stage stage;
     private final IstrebitelButton gameMenu, exitMenu, aboutMenu, optionsMenu;
     private Table table;
+    private ExitDialog exitDialog;
 
 
     public MenuScreen() {
@@ -33,6 +34,11 @@ public class MenuScreen implements ScreenInput {
         exitMenu = new IstrebitelButton("Exit");
         aboutMenu = new IstrebitelButton("About");
         optionsMenu = new IstrebitelButton("Settings");
+
+        Window.WindowStyle windowStyle = new Window.WindowStyle(((BitmapFont) CRAssetManager.getInstance().get(Res.FONT))
+                , Color.BLACK, new TextureRegionDrawable(((TextureRegion) CRAssetManager.getInstance().get(Res.EXIT_DIALOG))));
+        exitDialog = new ExitDialog("", windowStyle);
+
 
         table = new Table();
         table.setDebug(Conf.DEBUG);
@@ -46,22 +52,10 @@ public class MenuScreen implements ScreenInput {
 
         stage = new Stage();
         stage.addListener(new InputListener() {
-            private ExitDialog exitDialog;
-
-            {
-                Window.WindowStyle windowStyle = new Window.WindowStyle(((BitmapFont) CRAssetManager.getInstance().get(Res.FONT))
-                        , Color.BLACK, new TextureRegionDrawable(((TextureRegion) CRAssetManager.getInstance().get(Res.EXIT_DIALOG))));
-                exitDialog = new ExitDialog("", windowStyle);
-            }
-
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
-                    if (exitDialog.getStage() != null) {
-                        exitDialog.hide();
-                    } else {
-                        exitDialog.show(stage);
-                    }
+                    exitDialogShowHide();
                 }
                 return true;
             }
@@ -70,7 +64,7 @@ public class MenuScreen implements ScreenInput {
         exitMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                exitDialogShowHide();
             }
         });
 
@@ -94,6 +88,14 @@ public class MenuScreen implements ScreenInput {
                 ScreenManager.getInstance().show(CustomScreen.OPTIONS_SCREEN);
             }
         });
+    }
+
+    private void exitDialogShowHide() {
+        if (exitDialog.getStage() != null) {
+            exitDialog.hide();
+        } else {
+            exitDialog.show(stage);
+        }
     }
 
     @Override
