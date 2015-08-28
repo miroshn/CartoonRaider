@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
@@ -23,10 +23,17 @@ public class WelcomeScreen implements Screen {
     public WelcomeScreen() {
         title = new Title(Titles.WELCOME_TITLE);
         stage = new Stage();
-        stage.addListener(new ClickListener() {
+        stage.addListener(new InputListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 cliked = true;
+                return true;
+            }
+
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                cliked = true;
+                return true;
             }
         });
 
@@ -46,6 +53,7 @@ public class WelcomeScreen implements Screen {
                 (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
         stage.addActor(Background.getInstance());
         stage.addActor(title);
+        Gdx.input.setCatchBackKey(true);
         Gdx.input.setInputProcessor(stage);
     }
 
