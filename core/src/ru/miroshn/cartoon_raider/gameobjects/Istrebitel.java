@@ -23,6 +23,7 @@ public class Istrebitel extends GameObject {
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire; // текущая скорострельность
     private float bulletTime;   // время до очередного выстрела
+    private float rocketTime;
     private IntAction intAction; // действие для плавного изменения жизни
     private int bulletLevel; // уровень прокачки стрельбы
 
@@ -31,6 +32,7 @@ public class Istrebitel extends GameObject {
         setColor(CartoonRaider.NORMAL_COLOR);
         speedBulletFire = MIN_ROF;
         bulletTime = 0f;
+        rocketTime = 0f;
         CRAssetManager.getInstance().setPlayer(this);
     }
 
@@ -56,6 +58,13 @@ public class Istrebitel extends GameObject {
                     bulletTime = 0;
                     fireBullet();
                 }
+                if (bulletLevel >= 4) {
+                    rocketTime += delta / 4.0f;
+                    if (rocketTime >= speedBulletFire) {
+                        rocketTime = 0;
+                        fireRocket();
+                    }
+                }
                 super.setHp(intAction.getValue());
                 break;
             case EXPLODING:
@@ -74,6 +83,7 @@ public class Istrebitel extends GameObject {
     private void fireBullet() {
         switch (bulletLevel) {
             case 1:
+                System.out.println();
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight()) * getScaleY()));
                 break;
             case 2:
@@ -89,7 +99,6 @@ public class Istrebitel extends GameObject {
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
-                fireRocket(getX() + getWidth() * getScaleX() / 2, getY() + getHeight() * getScaleY());
 //              todo: разделить огонь снарядами и пуск ракет, у каждого должен быть свой таймер запуска
                 break;
             default:
@@ -108,6 +117,10 @@ public class Istrebitel extends GameObject {
         r.setPosition(x, y);
         r.setScale(CartoonRaider.SCALE);
         this.getStage().addActor(r);
+    }
+
+    private void fireRocket() {
+        fireRocket(getX() + getWidth() * getScaleX() / 2, getY() + getHeight() * getScaleY());
     }
 
     /**
