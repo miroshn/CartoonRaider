@@ -1,26 +1,34 @@
 package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
-import ru.miroshn.cartoon_raider.helpers.InputHandler;
-import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Created by miroshn on 07.04.15.
  * Экран - конец игры
  */
-public class GameOverScreen implements ScreenInput {
+public class GameOverScreen implements Screen {
     private final Stage stage;
     private final Title title;
     private final Hud hud;
 
     public GameOverScreen() {
         stage = new Stage();
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
+                return true;
+            }
+        });
         title = new Title(Titles.GAME_OVER_TITLE);
         hud = new Hud();
     }
@@ -34,7 +42,7 @@ public class GameOverScreen implements ScreenInput {
         stage.addActor(Background.getInstance());
         stage.addActor(title);
         stage.addActor(hud);
-        Gdx.input.setInputProcessor(new InputHandler(this));
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -72,14 +80,4 @@ public class GameOverScreen implements ScreenInput {
         stage.dispose();
     }
 
-    @Override
-    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-        ScreenManager.getInstance().show(CustomScreen.MENU_SCREEN);
-        return true;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
 }

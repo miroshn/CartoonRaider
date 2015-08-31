@@ -2,6 +2,7 @@ package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,13 +16,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
 import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
-import ru.miroshn.cartoon_raider.helpers.*;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
+import ru.miroshn.cartoon_raider.helpers.ExitDialog;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
  * Created by CAHEK on 11.04.2015.
  * меню игры, должно реализовать запуск игры и выход
  */
-public class MenuScreen implements ScreenInput {
+public class MenuScreen implements Screen {
     private final float BUTTON_SIZE = 1.0f / 6.0f;
     private final Stage stage;
     private final IstrebitelButton gameMenu, exitMenu, aboutMenu, optionsMenu;
@@ -138,13 +142,4 @@ public class MenuScreen implements ScreenInput {
     public void dispose() {
     }
 
-    @Override
-    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
 }

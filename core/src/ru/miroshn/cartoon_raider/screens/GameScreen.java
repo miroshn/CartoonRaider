@@ -2,6 +2,7 @@ package ru.miroshn.cartoon_raider.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,7 +26,10 @@ import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
-import ru.miroshn.cartoon_raider.helpers.*;
+import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
+import ru.miroshn.cartoon_raider.helpers.ExitDialog;
+import ru.miroshn.cartoon_raider.helpers.Res;
 
 import java.util.Random;
 
@@ -33,7 +37,7 @@ import java.util.Random;
  * Created by miroshn on 06.04.15.
  * класс отвечающий за основной этап игры
  */
-public class GameScreen implements ScreenInput {
+public class GameScreen implements Screen {
     private final Stage stage;
     private final Istrebitel player;
     private final Array<GameObject> enemys;
@@ -285,40 +289,6 @@ public class GameScreen implements ScreenInput {
     @Override
     public void dispose() {
         stage.dispose();
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-//        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
-//        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
-//            return true;
-//        }
-//        if (paused) return true;
-//        vec.x -= player.getWidth() * player.getScaleX() / 2;
-//        player.getActions().removeValue(moveToAction, true);
-//        moveToAction.reset();
-//        moveToAction.setPosition(vec.x - dX, vec.y + dY);
-//        moveToAction.setDuration(0.2f);
-//        player.addAction(moveToAction);
-//        return true;
-        return false;
-    }
-
-    @Override
-    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-//        Vector2 vec = stage.screenToStageCoordinates(new Vector2(screenX, screenY));
-//        if (hud.pauseTouched((int) vec.x, (int) vec.y)) {
-//            paused = !paused;
-//            pausedTitle.setVisible(paused);
-//            return true;
-//        }
-//
-//
-//        Vector2 dVec = stage.stageToScreenCoordinates(new Vector2(player.getX(), player.getY()));
-//        dX = (screenX - dVec.x - player.getWidth() * player.getScaleX() / 2);
-//        dY = screenY - (int) dVec.y;
-//        return true;
-        return false;
     }
 
     public enum GameStages {

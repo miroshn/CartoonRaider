@@ -3,6 +3,7 @@ package ru.miroshn.cartoon_raider.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,13 +24,12 @@ import ru.miroshn.cartoon_raider.gameobjects.ui.IstrebitelButton;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
-import ru.miroshn.cartoon_raider.helpers.ScreenInput;
 
 /**
  * Экран настроек
  * <br/>Created by miroshn on 25.08.15.
  */
-public class OptionsScreen implements ScreenInput {
+public class OptionsScreen implements Screen {
     private static final String SOUND_VOLUME_TEXT = "Volume";
     private static final String SOUND_ENABLE_TEXT = "Sound enable";
     private final float BUTTON_SIZE = 1.0f / 10.0f;
@@ -137,16 +137,6 @@ public class OptionsScreen implements ScreenInput {
         Gdx.input.setInputProcessor(stage);
     }
 
-
-    @Override
-    public boolean OnClick(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
 
     @Override
     public void resize(int width, int height) {
