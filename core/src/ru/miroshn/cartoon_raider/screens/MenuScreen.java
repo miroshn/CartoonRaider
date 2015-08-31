@@ -104,6 +104,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
+        stage.getActors().clear();
         stage.addActor(Background.getInstance());
         stage.addActor(table);
         Gdx.input.setCatchBackKey(true);
@@ -140,6 +141,8 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
+        stage.dispose();
     }
 
 }

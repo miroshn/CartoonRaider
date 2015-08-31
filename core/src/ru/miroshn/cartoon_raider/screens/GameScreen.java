@@ -69,8 +69,6 @@ public class GameScreen implements Screen {
         player = new Istrebitel();
         stage = new Stage();
         stage.addListener(new InputListener() {
-//            private ExitDialog exitDialog;
-
             {
                 Window.WindowStyle windowStyle = new Window.WindowStyle(((BitmapFont) CRAssetManager.getInstance().get(Res.FONT))
                         , Color.BLACK, new TextureRegionDrawable(((TextureRegion) CRAssetManager.getInstance().get(Res.EXIT_DIALOG))));
@@ -138,6 +136,10 @@ public class GameScreen implements Screen {
         }
 
         alramSound = CRAssetManager.getInstance().get(Res.ALRAM_SOUND);
+        pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
+        pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
+                (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);
+        pausedTitle.setVisible(false);
         resetScreen();
     }
 
@@ -149,10 +151,6 @@ public class GameScreen implements Screen {
     public void show() {
         if (Gdx.app.getPreferences(Conf.OPTIONS_NAME).getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true))
             alramSound.play(Gdx.app.getPreferences(Conf.OPTIONS_NAME).getFloat(Conf.SOUND_VOLUME_PREF_KEY, Conf.SOUD_VOLUME));
-        pausedTitle.setScale(scrW * 3.0f / 5.0f / pausedTitle.getWidth());
-        pausedTitle.setPosition((scrW - pausedTitle.getWidth() * pausedTitle.getScaleX()) / 2.0f,
-                (scrH - pausedTitle.getHeight() * pausedTitle.getScaleY()) / 2.0f);
-        pausedTitle.setVisible(false);
 
         paused = false;
         stage.getActors().clear();
@@ -288,6 +286,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         stage.dispose();
     }
 

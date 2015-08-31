@@ -21,6 +21,16 @@ public class LoadScreen implements Screen {
     private SpriteBatch batch;
     private float percent;
 
+    public LoadScreen() {
+        batch = new SpriteBatch();
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR.getName(), Texture.class);
+        CRAssetManager.getInstance().load(Res.PROGRESS_BAR_BASE.getName(), Texture.class);
+        CRAssetManager.getInstance().finishLoading();
+        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
+        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
+        loadAssets();
+    }
+
     private void loadAssets() {
         if (Gdx.graphics.getDensity() > 1)
             CRAssetManager.getInstance().load(Res.FONT.getName(), BitmapFont.class);
@@ -37,13 +47,6 @@ public class LoadScreen implements Screen {
 
     @Override
     public void show() {
-        batch = new SpriteBatch();
-        CRAssetManager.getInstance().load(Res.PROGRESS_BAR.getName(), Texture.class);
-        CRAssetManager.getInstance().load(Res.PROGRESS_BAR_BASE.getName(), Texture.class);
-        CRAssetManager.getInstance().finishLoading();
-        progressBarBaseImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR_BASE);
-        progressBarImg = CRAssetManager.getInstance().get(Res.PROGRESS_BAR);
-        loadAssets();
     }
 
     @Override
@@ -88,6 +91,7 @@ public class LoadScreen implements Screen {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         batch.dispose();
     }
 }

@@ -58,6 +58,7 @@ public class CRAssetManager extends AssetManager {
 
     @Override
     public synchronized void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         super.dispose();
         instance = null;
     }

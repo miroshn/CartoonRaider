@@ -31,6 +31,7 @@ public class Background extends Actor implements Disposable {
         if (Gdx.graphics.getDensity() > 1)
             setScale(Gdx.graphics.getDensity());
         this.addAction(createAction());
+        this.setParent(null);
     }
 
     /**
@@ -96,7 +97,10 @@ public class Background extends Actor implements Disposable {
      */
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
 //        texture.dispose();
         instance = null;
     }
+
+
 }

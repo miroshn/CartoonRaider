@@ -1,5 +1,6 @@
 package ru.miroshn.cartoon_raider;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -24,6 +25,7 @@ public class CartoonRaider extends Game {
     @Override
     public void create() {
         SCALE = Gdx.graphics.getWidth() / 640.0f;
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
         ScreenManager.getInstance().show(CustomScreen.LOAD_SCREEN);
     }
 
@@ -34,6 +36,7 @@ public class CartoonRaider extends Game {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         ScreenManager.getInstance().dispose();
         CRAssetManager.getInstance().dispose();
         Background.getInstance().dispose();

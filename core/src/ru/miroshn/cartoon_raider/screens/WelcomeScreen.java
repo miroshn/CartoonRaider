@@ -51,6 +51,7 @@ public class WelcomeScreen implements Screen {
         title.setScale(Gdx.graphics.getWidth() * 3.0f / 5.0f / title.getWidth());
         title.setPosition((Gdx.graphics.getWidth() - title.getWidth() * title.getScaleX()) / 2.0f,
                 (Gdx.graphics.getHeight() - title.getHeight() * title.getScaleY()) / 2.0f);
+        stage.getActors().clear();
         stage.addActor(Background.getInstance());
         stage.addActor(title);
         Gdx.input.setCatchBackKey(true);
@@ -96,6 +97,7 @@ public class WelcomeScreen implements Screen {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         stage.dispose();
     }
 }

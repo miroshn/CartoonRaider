@@ -40,6 +40,7 @@ public class ScreenManager implements Disposable {
 
     @Override
     public void dispose() {
+        Gdx.app.debug(getClass().getSimpleName(), "dispose called");
         for (com.badlogic.gdx.Screen screen : screens.values()) {
             screen.dispose();
         }
