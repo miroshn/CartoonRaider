@@ -71,7 +71,7 @@ public class OptionsScreen implements Screen {
         font = CRAssetManager.getInstance().get(Res.FONT);
         final float width = Gdx.graphics.getWidth();
 
-        lEnableSound = new Label(SOUND_ENABLE_TEXT, new Label.LabelStyle(font, CartoonRaider.NORMAL_COLOR));
+        lEnableSound = new Label(SOUND_ENABLE_TEXT, CRAssetManager.getInstance().getLabelStyle());
         table.add(lEnableSound).left().center();
         float labelWidth = lEnableSound.getWidth();
         cbSoundEnable = new CheckBox(""
@@ -84,7 +84,7 @@ public class OptionsScreen implements Screen {
         table.add(cbSoundEnable).size(width * BUTTON_SIZE /*/ 2.0f*/).pad(width * BUTTON_SIZE / 2.0f);
         table.row();
 
-        lVolume = new Label(SOUND_VOLUME_TEXT, new Label.LabelStyle(font, CartoonRaider.NORMAL_COLOR));
+        lVolume = new Label(SOUND_VOLUME_TEXT, CRAssetManager.getInstance().getLabelStyle());
         table.add(lVolume).left().center();
         slider = new Slider(0.f, 1.0f, 0.05f, false, new Slider.SliderStyle(
                 new TextureRegionDrawable(((TextureRegion) asset.get(Res.SLIDER)))

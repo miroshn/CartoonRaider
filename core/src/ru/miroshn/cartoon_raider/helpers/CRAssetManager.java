@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 
 import java.util.Random;
@@ -28,6 +30,8 @@ public class CRAssetManager extends AssetManager {
      */
     private Istrebitel player;
     private Random random;
+
+    private Label.LabelStyle labelStyle;
 
     private CRAssetManager() {
         random = new Random();
@@ -54,6 +58,13 @@ public class CRAssetManager extends AssetManager {
 
     public void addScore(int score) {
         this.score += score;
+    }
+
+    public Label.LabelStyle getLabelStyle() {
+        if (labelStyle == null) {
+            labelStyle = new Label.LabelStyle(((BitmapFont) get(Res.FONT)), CartoonRaider.NORMAL_COLOR);
+        }
+        return labelStyle;
     }
 
     @Override
