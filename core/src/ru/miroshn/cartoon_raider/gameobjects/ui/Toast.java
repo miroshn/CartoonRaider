@@ -27,7 +27,10 @@ public class Toast extends Table {
         row();
         addAction(Actions.sequence(Actions.fadeOut(0)
                 , Actions.fadeIn(fadeTime)
-                , Actions.delay(showTime)
+                , Actions.fadeOut(fadeTime)
+                , Actions.fadeIn(fadeTime)
+                , Actions.fadeOut(fadeTime)
+                , Actions.fadeIn(fadeTime)
                 , Actions.fadeOut(fadeTime),
                 new Action() {
                     @Override
