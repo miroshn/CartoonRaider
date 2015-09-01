@@ -30,8 +30,8 @@ import ru.miroshn.cartoon_raider.helpers.Res;
  * <br/>Created by miroshn on 25.08.15.
  */
 public class OptionsScreen implements Screen {
-    private static final String SOUND_VOLUME_TEXT = "Volume";
-    private static final String SOUND_ENABLE_TEXT = "Sound enable";
+    private static final String SOUND_VOLUME_TEXT = Conf.SOUND_VOLUME_TEXT;
+    private static final String SOUND_ENABLE_TEXT = Conf.SOUND_ENABLE_TEXT;
     private final float BUTTON_SIZE = 1.0f / 10.0f;
     private final Stage stage;
     private final Table table;
@@ -45,12 +45,15 @@ public class OptionsScreen implements Screen {
 
 
     public OptionsScreen() {
+        // объект настроек
         preferences = Gdx.app.getPreferences(Conf.OPTIONS_NAME);
 
+        // просто для краткости
         CRAssetManager asset = CRAssetManager.getInstance();
         sound = asset.get(Res.SHOT_SOUND);
 
         stage = new Stage();
+        // Back или ESC сохраняет настройки и возврат в меню
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
@@ -70,6 +73,7 @@ public class OptionsScreen implements Screen {
 
         lEnableSound = new Label(SOUND_ENABLE_TEXT, new Label.LabelStyle(font, CartoonRaider.NORMAL_COLOR));
         table.add(lEnableSound).left().center();
+        float labelWidth = lEnableSound.getWidth();
         cbSoundEnable = new CheckBox(""
                 , new CheckBox.CheckBoxStyle(
                 new TextureRegionDrawable(((TextureRegion) asset.get(Res.CHECK_BOX)))
@@ -77,7 +81,7 @@ public class OptionsScreen implements Screen {
                 , font, CartoonRaider.NORMAL_COLOR));
         cbSoundEnable.getImage().setColor(CartoonRaider.NORMAL_COLOR);
         cbSoundEnable.setChecked(preferences.getBoolean(Conf.SOUND_ENABLE_PREF_KEY, true));
-        table.add(cbSoundEnable).size(width * BUTTON_SIZE / 2.0f).pad(width * BUTTON_SIZE / 2.0f);
+        table.add(cbSoundEnable).size(width * BUTTON_SIZE /*/ 2.0f*/).pad(width * BUTTON_SIZE / 2.0f);
         table.row();
 
         lVolume = new Label(SOUND_VOLUME_TEXT, new Label.LabelStyle(font, CartoonRaider.NORMAL_COLOR));
@@ -94,7 +98,7 @@ public class OptionsScreen implements Screen {
                 sound.play(slider.getValue());
             }
         });
-        table.add(slider).width(Gdx.graphics.getWidth() / 1.5f).pad(width * BUTTON_SIZE / 2.0f);
+        table.add(slider).width(width - labelWidth * 2.0f).pad(width * BUTTON_SIZE / 2.0f);
         table.row();
 
         okButton = new IstrebitelButton("Ok");

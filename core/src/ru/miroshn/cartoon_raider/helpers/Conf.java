@@ -29,4 +29,7 @@ public class Conf {
     public static final String SOUND_ENABLE_PREF_KEY = "soundEnabled";
     public static final String SOUND_VOLUME_PREF_KEY = "soundValue";
 
+    public static final String SOUND_VOLUME_TEXT = "Громкость";
+    public static final String SOUND_ENABLE_TEXT = "Разрешить звук";
+
 }
