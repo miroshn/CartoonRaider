@@ -24,11 +24,18 @@ public class Conf {
     public static final int PLAYER_LEVEL = 1;
     public static final float ROCKET_LIFE_TIME = 5.0f;
 
+    // Toast
+    public static final float TOAST_FADE_TIME = 0.5f;
+    public static final float TOAST_SHOW_TIME = 1.0f;
+    public static final float TOAST_WIDTH = 2.f / 3.f; // in scale factor
+    public static final float TOAST_TOP_PAD = 0.1f; // in scale factor
+
     // config
     public static final String OPTIONS_NAME = "Options";
     public static final String SOUND_ENABLE_PREF_KEY = "soundEnabled";
     public static final String SOUND_VOLUME_PREF_KEY = "soundValue";
 
+    // Strings
     public static final String SOUND_VOLUME_TEXT = "Громкость";
     public static final String SOUND_ENABLE_TEXT = "Разрешить звук";
     public static final String PLAY_TEXT = "Играть";
