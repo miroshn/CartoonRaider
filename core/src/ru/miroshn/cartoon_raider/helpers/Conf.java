@@ -31,5 +31,11 @@ public class Conf {
 
     public static final String SOUND_VOLUME_TEXT = "Громкость";
     public static final String SOUND_ENABLE_TEXT = "Разрешить звук";
+    public static final String PLAY_TEXT = "Играть";
+    public static final String EXIT_TEXT = "Выход";
+    public static final String ABOUT_TEXT = "О программе";
+    public static final String SETTINGS_TEXT = "Настройки";
+    public static final String OK_STRING = "Ок";
+    public static final String SCORE_TEXT = "Счет";
 
 }

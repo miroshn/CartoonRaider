@@ -53,7 +53,7 @@ public class ExitDialog extends Dialog {
         cancel.setColor(Color.YELLOW);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle(((BitmapFont) asset.get(Res.FONT)), Color.YELLOW);
-        text("Exit?", labelStyle);
+        text(Conf.EXIT_TEXT + "?", labelStyle);
         Label label = ((Label) getContentTable().getCells().get(0).getActor());
         label.setFontScale(DIALOG_WIDTH / label.getWidth() * TEXT_WIDTH);
 

@@ -101,7 +101,7 @@ public class OptionsScreen implements Screen {
         table.add(slider).width(width - labelWidth * 2.0f).pad(width * BUTTON_SIZE / 2.0f);
         table.row();
 
-        okButton = new IstrebitelButton("Ok");
+        okButton = new IstrebitelButton(Conf.OK_STRING);
         okButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

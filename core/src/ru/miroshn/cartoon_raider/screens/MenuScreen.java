@@ -34,10 +34,10 @@ public class MenuScreen implements Screen {
 
 
     public MenuScreen() {
-        gameMenu = new IstrebitelButton("Play");
-        exitMenu = new IstrebitelButton("Exit");
-        aboutMenu = new IstrebitelButton("About");
-        optionsMenu = new IstrebitelButton("Settings");
+        gameMenu = new IstrebitelButton(Conf.PLAY_TEXT);
+        exitMenu = new IstrebitelButton(Conf.EXIT_TEXT);
+        aboutMenu = new IstrebitelButton(Conf.ABOUT_TEXT);
+        optionsMenu = new IstrebitelButton(Conf.SETTINGS_TEXT);
 
         Window.WindowStyle windowStyle = new Window.WindowStyle(((BitmapFont) CRAssetManager.getInstance().get(Res.FONT))
                 , Color.BLACK, new TextureRegionDrawable(((TextureRegion) CRAssetManager.getInstance().get(Res.EXIT_DIALOG))));

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.Istrebitel;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
+import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.Res;
 
 /**
@@ -70,7 +71,7 @@ public class Hud extends Actor {
         float rof = CRAssetManager.getInstance().getRof();
 
 
-        font.drawMultiLine(batch, "Score: " + CRAssetManager.getInstance().getScore(), getX(), getY());
+        font.drawMultiLine(batch, Conf.SCORE_TEXT + ": " + CRAssetManager.getInstance().getScore(), getX(), getY());
 
         tmp_color.set(batch.getColor());
         batch.setColor(getColor().r, getColor().g, getColor().b, 0.5f);
