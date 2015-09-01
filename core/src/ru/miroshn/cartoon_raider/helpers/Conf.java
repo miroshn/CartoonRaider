@@ -44,5 +44,7 @@ public class Conf {
     public static final String SETTINGS_TEXT = "Настройки";
     public static final String OK_STRING = "Ок";
     public static final String SCORE_TEXT = "Счет";
+    public static final String BOSS1_BEGIN_TEXT = "Враг приближается! ! !";
+    public static final String WEAPON_UPGRADED = "Оружие улучшено! ! !";
 
 }

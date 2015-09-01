@@ -26,6 +26,7 @@ import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Title;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Titles;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Toast;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.ExitDialog;
@@ -229,6 +230,7 @@ public class GameScreen implements Screen {
                     boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
                     boss1.addAction(Actions.moveTo(boss1.getX(), scrH - boss1.getHeight() * boss1.getScaleY(), Conf.BOSS_MOVE_TIME));
                     stage.addActor(boss1);
+                    stage.addActor(new Toast(Conf.BOSS1_BEGIN_TEXT));
                 }
                 break;
             case BOSS1_BATTLE:
@@ -242,6 +244,7 @@ public class GameScreen implements Screen {
                     boss2.setPosition(scrW / 2.0f - boss2.getWidth() / 2.0f * boss2.getScaleX(), -boss2.getHeight());
                     boss2.addAction(Actions.moveTo(boss2.getX(), scrH - boss2.getHeight() * boss2.getScaleY(), Conf.BOSS_MOVE_TIME * 3));
                     stage.addActor(boss2);
+                    stage.addActor(new Toast(Conf.BOSS1_BEGIN_TEXT));
                 }
                 break;
             default:

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import ru.miroshn.cartoon_raider.CartoonRaider;
+import ru.miroshn.cartoon_raider.gameobjects.ui.Toast;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.helpers.PolygonOverlaps;
@@ -211,6 +212,7 @@ public class Istrebitel extends GameObject {
                     if (speedBulletFire < MAX_ROF) {
                         speedBulletFire = MIN_ROF;
                         bulletLevel++;
+                        getStage().addActor(new Toast(Conf.WEAPON_UPGRADED));
 
                     }
                 }
