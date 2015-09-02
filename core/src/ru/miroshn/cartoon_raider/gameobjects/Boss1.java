@@ -32,7 +32,7 @@ public class Boss1 extends GameObject {
     public Boss1() {
         super();
         setTextureRegion((TextureRegion) CRAssetManager.getInstance().get(Res.BOSS1));
-        setHp(1000);
+        setHp(1000 * CRAssetManager.getInstance().getScore() / 100);
         bulletTime = BULLET_FIRE_TIME;
         setColor(Color.RED);
         oldx = getX();

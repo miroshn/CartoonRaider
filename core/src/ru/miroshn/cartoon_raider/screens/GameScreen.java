@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -52,10 +53,11 @@ public class GameScreen implements Screen {
     private boolean paused;
     private Boss1 boss1;
     private Boss1 boss2;
-    private GameStages gameGtage = GameStages.BEGIN;
+    private GameStages gameGtage = GameStages.STAGE;
     private Sound alramSound;
     private float dX, dY;
     private ExitDialog exitDialog;
+    private int timeToBattle; // сколько нужно набрать очков до появления босса
 
     public GameScreen() {
         dX = dY = -1;
@@ -186,7 +188,8 @@ public class GameScreen implements Screen {
         player.clearActions();
 //        player.setOrigin(player.getWidth() / 2, player.getHeight() / 2);
         player.addAction(action);
-        gameGtage = GameStages.BEGIN;
+        gameGtage = GameStages.STAGE;
+        timeToBattle = MathUtils.random(50, Conf.TIME_TO_BATTLE);
 
 //        Gdx.input.setInputProcessor(new InputHandler(this));
         Gdx.input.setInputProcessor(stage);
@@ -223,30 +226,36 @@ public class GameScreen implements Screen {
         }
 
         switch (gameGtage) {
-            case BEGIN:
-                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS1_BATTLE.beginScore) {
-                    gameGtage = GameStages.BOSS1_BATTLE;
+            case STAGE:
+                if (CRAssetManager.getInstance().getScore() > timeToBattle) {
+                    gameGtage = GameStages.BOSS_BATTLE;
                     boss1 = new Boss1();
-                    boss1.setPosition(scrW / 2.0f - boss1.getWidth() / 2.0f * boss1.getScaleX(), scrH);
-                    boss1.addAction(Actions.moveTo(boss1.getX(), scrH - boss1.getHeight() * boss1.getScaleY(), Conf.BOSS_MOVE_TIME));
+                    boss1.setPosition(boss1.getWidth() / 2.0f * boss1.getScaleX() + MathUtils.random(scrW), scrH);
+//                    boss1.addAction(Actions.moveTo(boss1.getX(), scrH - boss1.getHeight() * boss1.getScaleY(), Conf.BOSS_MOVE_TIME));
                     stage.addActor(boss1);
                     stage.addActor(new Toast(Conf.BOSS1_BEGIN_TEXT));
                 }
                 break;
-            case BOSS1_BATTLE:
-                if (boss1.getState() == GameObject.GOState.DEAD)
-                    gameGtage = GameStages.STAGE1;
-                break;
-            case STAGE1:
-                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS2_BATTLE.beginScore) {
-                    gameGtage = GameStages.BOSS2_BATTLE;
-                    boss2 = new Boss1();
-                    boss2.setPosition(scrW / 2.0f - boss2.getWidth() / 2.0f * boss2.getScaleX(), -boss2.getHeight());
-                    boss2.addAction(Actions.moveTo(boss2.getX(), scrH - boss2.getHeight() * boss2.getScaleY(), Conf.BOSS_MOVE_TIME * 3));
-                    stage.addActor(boss2);
-                    stage.addActor(new Toast(Conf.BOSS1_BEGIN_TEXT));
+            case BOSS_BATTLE:
+                if (boss1.getState() == GameObject.GOState.DEAD) {
+                    gameGtage = GameStages.STAGE;
+                    timeToBattle = CRAssetManager.getInstance().getScore() + MathUtils.random(Conf.TIME_TO_BATTLE);
                 }
                 break;
+//            case STAGE1:
+//                if (CRAssetManager.getInstance().getScore() > GameStages.BOSS2_BATTLE.beginScore) {
+//                    gameGtage = GameStages.BOSS2_BATTLE;
+//                    boss2 = new Boss1();
+//                    boss2.setPosition(scrW / 2.0f - boss2.getWidth() / 2.0f * boss2.getScaleX(), -boss2.getHeight());
+//                    boss2.addAction(Actions.moveTo(boss2.getX(), scrH - boss2.getHeight() * boss2.getScaleY(), Conf.BOSS_MOVE_TIME * 3));
+//                    stage.addActor(boss2);
+//                    stage.addActor(new Toast(Conf.BOSS1_BEGIN_TEXT));
+//                }
+//                break;
+//            case BOSS2_BATTLE:
+//                if (boss2.getState() == GameObject.GOState.DEAD)
+//                    gameGtage = GameStages.BEGIN;
+//                break;
             default:
                 break;
         }
@@ -294,16 +303,8 @@ public class GameScreen implements Screen {
     }
 
     public enum GameStages {
-        BEGIN(0),
-        BOSS1_BATTLE(Conf.BOSS1_BATTLE_BEGIN_SCORE),
-        STAGE1(0),
-        BOSS2_BATTLE(Conf.BOSS2_BATTLE_BEGIN_SCORE);
-
-        int beginScore;
-
-        GameStages(int beginScore) {
-            this.beginScore = beginScore;
-        }
+        BOSS_BATTLE,
+        STAGE
     }
 
 

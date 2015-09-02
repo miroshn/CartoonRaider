@@ -15,8 +15,9 @@ public class Conf {
     public static final float BOSS_MOVE_TIME = 10;
     public static final float BOSS1_BULLET_FIRE_TIME = 1f;
     public static final int NUM_STARS_AFTER_KILL_BOSS = 10;
-    public static final float STARS_MOVE_RANGE = 50;
+    public static final float STARS_MOVE_RANGE = 100;
     public static final int BOSS1_BATTLE_BEGIN_SCORE = 100;
+    public static final int TIME_TO_BATTLE = 100;
     //boss2
     public static final int BOSS2_BATTLE_BEGIN_SCORE = 150;
 
