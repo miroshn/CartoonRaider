@@ -20,18 +20,21 @@ import ru.miroshn.cartoon_raider.screens.ScreenManager;
 public class Istrebitel extends GameObject {
     public static final float MAX_ROF = 0.2f; // максимальная скорострельность
     public static final float MIN_ROF = 0.5f; // минимальная скорострельность
+    private static final float AVERAGE_ROF = (MAX_ROF + MIN_ROF) / 2.0f;
     private boolean iddqd = Conf.IDDQD;  // неуязвимость, для тестовых целей
     //    public static final float MIN_ROF = 1f;
     private float speedBulletFire; // текущая скорострельность
+    private float speedRocketFire;
+    private float rof;
     private float bulletTime;   // время до очередного выстрела
     private float rocketTime;
     private IntAction intAction; // действие для плавного изменения жизни
-    private int bulletLevel; // уровень прокачки стрельбы
+    private int weaponLevel; // уровень прокачки стрельбы
 
     public Istrebitel() {
         super();
         setColor(CartoonRaider.NORMAL_COLOR);
-        speedBulletFire = MIN_ROF;
+        speedBulletFire = rof = speedRocketFire = MIN_ROF;
         bulletTime = 0f;
         rocketTime = 0f;
         CRAssetManager.getInstance().setPlayer(this);
@@ -59,9 +62,10 @@ public class Istrebitel extends GameObject {
                     bulletTime = 0;
                     fireBullet();
                 }
-                if (bulletLevel >= 4) {
-                    rocketTime += delta / 4.0f;
-                    if (rocketTime >= speedBulletFire) {
+                if (weaponLevel >= 4) {
+                    rocketTime += delta / 3.0f;
+                    if (rocketTime >= speedRocketFire) {
+                        Gdx.app.log(getClass().getSimpleName(), "rof rocket = " + speedRocketFire);
                         rocketTime = 0;
                         fireRocket();
                     }
@@ -82,7 +86,7 @@ public class Istrebitel extends GameObject {
      * В зависимости от уровня прокачки орудия создактся 1, 2 или 3 снаряда и ракеты
      */
     private void fireBullet() {
-        switch (bulletLevel) {
+        switch (weaponLevel) {
             case 1:
                 System.out.println();
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight()) * getScaleY()));
@@ -92,18 +96,19 @@ public class Istrebitel extends GameObject {
                 fireBullet((int) (getX() + getWidth() * getScaleX() * 3.0f / 4.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 break;
             case 3:
-                fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
-                fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
-                fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
-                break;
             case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 fireBullet((int) (getX() + getWidth() * getScaleX() * 4.0f / 5.0f), (int) (getY() + (getHeight() * getScaleY()) / 2));
                 fireBullet((int) (getX() + getWidth() * getScaleX() / 2), (int) (getY() + (getHeight() * getScaleY())));
-//              todo: разделить огонь снарядами и пуск ракет, у каждого должен быть свой таймер запуска
                 break;
             default:
-                bulletLevel = 4;
+                weaponLevel -= 1;
                 break;
         }
     }
@@ -151,8 +156,8 @@ public class Istrebitel extends GameObject {
         float ver[] = {0, 0, getWidth(), 0, getWidth() / 2, getHeight()};
         setBoundingPolygon(new PolygonOverlaps(ver));
 
-        bulletLevel = Conf.PLAYER_LEVEL;
-        speedBulletFire = MIN_ROF;
+        weaponLevel = Conf.PLAYER_LEVEL;
+        speedBulletFire = rof = MIN_ROF;
         super.init();
     }
 
@@ -208,12 +213,18 @@ public class Istrebitel extends GameObject {
                 if (getHp() < 100) {
                     setHp(getHp() + ((Star) gameObject).getPower() * 30 / 100);
                 } else {
-                    speedBulletFire -= ((Star) gameObject).getPower() / 10000.0f;
-                    if (speedBulletFire < MAX_ROF) {
-                        speedBulletFire = MIN_ROF;
-                        bulletLevel++;
+                    rof -= ((Star) gameObject).getPower() / 10000.0f / weaponLevel;
+                    if (rof < MAX_ROF) {
+                        rof = MIN_ROF;
+                        weaponLevel++;
                         getStage().addActor(new Toast(Conf.WEAPON_UPGRADED));
 
+                    }
+                    if (weaponLevel < 4) {
+                        speedBulletFire = rof;
+                    } else {
+                        speedBulletFire = AVERAGE_ROF;
+                        speedRocketFire = rof;
                     }
                 }
                 gameObject.setState(GOState.DEAD);
@@ -245,6 +256,6 @@ public class Istrebitel extends GameObject {
      * @return текущее значение скорострельности
      */
     public float getRof() {
-        return speedBulletFire;
+        return rof;
     }
 }
