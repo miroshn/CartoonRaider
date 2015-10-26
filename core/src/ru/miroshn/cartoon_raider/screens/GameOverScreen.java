@@ -102,32 +102,28 @@ public class GameOverScreen implements Screen {
         table.add(new Label(Conf.PLACE_TIME_TEXT, labelStyle)).row();
 
 
-//        if (CRAssetManager.getInstance().getScore() > placeScore[0]) { // first place
-//            for (int i = 0; i < Conf.GO_NUM_RECORDS; i++) {
-//
-//            }
-//            place3Score = place2Score;
-//            place2Score = place1Score;
-//            place1Score = CRAssetManager.getInstance().getScore();
-//            place3Time = place2Time;
-//            place2Time = place1Time;
-//            place1Time = System.currentTimeMillis();
-//        } else if (CRAssetManager.getInstance().getScore() > place2Score) { // second place
-//            place3Score = place2Score;
-//            place2Score = CRAssetManager.getInstance().getScore();
-//            place3Time = place2Time;
-//            place2Time = System.currentTimeMillis();
-//        } else if (CRAssetManager.getInstance().getScore() > place3Score) { // treed place
-//            place3Score = CRAssetManager.getInstance().getScore();
-//            place3Time = System.currentTimeMillis();
-//        }
 
         for (int i = 0; i < Conf.GO_NUM_RECORDS; i++) {
             table.add(new Label("" + (i + 1), labelStyle));
             table.add(new Label("" + placeScore[i], labelStyle));
 //            table.add(new Label(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",labelStyle)).row();
             if (placeScore[i] == 0) placeTime[i] = System.currentTimeMillis();
-            table.add(new Label((System.currentTimeMillis() - placeTime[i]) / 1000 / 60 + " мин.", labelStyle)).row();
+            float time = (System.currentTimeMillis() - placeTime[i]) / 1000.f / 60.f; // minuts
+            String timeString = " мин.";
+            if (time > 60) {
+                time = time / 60.f;
+                timeString = " час.";
+            }  // hours
+            if (time > 24) {
+                time = time / 24.f;
+                timeString = " дн.";
+            }   // day
+            if (time > 30) {
+                time = time / 30.f;
+                timeString = " мес.";
+            }  // month
+            time = ((int) (time * 100)) / 100.f;
+            table.add(new Label(time + timeString, labelStyle)).row();
         }
 
         stage.addActor(table);
