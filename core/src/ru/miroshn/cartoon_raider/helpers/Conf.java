@@ -32,9 +32,13 @@ public class Conf {
     public static final float TOAST_TOP_PAD = 0.1f; // in scale factor
 
     // config
-    public static final String OPTIONS_NAME = "Options";
+    public static final String OPTIONS_NAME = "CartoonRaider";
     public static final String SOUND_ENABLE_PREF_KEY = "soundEnabled";
     public static final String SOUND_VOLUME_PREF_KEY = "soundValue";
+    public static final String PLACE_TIME = "placeTime";
+    public static final String PLACE_SCORE = "placeScore";
+    public static final int GO_NUM_RECORDS = 10;  // количество рекордов
+
 
     // Strings
     public static final String SOUND_VOLUME_TEXT = "Громкость";
@@ -47,5 +51,7 @@ public class Conf {
     public static final String SCORE_TEXT = "Счет";
     public static final String BOSS1_BEGIN_TEXT = "Враг приближается! ! !";
     public static final String WEAPON_UPGRADED = "Оружие улучшено! ! !";
+    public static final String PLACE_TEXT = "Место";
+    public static final String PLACE_TIME_TEXT = "Время";
 
 }
