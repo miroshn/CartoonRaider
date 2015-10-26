@@ -4,7 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.gameobjects.Background;
+import ru.miroshn.cartoon_raider.gameobjects.EnemyBullet;
+import ru.miroshn.cartoon_raider.gameobjects.PlayerBullet;
+import ru.miroshn.cartoon_raider.gameobjects.Star;
 import ru.miroshn.cartoon_raider.helpers.CRAssetManager;
 import ru.miroshn.cartoon_raider.helpers.Conf;
 import ru.miroshn.cartoon_raider.screens.CustomScreen;
@@ -40,5 +44,8 @@ public class CartoonRaider extends Game {
         ScreenManager.getInstance().dispose();
         CRAssetManager.getInstance().dispose();
         Background.getInstance().dispose();
+        Pools.get(Star.class).clear();
+        Pools.get(EnemyBullet.class).clear();
+        Pools.get(PlayerBullet.class).clear();
     }
 }

@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pools;
 import ru.miroshn.cartoon_raider.CartoonRaider;
 import ru.miroshn.cartoon_raider.gameobjects.*;
 import ru.miroshn.cartoon_raider.gameobjects.ui.Hud;
@@ -299,6 +300,10 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         Gdx.app.debug(getClass().getSimpleName(), "dispose called");
+        for (Actor a : stage.getActors()) {
+            if (a instanceof GameObject)
+                Pools.free(a);
+        }
         stage.dispose();
     }
 
